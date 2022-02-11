@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>content/PlaybackControl.qml</file>
+        <file>content/AudioControl.qml</file>
+        <file>content/MetadataInfo.qml</file>
+        <file>content/PlaybackRateControl.qml</file>
+        <file>content/PlaybackSeekControl.qml</file>
+        <file>content/PlayerMenuBar.qml</file>
+        <file>content/TracksInfo.qml</file>
+        <file>content/PlayerInfo.qml</file>
+        <file>rsc/bluetooth.svg</file>
+        <file>rsc/volume-high.svg</file>
+        <file>rsc/volume-xmark.svg</file>
+        <file>rsc/forward-step.svg</file>
+        <file>rsc/pause.svg</file>
+        <file>rsc/nxp.png</file>
+    </qresource>
+</RCC>

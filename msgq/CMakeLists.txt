@@ -1,0 +1,5 @@
+cmake_minimum_required (VERSION 2.6)
+project (MsgQ)
+add_executable(MsgQ MsgQ.c)
+target_link_libraries(MsgQ rt)
+install (TARGETS MsgQ DESTINATION bin)
