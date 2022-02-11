@@ -5,6 +5,8 @@ project(btplayer VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_SYSROOT "/opt/fsl-imx-wayland/5.10-hardknott/sysroots/cortexa53-crypto-poky-linux")
 include_directories(/opt/fsl-imx-wayland/5.10-hardknott/sysroots/cortexa53-crypto-poky-linux/usr/include)
 
+# Find includes in corresponding build directories
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 #include_directories(include)
 
