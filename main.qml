@@ -23,7 +23,7 @@ Window {
     ListView {
         id: mListView
         anchors.fill: parent
-        model: mediaModel
+        model: MediaModel
         delegate: Rectangle {
             //color: "gray"
             width: parent.width

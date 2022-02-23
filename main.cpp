@@ -9,16 +9,26 @@
 #include <iostream>
 #include "media.h"
 #include "player.h"
+#include "medialistwrapper.h"
 
 int main(int argc, char *argv[])
 {
     std::cout << "Start btplayer..." << std::endl;
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QGuiApplication app(argc, argv);
-    QQmlApplicationEngine engine;
-
     qmlRegisterType<Player>("com.nxp.btplayer", 1, 0, "PlayerModel");
-    qmlRegisterType<Player>("com.nxp.btplayer", 1, 0, "mediaModel");
+    //qmlRegisterType<Player>("com.nxp.btplayer", 1, 0, "mediaModel");
+
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
+    QGuiApplication app(argc, argv);
+
+    MediaListWrapper mediaWrapper;
+    if(!mediaWrapper.initialize())
+        return -1;
+
+
+
+    /*QQmlApplicationEngine engine;
+
 
 
     Player mPlayer;
@@ -38,7 +48,7 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
-
+*/
     return app.exec();
 }
 
