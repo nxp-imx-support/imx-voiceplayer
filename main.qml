@@ -24,32 +24,48 @@ Window {
         id: mListView
         anchors.fill: parent
         model: MediaModel
+
         delegate: Rectangle {
             //color: "gray"
             width: parent.width
             ColumnLayout{
                 anchors.fill: parent
                 anchors.margins: 20
-                TextField{
+
+                Switch {
+                    //text: "gray"
+                    text: qsTr("Bluetooth")
+                }
+
+                Text{
+                    color: "gray"
                     text : song
                     Layout.fillWidth: false
                 }
-                TextField{
+                Text{
+                    color: "gray"
                     text : artist
                     Layout.fillWidth: false
                 }
-                TextField{
+                Text{
+                    color: "gray"
                     text : album
                     Layout.fillWidth: false
                 }
            }
-           MouseArea {
-                anchors.fill: parent
-              Row {
+           }
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            Qt.quit();
+        }
+         RowLayout {
                 id: controller;
                 anchors.top: parent.verticalCenter;
                 anchors.horizontalCenter: parent.horizontalCenter;
-                anchors.topMargin: 300;
+                anchors.topMargin: 100;
                 spacing: 4;
 
                 Button {
@@ -57,7 +73,9 @@ Window {
                     height: 50;
                     text: "Back"
                     id: buttonBack
-                    onClicked: Wrapper.onBack()
+                    //onClicked: visible:false
+
+                        //Wrapper.onBack()
                     //onClicked:
                     //icon.name: "buttonBack";
                     //icon.source: "img/back.png";
@@ -68,7 +86,9 @@ Window {
                     height: 50;
                     text: "Play"
                     id: buttonPlay
-                    onClicked: Wrapper.onPlay()
+                    onClicked: {
+
+                    }
                     //onClicked:
                     //icon.name: "buttonPlay";
                     //icon.source: "img/play.png";
@@ -97,17 +117,10 @@ Window {
                     //onClicked: if(player.seekable)player.seek(player.position - 5000);
                 }
             }
-           }
-        }
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            //Qt.quit();
         }
 
-        ListView {
+
+    ListView {
             //model: PlayerModel
             anchors.fill: parent
 
@@ -139,5 +152,5 @@ Window {
         }
 
 
-    }
 }
+

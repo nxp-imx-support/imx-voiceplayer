@@ -33,6 +33,7 @@ QList<QObject *> MediaListWrapper::getMediaList() const
 
 void MediaListWrapper::onPlay()
 {
+    qDebug() << "test";
     std::cout << "onPlay: " << MediaIndex;
 
 }
