@@ -27,21 +27,76 @@ Window {
         delegate: Rectangle {
             //color: "gray"
             width: parent.width
-            RowLayout{
+            ColumnLayout{
                 anchors.fill: parent
                 anchors.margins: 20
                 TextField{
                     text : song
-                    Layout.fillWidth: true
+                    Layout.fillWidth: false
                 }
                 TextField{
                     text : artist
-                    Layout.fillWidth: true
+                    Layout.fillWidth: false
                 }
                 TextField{
                     text : album
-                    Layout.fillWidth: true
+                    Layout.fillWidth: false
                 }
+           }
+           MouseArea {
+                anchors.fill: parent
+              Row {
+                id: controller;
+                anchors.top: parent.verticalCenter;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                anchors.topMargin: 300;
+                spacing: 4;
+
+                Button {
+                    width: 100;
+                    height: 50;
+                    text: "Back"
+                    id: buttonBack
+                    onClicked: Wrapper.onBack()
+                    //onClicked:
+                    //icon.name: "buttonBack";
+                    //icon.source: "img/back.png";
+                    //onClicked: if(player.seekable)player.seek(player.position - 5000);
+                }
+                Button {
+                    width: 100;
+                    height: 50;
+                    text: "Play"
+                    id: buttonPlay
+                    onClicked: Wrapper.onPlay()
+                    //onClicked:
+                    //icon.name: "buttonPlay";
+                    //icon.source: "img/play.png";
+                    //onClicked: if(player.seekable)player.seek(player.position - 5000);
+                }
+                Button {
+                    width: 100;
+                    height: 50;
+                    text: "Pause"
+                    id: buttonPause
+                    onClicked: Wrapper.onPause()
+                    //onClicked: PlayerModel.pause()
+                    //icon.name: "buttonPause";
+                    //icon.source: "img/pause.png";
+                    //onClicked: if(player.seekable)player.seek(player.position - 5000);
+                }
+                Button {
+                    width: 100;
+                    height: 50;
+                    text: "Next"
+                    id: buttonForward
+                    onClicked: Wrapper.onNext()
+                    //onClicked: PlayerModel.next()
+                    //icon.name: "buttonForward";
+                    //icon.source: "img/forward.png";
+                    //onClicked: if(player.seekable)player.seek(player.position - 5000);
+                }
+            }
            }
         }
     }
@@ -81,55 +136,6 @@ Window {
 
             }*/
 
-            Row {
-                id: controller;
-                anchors.top: parent.verticalCenter;
-                anchors.horizontalCenter: parent.horizontalCenter;
-                anchors.topMargin: 4;
-                spacing: 4;
-
-                Button {
-                    width: 100;
-                    height: 100;
-                    text: "Back"
-                    id: buttonBack
-                    onClicked: onSongPlay()
-                    //onClicked:
-                    //icon.name: "buttonBack";
-                    //icon.source: "img/back.png";
-                    //onClicked: if(player.seekable)player.seek(player.position - 5000);
-                }
-                Button {
-                    width: 100;
-                    height: 100;
-                    text: "Play"
-                    id: buttonPlay
-                    //onClicked:
-                    //icon.name: "buttonPlay";
-                    //icon.source: "img/play.png";
-                    //onClicked: if(player.seekable)player.seek(player.position - 5000);
-                }
-                Button {
-                    width: 100;
-                    height: 100;
-                    text: "Pause"
-                    id: buttonPause
-                    //onClicked: PlayerModel.pause()
-                    //icon.name: "buttonPause";
-                    //icon.source: "img/pause.png";
-                    //onClicked: if(player.seekable)player.seek(player.position - 5000);
-                }
-                Button {
-                    width: 100;
-                    height: 100;
-                    text: "Next"
-                    id: buttonForward
-                    //onClicked: PlayerModel.next()
-                    //icon.name: "buttonForward";
-                    //icon.source: "img/forward.png";
-                    //onClicked: if(player.seekable)player.seek(player.position - 5000);
-                }
-            }
         }
 
 

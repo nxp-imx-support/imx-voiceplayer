@@ -7,14 +7,13 @@
 
 #include <QObject>
 #include <QQmlApplicationEngine>
-#include <QQmlContext>
 #include "media.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//! \class     Media
+//! \class     MediaListWrapper
 //!     This class exposes a Media Audio Track List
-//! 		wrap around the list of objects
+//! 		wrap around the list of media objects
 //! 		handles QML initialization
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -26,7 +25,13 @@ public:
     bool initialize();
 
     Q_INVOKABLE QList<QObject *> getMediaList() const;
+    Q_INVOKABLE void onPlay();
+    Q_INVOKABLE void onPause();
+    Q_INVOKABLE void onBack();
+    Q_INVOKABLE void onNext();
+
     void setMediaList(const QList<QObject *> &value);
+    void setMediaTrack(const QObject &media);
 
 signals:
 
@@ -34,8 +39,10 @@ signals:
 private:
 
     void populateMediaListData();
+    void resetModel();
 
     QList<QObject*> MediaList;
     QQmlApplicationEngine Engine;
+    int MediaIndex;
 };
 
