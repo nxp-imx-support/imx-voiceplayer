@@ -31,11 +31,9 @@ Window {
             ColumnLayout{
                 anchors.fill: parent
                 anchors.margins: 20
+                anchors.topMargin: 50;
+                anchors.leftMargin: 50;
 
-                Switch {
-                    //text: "gray"
-                    text: qsTr("Bluetooth")
-                }
 
                 Text{
                     color: "gray"
@@ -59,9 +57,14 @@ Window {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            Qt.quit();
+        //    Qt.quit();
         }
-         RowLayout {
+        RowLayout {
+        Switch {
+        //text: "gray"
+            text: qsTr("Bluetooth")
+            onToggled: Wrapper.onBluetoothEnabled()
+        }
                 id: controller;
                 anchors.top: parent.verticalCenter;
                 anchors.horizontalCenter: parent.horizontalCenter;
@@ -73,7 +76,9 @@ Window {
                     height: 50;
                     text: "Back"
                     id: buttonBack
-                    //onClicked: visible:false
+                    onClicked: Wrapper.onBack()
+
+
 
                         //Wrapper.onBack()
                     //onClicked:
@@ -86,9 +91,8 @@ Window {
                     height: 50;
                     text: "Play"
                     id: buttonPlay
-                    onClicked: {
+                    onClicked: Wrapper.onPlay()
 
-                    }
                     //onClicked:
                     //icon.name: "buttonPlay";
                     //icon.source: "img/play.png";
@@ -118,7 +122,7 @@ Window {
                 }
             }
         }
-
+/*
 
     ListView {
             //model: PlayerModel
@@ -147,10 +151,10 @@ Window {
                 //required property string PlayerModel.mpSongName: "song";
 
 
-            }*/
+            }
 
         }
-
+*/
 
 }
 

@@ -33,19 +33,21 @@ QList<QObject *> MediaListWrapper::getMediaList() const
 
 void MediaListWrapper::onPlay()
 {
-    qDebug() << "test";
+    qDebug() << "onPlay";
     std::cout << "onPlay: " << MediaIndex;
 
 }
 
 void MediaListWrapper::onPause()
 {
+    qDebug() << "onPause";
     std::cout << "onPause: " << MediaIndex;
 
 }
 
 void MediaListWrapper::onBack()
 {
+    qDebug() << "onBack";
     if(not((MediaIndex -1) < 0 ))
         MediaIndex--;
     std::cout << "onBack: " << MediaIndex;
@@ -53,9 +55,16 @@ void MediaListWrapper::onBack()
 
 void MediaListWrapper::onNext()
 {
+    qDebug() << "onNext";
     if(not((MediaIndex +1 ) > MediaList.length()) )
         MediaIndex++;
     std::cout << "onNext: " << MediaIndex;
+}
+
+void MediaListWrapper::onBluetoothEnabled()
+{
+    qDebug() << "BT Enabled";
+
 }
 
 void MediaListWrapper::setMediaList(const QList<QObject *> &value)

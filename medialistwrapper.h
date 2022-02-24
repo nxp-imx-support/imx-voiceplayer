@@ -29,6 +29,7 @@ public:
     Q_INVOKABLE void onPause();
     Q_INVOKABLE void onBack();
     Q_INVOKABLE void onNext();
+    Q_INVOKABLE void onBluetoothEnabled();
 
     void setMediaList(const QList<QObject *> &value);
     void setMediaTrack(const QObject &media);
