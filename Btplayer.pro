@@ -37,3 +37,11 @@ HEADERS += \
     media.h \
     medialistwrapper.h \
     player.h
+
+DISTFILES += \
+    content/MetadataInfo.qml \
+    content/PlaybackControl.qml \
+    content/PlaybackRateControl.qml \
+    content/PlaybackSeekControl.qml \
+    content/PlayerMenuBar.qml \
+    content/TracksInfo.qml

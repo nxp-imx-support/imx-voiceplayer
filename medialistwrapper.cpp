@@ -12,8 +12,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 MediaListWrapper::MediaListWrapper(QObject *parent) : QObject(parent)
   , MediaIndex(0)
+  , Seekable(true)
+  , MediaTime(0.0)
 {
     populateMediaListData();
+    m_PlayingState = stopedState;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -36,14 +39,18 @@ void MediaListWrapper::onPlay()
 {
     qDebug() << "onPlay";
     std::cout << "onPlay: " << MediaIndex;
+
     QProcess process;
     process.startDetached("/bin/sh", QStringList()<< "/home/root/test.sh HEADPHONE");
+    emit onPlaybackStateChange();
+
 }
 
 void MediaListWrapper::onPause()
 {
     qDebug() << "onPause";
     std::cout << "onPause: " << MediaIndex;
+    emit onPlaybackStateChange();
 
 }
 
@@ -53,6 +60,7 @@ void MediaListWrapper::onBack()
     if(not((MediaIndex -1) < 0 ))
         MediaIndex--;
     std::cout << "onBack: " << MediaIndex;
+    emit onPlaybackStateChange();
 }
 
 void MediaListWrapper::onNext()
@@ -61,12 +69,52 @@ void MediaListWrapper::onNext()
     if(not((MediaIndex +1 ) > MediaList.length()) )
         MediaIndex++;
     std::cout << "onNext: " << MediaIndex;
+    emit onPlaybackStateChange();
 }
 
 void MediaListWrapper::onBluetoothEnabled()
 {
     qDebug() << "BT Enabled";
 
+}
+
+int MediaListWrapper::PlayingState()
+{
+    return m_PlayingState;
+}
+
+void MediaListWrapper::SetPlayingState(const int value)
+{
+    m_PlayingState = value;
+}
+
+void MediaListWrapper::playingStateChanged()
+{
+}
+
+double MediaListWrapper::PlayerMediaTime()
+{
+    return MediaTime;
+}
+
+void MediaListWrapper::SetPlayerMediaTime(const double mediaTime)
+{
+    MediaTime = mediaTime;
+}
+
+bool MediaListWrapper::PlayerSeekable()
+{
+    return Seekable;
+}
+
+void MediaListWrapper::SetPlayerSeekable(const bool value)
+{
+    Seekable = value;
+}
+
+void MediaListWrapper::setPlaybackRate(double value)
+{
+    playbackRate = value;
 }
 
 void MediaListWrapper::setMediaList(const QList<QObject *> &value)
@@ -90,6 +138,6 @@ void MediaListWrapper::populateMediaListData()
 // once a new MediaList Data is set (new BT device is paired and Media is transferd)
 void MediaListWrapper::resetModel()
 {
-    Engine.rootContext()->setContextProperty("Wrapper", this);
+    Engine.rootContext()->setContextProperty("MediaPlayerWrapper", this);
     Engine.rootContext()->setContextProperty("MediaModel", QVariant::fromValue(MediaList));
 }
