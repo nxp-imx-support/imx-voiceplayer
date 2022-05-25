@@ -3,17 +3,16 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Dialogs
 import QtQuick.Layouts
-import QtMultimedia
 
 Item {
     id: root
 
-    required property MediaPlayer mediaPlayer
-    required property VideoOutput videoOutput
-    required property MetadataInfo metadataInfo
-    required property TracksInfo audioTracksInfo
-    required property TracksInfo videoTracksInfo
-    required property TracksInfo subtitleTracksInfo
+    //required property MediaPlayer mediaPlayer
+    //required property VideoOutput videoOutput
+    //required property MetadataInfo metadataInfo
+    //required property TracksInfo audioTracksInfo
+    //required property TracksInfo videoTracksInfo
+    //required property TracksInfo subtitleTracksInfo
 
     height: menuBar.height
 
@@ -73,22 +72,42 @@ Item {
         }
     }
 
+    Popup {
+        id: btPopup
+        anchors.centerIn: Overlay.overlay
+        RowLayout {
+            id: btStartScan
+
+            Label {
+                text: qsTr("Bluetooth Src");
+            }
+
+            Button {
+                text: "Scan"
+                onClicked: { MediaPlayerWrapper.onBluetoothEnabled() }
+            }
+        }
+    }
+
     MenuBar {
         id: menuBar
         anchors.left: parent.left
         anchors.right: parent.right
 
         Menu {
-            title: qsTr("&File")
+            title: qsTr("&Source")
             Action {
-                text: qsTr("&Open")
+                text: qsTr("&File")
                 onTriggered: fileDialog.open()
             }
             Action {
-                text: qsTr("&URL");
+                text: qsTr("&USB");
                 onTriggered: urlPopup.open()
             }
-
+            Action {
+                text: qsTr("&Bluetooth")
+                onTriggered: btPopup.open()
+            }
             Action {
                 text: qsTr("&Exit");
                 onTriggered: closePlayer()
