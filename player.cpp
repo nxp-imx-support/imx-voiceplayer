@@ -41,6 +41,8 @@ bool Player::eventFilter(QObject *watched, QEvent *event)
 void Player::play()
 {
     std::cout << "Playing " << std::endl;
+    //QProcess process;
+    //process.startDetached("/bin/sh", QStringList()<< "/home/root/usb_uac_ptc.sh");
 }
 
 void Player::pause()

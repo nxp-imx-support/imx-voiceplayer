@@ -1,4 +1,5 @@
 QT += quick
+QT += core
 
 CONFIG += c++11
 

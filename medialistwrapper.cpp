@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QQmlContext>
 #include <iostream>
+#include <QProcess>
 
 ///////////////////////////////////////////////////////////////////////////////
 MediaListWrapper::MediaListWrapper(QObject *parent) : QObject(parent)
@@ -35,7 +36,8 @@ void MediaListWrapper::onPlay()
 {
     qDebug() << "onPlay";
     std::cout << "onPlay: " << MediaIndex;
-
+    QProcess process;
+    process.startDetached("/bin/sh", QStringList()<< "/home/root/test.sh HEADPHONE");
 }
 
 void MediaListWrapper::onPause()
