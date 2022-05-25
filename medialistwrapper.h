@@ -6,7 +6,9 @@
 #pragma once
 
 #include <QObject>
+#include <QProcess>
 #include <QQmlApplicationEngine>
+#include "connectivity/DeviceDiscovery.h"
 #include "media.h"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -85,5 +87,7 @@ private:
     long int position;
     double playbackRate;
     double MediaTime;
+
+    DeviceDiscovery* mDeviceDiscovery;
 };
 

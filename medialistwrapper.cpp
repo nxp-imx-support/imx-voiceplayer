@@ -74,7 +74,13 @@ void MediaListWrapper::onNext()
 
 void MediaListWrapper::onBluetoothEnabled()
 {
-    qDebug() << "BT Enabled";
+    qDebug() << "Bt start scanning...";
+    mDeviceDiscovery = new DeviceDiscovery();
+
+    if(mDeviceDiscovery)
+    {
+        mDeviceDiscovery->startScan();
+    }
 
 }
 
