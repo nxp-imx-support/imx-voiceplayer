@@ -156,12 +156,12 @@ then
         fi
 
 else
+	# Create gadget
+	modprobe g_audio
+	echo "USB gadget successfully created";
+
         if  [[ $evk == "imx8mnevk" || $evk == "imx8mmevk" || $evk == "imx8mm-lpddr4-evk" ]]
         then   
-		# Create gadget
-		modprobe g_audio
-		echo "USB gadget successfully created";
-
                 # Get sink pulse audio index
                 sink_index=$(pacmd list-sinks | grep -B1 "name: <alsa_output.platform-sound-wm8524*" | sed '$d' | cut -d " " -f 5);
                 if  [[ $sink_index == "" || $sink_index == "index:" ]]
@@ -190,10 +190,6 @@ else
 
         elif  [[ $evk == "imx8ulp-lpddr4-evk" || $evk == "imx8ulpevk" ]]
         then
-		# Create gadget
-		modprobe g_audio
-		echo "USB gadget successfully created";
-
                 # Get sink pulse audio index
                 sink_index=$(pacmd list-sinks | grep -B1 "name: <alsa_output.platform-imx-audio-rpmsg*" | sed '$d' | cut -d " " -f 5);
                 if  [[ $sink_index == "" || $sink_index == "index:" ]]
@@ -220,6 +216,33 @@ else
 	        pactl load-module module-loopback
 	        echo "Loopback started";
 
+        elif  [[ $evk == "imx8mpevk" ]]
+        then
+                # Get sink pulse audio index
+                sink_index=$(pacmd list-sinks | grep -B1 "name: <alsa_output.platform-sound-wm8960*" | sed '$d' | cut -d " " -f 5);
+                if  [[ $sink_index == "" || $sink_index == "index:" ]]
+                then
+                        sink_index=$(pacmd list-sinks | grep -B1 "name: <alsa_output.platform-sound-wm8960*" | sed '$d' | cut -d " " -f 6);
+                fi
+                echo -e "Sink index:${sink_index}";
+
+                # Set default sink
+                pacmd set-default-sink ${sink_index}
+
+                # Get source pulse audio index
+                source_index=$(pacmd list-sources | grep -B1 "name: <alsa_input.platform-38100000*" | sed '$d' | cut -d " " -f 5);
+                if  [[ $source_index == "" || $source_index == "index:" ]]
+                then
+                        source_index=$(pacmd list-sources | grep -B1 "name: <alsa_input.platform-38100000*" | sed '$d' | cut -d " " -f 6);
+                fi
+                echo -e "Source index:${source_index}";
+
+                # Set default source
+                pacmd set-default-source ${source_index}
+
+	        # Loopback
+	        pactl load-module module-loopback
+	        echo "Loopback started";
 	else
         echo "Unsupported EVK";
 
