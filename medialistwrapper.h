@@ -8,8 +8,6 @@
 #include <QObject>
 #include <QProcess>
 #include <QQmlApplicationEngine>
-#include "connectivity/DeviceDiscovery.h"
-#include "media.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -88,6 +86,6 @@ private:
     double playbackRate;
     double MediaTime;
 
-    DeviceDiscovery* mDeviceDiscovery;
+    //DeviceDiscovery* mDeviceDiscovery;
 };
 

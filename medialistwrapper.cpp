@@ -74,13 +74,14 @@ void MediaListWrapper::onNext()
 
 void MediaListWrapper::onBluetoothEnabled()
 {
+    /*
     qDebug() << "Bt start scanning...";
     mDeviceDiscovery = new DeviceDiscovery();
 
     if(mDeviceDiscovery)
     {
         mDeviceDiscovery->startScan();
-    }
+    }*/
 
 }
 
@@ -131,13 +132,14 @@ void MediaListWrapper::setMediaList(const QList<QObject *> &value)
 void MediaListWrapper::setMediaTrack(const QObject &media)
 {
     // TODO:
+    Q_UNUSED(media);
     //MediaList.append(media));
     //MediaIndex = MediaList.lenght();
 }
 
 void MediaListWrapper::populateMediaListData()
 {
-    MediaList.append(new Media("SongSample", "ArtistSample", "AlbumSample", "ArtSample", 4.00));
+   // MediaList.append(new Media("SongSample", "ArtistSample", "AlbumSample", "ArtSample", 4.00));
 }
 
 // TODO: this approach is constly because model is reloaded on any change, must be called

@@ -1,4 +1,4 @@
-QT += quick bluetooth core
+QT += quick core
 
 CONFIG += c++11
 
@@ -14,9 +14,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        connectivity/DeviceDiscovery.cpp \
         main.cpp \
-        media.cpp \
         medialistwrapper.cpp \
         player.cpp
 
@@ -34,9 +32,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    connectivity/DeviceDiscovery.h \
-    device/DeviceInterface.h \
-    media.h \
     medialistwrapper.h \
     player.h
 

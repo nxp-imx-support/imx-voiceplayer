@@ -7,7 +7,6 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <iostream>
-#include "media.h"
 #include "player.h"
 #include "medialistwrapper.h"
 
