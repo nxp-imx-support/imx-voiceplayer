@@ -38,9 +38,10 @@ public slots:
     Q_INVOKABLE QList<QObject *> getMediaList() const;
     Q_INVOKABLE void onPlay();
     Q_INVOKABLE void onPause();
-    Q_INVOKABLE void onBack();
+    Q_INVOKABLE void onStop();
     Q_INVOKABLE void onNext();
     Q_INVOKABLE void onBluetoothEnabled();
+    Q_INVOKABLE void onBluetoothDisabled();
 
     // Player State
     Q_INVOKABLE int PlayingState();
@@ -86,6 +87,8 @@ private:
     double playbackRate;
     double MediaTime;
 
-    //DeviceDiscovery* mDeviceDiscovery;
+    QProcess* BtProcess;
+    QProcess* ConsoleProcess;
+    bool BtEnabled;
 };
 

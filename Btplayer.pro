@@ -30,7 +30,13 @@ QML_DESIGNER_IMPORT_PATH =
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
+
+# Scritps deployment rule
+scripts.files = ./sh/*
+scripts.path = /opt/$${TARGET}/bin
+
 !isEmpty(target.path): INSTALLS += target
+!isEmpty(scripts.path): INSTALLS += scripts
 
 HEADERS += \
     media.h \
@@ -43,4 +49,7 @@ DISTFILES += \
     content/PlaybackRateControl.qml \
     content/PlaybackSeekControl.qml \
     content/PlayerMenuBar.qml \
-    content/TracksInfo.qml
+    content/TracksInfo.qml \
+    sh/bt-init.sh \
+    sh/bt-usb.sh \
+    test.txt

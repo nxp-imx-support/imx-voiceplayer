@@ -7,13 +7,6 @@ import QtQuick.Layouts
 Item {
     id: root
 
-    //required property MediaPlayer mediaPlayer
-    //required property VideoOutput videoOutput
-    //required property MetadataInfo metadataInfo
-    //required property TracksInfo audioTracksInfo
-    //required property TracksInfo videoTracksInfo
-    //required property TracksInfo subtitleTracksInfo
-
     height: menuBar.height
 
     signal closePlayer
@@ -81,10 +74,14 @@ Item {
             Label {
                 text: qsTr("Bluetooth Src");
             }
-
-            Button {
-                text: "Scan"
-                onClicked: { MediaPlayerWrapper.onBluetoothEnabled() }
+            Switch {
+                id: btOn
+                checked: true
+                //enabled: true
+                onClicked: MediaPlayerWrapper.onBluetoothEnabled()
+            }
+            Label {
+                text: btOn.checked ? "On" : "Off"
             }
         }
     }

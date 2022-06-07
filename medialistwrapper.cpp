@@ -14,9 +14,17 @@ MediaListWrapper::MediaListWrapper(QObject *parent) : QObject(parent)
   , MediaIndex(0)
   , Seekable(true)
   , MediaTime(0.0)
+  , ConsoleProcess(new QProcess())
+  , BtEnabled(true)
 {
-    populateMediaListData();
-    m_PlayingState = stopedState;
+    QProcess process;
+    process.startDetached("/bin/sh", QStringList()<< "/opt/Btplayer/bin/bt-init.sh");
+    process.waitForFinished();
+
+    // Using Bt as default source
+    QString source = BtEnabled ? "Bluetooth" : "USB";
+    ConsoleProcess->startDetached("/bin/sh", QStringList()<< "/opt/Btplayer/bin/bt-usb.sh" << source);
+    ConsoleProcess->waitForFinished();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -37,52 +45,70 @@ QList<QObject *> MediaListWrapper::getMediaList() const
 
 void MediaListWrapper::onPlay()
 {
-    qDebug() << "onPlay";
-    std::cout << "onPlay: " << MediaIndex;
+    if (BtProcess)
+    {
+        qDebug() << "onPlay";
+        BtProcess->write("play\n");
+        BtProcess->waitForBytesWritten();
+        BtProcess->readAllStandardOutput();
 
-    QProcess process;
-    process.startDetached("/bin/sh", QStringList()<< "/home/root/test.sh HEADPHONE");
-    emit onPlaybackStateChange();
+        BtProcess->write("show\n");
+        BtProcess->waitForBytesWritten();
+        QString metadata(BtProcess->readAllStandardOutput());
+        qDebug() << metadata;
 
+    }
 }
 
 void MediaListWrapper::onPause()
 {
-    qDebug() << "onPause";
-    std::cout << "onPause: " << MediaIndex;
-    emit onPlaybackStateChange();
-
+    if (BtProcess)
+    {
+        qDebug() << "onPause";
+        BtProcess->write("pause\n");
+        BtProcess->waitForBytesWritten();
+    }
 }
 
-void MediaListWrapper::onBack()
+void MediaListWrapper::onStop()
 {
-    qDebug() << "onBack";
-    if(not((MediaIndex -1) < 0 ))
-        MediaIndex--;
-    std::cout << "onBack: " << MediaIndex;
-    emit onPlaybackStateChange();
+    if (BtProcess)
+    {
+        qDebug() << "onStop";
+        BtProcess->write("stop\n");
+        BtProcess->waitForBytesWritten();
+    }
 }
 
 void MediaListWrapper::onNext()
 {
-    qDebug() << "onNext";
-    if(not((MediaIndex +1 ) > MediaList.length()) )
-        MediaIndex++;
-    std::cout << "onNext: " << MediaIndex;
-    emit onPlaybackStateChange();
+    if (BtProcess)
+    {
+        qDebug() << "onNext";
+        BtProcess->write("next\n");
+        BtProcess->waitForBytesWritten();
+    }
 }
 
 void MediaListWrapper::onBluetoothEnabled()
 {
-    /*
-    qDebug() << "Bt start scanning...";
-    mDeviceDiscovery = new DeviceDiscovery();
-
-    if(mDeviceDiscovery)
+    qDebug() << "Bt start..." << (BtEnabled ? "true" : "false");
+    if(BtEnabled)
     {
-        mDeviceDiscovery->startScan();
-    }*/
+        qDebug() << "Bt start...";
+        BtProcess = new QProcess();
+        BtProcess->start("/usr/bin/bluetooth-player");
+        return;
+    }
+    qDebug() << "Bt already started";
+}
 
+void MediaListWrapper::onBluetoothDisabled()
+{
+    if(BtEnabled)
+    {
+        BtEnabled = false;
+    }
 }
 
 int MediaListWrapper::PlayingState()

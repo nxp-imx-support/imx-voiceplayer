@@ -94,7 +94,7 @@ then
                 pacmd set-default-source ${source_index}
 
 		# Bluetooth function
-		Bluetooth mxc0
+                #Bluetooth mxc0
 
         elif  [[ $evk == "imx8mpevk" ]]
         then
