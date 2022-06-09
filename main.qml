@@ -7,7 +7,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
-import com.nxp.MediaPlayerProxy 1.0
+import com.nxp.btplayer 1.0
 import "content"
 
 Window {
