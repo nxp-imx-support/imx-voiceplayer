@@ -106,6 +106,15 @@ Item {
                         text: "\u25A0";
                         onClicked: MediaPlayerWrapper.onStop()
                     }
+
+                    /* TODO: add Next functionality
+                    RoundButton {
+                        id: nextButton
+                        radius: 50.0
+                        text: "\u25A0";
+                        onClicked: MediaPlayerWrapper.onStop()
+                    }
+                    */
                 }
 
                 Item {

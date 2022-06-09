@@ -7,7 +7,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
-import com.nxp.btplayer 1.0
+import com.nxp.MediaPlayerProxy 1.0
 import "content"
 
 Window {
@@ -28,9 +28,6 @@ Window {
     function convertDoubleToInt (x) {
         return x < 0 ? Math.ceil(x) : Math.floor(x);
     }
-
-
-
 
     Rectangle {
             width: root.width
@@ -87,6 +84,67 @@ Window {
         y: 10
 
         onClosePlayer: root.close()
+    }
+
+    Rectangle
+    {
+        x: 46
+        y: 236
+
+        Image {
+            id: image
+            x: 17
+            y: 17
+            width: 98
+            height: 77
+            source: "qrc:/rsc/Bt_Icon.png"
+            fillMode: Image.PreserveAspectFit
+        }
+
+        Text {
+            id: title
+            x: 140
+            y: 28
+            width: 129
+            height: 16
+            text: MediaPlayerWrapper.title
+            font.pixelSize: 12
+        }
+
+        Text {
+            id: artist
+            x: 140
+            y: 50
+            width: 129
+            height: 16
+            text: MediaPlayerWrapper.artist
+            font.pixelSize: 12
+        }
+
+        Text {
+            id: album
+            x: 140
+            y: 72
+            width: 124
+            height: 16
+            text: MediaPlayerWrapper.album
+            font.pixelSize: 12
+        }
+    }
+
+    TracksInfo {
+
+
+
+        id: audioTracksInfo
+
+        anchors.right: parent.right
+        //anchors.top: videoOutput.fullScreen ? parent.top : menuBar.bottom
+        //anchors.bottom: playbackControl.opacity ? playbackControl.bottom : parent.bottom
+
+        //visible: true
+        //onSelectedTrackChanged:  mediaPlayer.activeAudioTrack = audioTracksInfo.selectedTrack
+
     }
 
     PlaybackControl {

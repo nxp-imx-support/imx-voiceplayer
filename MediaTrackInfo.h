@@ -15,7 +15,7 @@
 //!
 ///////////////////////////////////////////////////////////////////////////////
 
-class Media : public QObject
+class MediaTrackInfo : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString song READ song WRITE setSong NOTIFY songChanged)
@@ -24,9 +24,9 @@ class Media : public QObject
     Q_PROPERTY(float duration READ duration WRITE setDuration NOTIFY durationChanged)
 
 public:
-    explicit Media(QObject *parent = nullptr);
-    Media(const QString &song, const QString &artist, const QString &album, const QString &art, const float &duration, QObject * parent = nullptr);
-    ~Media();
+    explicit MediaTrackInfo(QObject *parent = nullptr);
+    MediaTrackInfo(const QString &song, const QString &artist, const QString &album, const QString &art, const float &duration, QObject * parent = nullptr);
+    ~MediaTrackInfo();
 
     bool event(QEvent *event);
     bool eventFilter(QObject *watched, QEvent *event);
@@ -48,11 +48,11 @@ public:
     void onSongNext();
 
 signals:
-    void songChanged(QString song);
-    void artistChanged(QString artist);
-    void albumChanged(QString album);
-    void artChanged(QString art);
-    void durationChanged(float d);
+    void songChanged();
+    void artistChanged();
+    void albumChanged();
+    void artChanged();
+    void durationChanged();
 
 private:
     QString mSong;

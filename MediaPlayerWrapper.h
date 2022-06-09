@@ -8,23 +8,30 @@
 #include <QObject>
 #include <QProcess>
 #include <QQmlApplicationEngine>
+#include "MediaTrackInfo.h"
+#include "MediaPlayerProxy.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//! \class     MediaListWrapper
-//!     This class exposes a Media Audio Track List
-//! 		wrap around the list of media objects
-//! 		handles QML initialization
+//! \class     MediaPlayerWrapper
+//!     This class exposes a Media Player App
+//! 		Wrap around of media object
+//! 		Handles QML initialization
+//!         Handles Bluez bluetooth player tool
 ///////////////////////////////////////////////////////////////////////////////
 
-class MediaListWrapper : public QObject
+class MediaPlayerWrapper : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
+    Q_PROPERTY(QString artist READ artist WRITE setArtist NOTIFY artistChanged)
+    Q_PROPERTY(QString album READ album WRITE setAlbum NOTIFY albumChanged)
     Q_PROPERTY(int mediaPlayerState READ PlayingState WRITE SetPlayingState CONSTANT)//NOTIFY playingStateChanged)
     Q_PROPERTY(double position READ PlayerMediaTime WRITE SetPlayerMediaTime NOTIFY PlayerMediaTimeChanged)
     Q_PROPERTY(bool seekable READ PlayerSeekable WRITE SetPlayerSeekable NOTIFY PlayerSeekChanged)
 public:
-    explicit MediaListWrapper(QObject *parent = nullptr);
+    explicit MediaPlayerWrapper(QObject *parent = nullptr);
+    ~MediaPlayerWrapper();
     bool initialize();
 
     enum playingState
@@ -62,15 +69,27 @@ public slots:
 
 
     void setMediaList(const QList<QObject *> &value);
-    void setMediaTrack(const QObject &media);
+    void setMediaTrack(const MediaTrackInfo &media);
 
-
+    // Metadata update
+    void setTitle(QString title);
+    void setArtist(QString artist);
+    void setAlbum(QString album);
+    void setDuration(float duration);
+    QString title() const;
+    QString artist() const;
+    QString album() const;
+    float duration() const;
 
 signals:
     void onPlaybackStateChange();
     void PlayerMediaTimeChanged();
     void PlayerSeekChanged();
 
+    void titleChanged();
+    void artistChanged();
+    void albumChanged();
+    void durationChanged();
 
 private:
 
@@ -82,13 +101,22 @@ private:
     int m_PlayingState;
     int MediaIndex;
     bool Seekable;
-    int duration;
     long int position;
     double playbackRate;
     double MediaTime;
+    MediaTrackInfo* CurrentMedia;
 
     QProcess* BtProcess;
     QProcess* ConsoleProcess;
+    MediaPlayerProxy* BtPlayer;
     bool BtEnabled;
+
+
+
+    QString mSong;
+    QString mArtist;
+    QString mAlbum;
+    QString mArt;
+    float mDuration;
 };
 

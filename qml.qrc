@@ -10,5 +10,6 @@
         <file>content/TracksInfo.qml</file>
         <file>rsc/Mute_Icon.svg</file>
         <file>rsc/Speaker_Icon.svg</file>
+        <file>rsc/Bt_Icon.png</file>
     </qresource>
 </RCC>

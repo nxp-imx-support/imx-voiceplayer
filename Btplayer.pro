@@ -1,6 +1,8 @@
-QT += quick core
+QT += quick core dbus
 
 CONFIG += c++11
+
+DBUS_INTERFACES += org.bluez.MediaPlayer1.xml org.freedesktop.DBus.Properties.xml
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -14,10 +16,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        media.cpp \
-        main.cpp \
-        medialistwrapper.cpp \
-        player.cpp
+        MediaPlayerProxy.cpp \
+        MediaPlayerWrapper.cpp \
+        MediaTrackInfo.cpp \
+        main.cpp
 
 RESOURCES += qml.qrc
 
@@ -39,9 +41,9 @@ scripts.path = /opt/$${TARGET}/bin
 !isEmpty(scripts.path): INSTALLS += scripts
 
 HEADERS += \
-    media.h \
-    medialistwrapper.h \
-    player.h
+    MediaPlayerProxy.h \
+    MediaPlayerWrapper.h \
+    MediaTrackInfo.h
 
 DISTFILES += \
     content/MetadataInfo.qml \
@@ -50,6 +52,3 @@ DISTFILES += \
     content/PlaybackSeekControl.qml \
     content/PlayerMenuBar.qml \
     content/TracksInfo.qml \
-    sh/bt-init.sh \
-    sh/bt-usb.sh \
-    test.txt

@@ -3,7 +3,7 @@
 // please see COPYRIGHT file in root of source repository.
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "media.h"
+#include "MediaTrackInfo.h"
 #include <iostream>
 
 namespace  {
@@ -14,7 +14,7 @@ namespace  {
     float durationTime = 1.0;
 }
 
-Media::Media(QObject *parent) : QObject(parent)
+MediaTrackInfo::MediaTrackInfo(QObject *parent) : QObject(parent)
 {
     mSong = songName;
     mArtist = artistName;
@@ -23,7 +23,7 @@ Media::Media(QObject *parent) : QObject(parent)
     mDuration = durationTime;
 }
 
-Media::Media(const QString &song, const QString &artist, const QString &album, const QString &art, const float &duration, QObject *parent)
+MediaTrackInfo::MediaTrackInfo(const QString &song, const QString &artist, const QString &album, const QString &art, const float &duration, QObject *parent)
     : QObject(parent),
       mSong(song),
       mArtist(artist),
@@ -34,88 +34,92 @@ Media::Media(const QString &song, const QString &artist, const QString &album, c
 
 }
 
-Media::~Media()
+MediaTrackInfo::~MediaTrackInfo()
 {
 
 }
 
-bool Media::event(QEvent *event)
+bool MediaTrackInfo::event(QEvent *event)
 {
     Q_UNUSED(event);
 }
 
-bool Media::eventFilter(QObject *watched, QEvent *event)
+bool MediaTrackInfo::eventFilter(QObject *watched, QEvent *event)
 {
     Q_UNUSED(watched);
     Q_UNUSED(event);
 }
 
-QString Media::song() const
+QString MediaTrackInfo::song() const
 {
     return mSong;
 }
 
-QString Media::artist() const
+QString MediaTrackInfo::artist() const
 {
     return mArtist;
 }
 
-QString Media::album() const
+QString MediaTrackInfo::album() const
 {
     return mAlbum;
 }
 
-QString Media::art() const
+QString MediaTrackInfo::art() const
 {
     return mArt;
 }
 
-float Media::duration() const
+float MediaTrackInfo::duration() const
 {
     return mDuration;
 }
 
-void Media::setSong(QString song)
+void MediaTrackInfo::setSong(QString song)
 {
     mSong = song;
+    emit songChanged();
 }
 
-void Media::setArtist(QString artist)
+void MediaTrackInfo::setArtist(QString artist)
 {
     mArtist = artist;
+    emit artistChanged();
 }
 
-void Media::setAlbum(QString album)
+void MediaTrackInfo::setAlbum(QString album)
 {
     mAlbum = album;
+    emit albumChanged();
 }
 
-void Media::setArt(QString art)
+void MediaTrackInfo::setArt(QString art)
 {
     mArt = art;
 }
 
-void Media::setDuration(float duration)
+void MediaTrackInfo::setDuration(float duration)
 {
     mDuration = duration;
+    emit durationChanged();
 }
 
-void Media::onSongPlay()
+void MediaTrackInfo::onSongPlay()
 {
     std::cout << "Playing " << std::endl;
 }
 
-void Media::onSongPause()
+void MediaTrackInfo::onSongPause()
 {
     std::cout << "Pause " <<  std::endl;
 }
 
-void Media::onSongBack()
+void MediaTrackInfo::onSongBack()
 {
     std::cout << "Back" << std::endl;
 }
 
-void Media::onSongNext()
+void MediaTrackInfo::onSongNext()
 {
     std::cout << "Next" << std::endl;
 }
