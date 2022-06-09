@@ -77,8 +77,12 @@ Item {
             Switch {
                 id: btOn
                 checked: true
-                //enabled: true
-                onClicked: MediaPlayerWrapper.onBluetoothEnabled()
+                onClicked:
+                {
+                   if (btOn.checked)
+                       return MediaPlayerWrapper.onBluetoothEnabled()
+                   return MediaPlayerWrapper.onBluetoothDisabled()
+                }
             }
             Label {
                 text: btOn.checked ? "On" : "Off"

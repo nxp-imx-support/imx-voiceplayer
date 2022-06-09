@@ -44,6 +44,20 @@ bt_previous=$(hciconfig | grep hci0: | cut -c 1-5);
 if [[ $bt_previous == "hci0:" ]]
 then
 echo -e "Bluetooth was previously configured";
+                # Automatic connection
+                output="";
+                coproc bluetoothctl
+                for (( a=1; a<4; a++ ))
+                do
+                read output <&${COPROC[0]}
+                echo "$output";
+                done
+                sleep 4
+                for (( b=1; b<11; b++ ))
+                do
+                echo -e 'yes\n' >&${COPROC[1]}
+                sleep .5
+                done
 
 else
 # Get EVK name

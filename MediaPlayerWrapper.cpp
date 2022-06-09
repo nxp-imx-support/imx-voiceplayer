@@ -24,8 +24,8 @@ MediaPlayerWrapper::MediaPlayerWrapper(QObject *parent) : QObject(parent)
 
     // Using Bt as default source
     QString source = BtEnabled ? "Bluetooth" : "USB";
-    ConsoleProcess->startDetached("/bin/sh", QStringList()<< "/opt/Btplayer/bin/bt-usb.sh" << source);
-    ConsoleProcess->waitForFinished();
+    //ConsoleProcess->startDetached("/bin/sh", QStringList()<< "/opt/Btplayer/bin/bt-usb.sh" << source);
+    //ConsoleProcess->waitForFinished();
 
 
     BtProcess = new QProcess();
@@ -101,23 +101,18 @@ void MediaPlayerWrapper::onNext()
 
 void MediaPlayerWrapper::onBluetoothEnabled()
 {
-    qDebug() << "Bt enabled: ..." << (BtEnabled ? "true" : "false");
-    if(BtEnabled)
-    {
-        qDebug() << "Bt start...";
-        ConsoleProcess->startDetached("/bin/sh", QStringList()<< "/opt/BtPlayer/bin/connect.sh");
-        ConsoleProcess->waitForFinished();
-        return;
-    }
+    qDebug() << "Bt start...";
+    ConsoleProcess->startDetached("/bin/sh", QStringList()<< "/opt/Btplayer/bin/connect.sh");
+    ConsoleProcess->waitForFinished();
     qDebug() << "Bt restarted";
+    BtEnabled = true;
 }
 
 void MediaPlayerWrapper::onBluetoothDisabled()
 {
-    if(BtEnabled)
-    {
-        BtEnabled = false;
-    }
+    system("bluetoothctl disconnect");
+    qDebug() << "Bluetooth disabled";
+    BtEnabled = false;
 }
 
 int MediaPlayerWrapper::PlayingState()
