@@ -40,6 +40,7 @@ MediaPlayerWrapper::MediaPlayerWrapper(QObject *parent) : QObject(parent)
 
 MediaPlayerWrapper::~MediaPlayerWrapper()
 {
+    system("bluetoothctl disconnect");
     BtProcess->write("quit");
     BtProcess->waitForFinished();
     delete BtProcess;
