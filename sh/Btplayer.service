@@ -4,8 +4,8 @@ After=systemd-update-utmp.service
 
 [Service]
 Type=simple
-WorkingDirectory=/home/root
-ExecStart=/home/root/btp_vit -dhw:imxaudiomicfil,0 -l ENGLISH
+WorkingDirectory=/opt/Btplayer/bin/
+ExecStart=/opt/Btplayer/bin/btp_vit -dhw:imxaudiomicfil,0 -l ENGLISH
 StandardInput=tty
 Restart=always
 StartLimitIntervalSec=20
