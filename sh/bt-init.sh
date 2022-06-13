@@ -30,11 +30,18 @@ Bluetooth () {
                 echo "$output";
                 done
                 sleep 4
-                for (( b=1; b<11; b++ ))
+                for (( b=1; b<7; b++ ))
                 do
                 echo -e 'yes\n' >&${COPROC[1]}
-                sleep .5
+                sleep .3
                 done
+
+                # Get MAC address
+                MAC=$(bluetoothctl devices | cut -c 8-24);
+                echo "${MAC}" > /opt/Btplayer/bin/mac_address.txt
+                sed -i 's/:/_/g' /opt/Btplayer/bin/mac_address.txt
+                echo -e "MAC address:";
+                cat /opt/Btplayer/bin/mac_address.txt
 
 }
 
