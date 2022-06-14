@@ -3,6 +3,9 @@
 # Automatic connection
 output="";
 coproc bluetoothctl
+# pid of the command launched
+ID=$!
+echo "pid of the command launched:$ID";
 for (( a=1; a<4; a++ ))
 do
 	read output <&${COPROC[0]}
@@ -14,3 +17,5 @@ do
         echo -e 'yes\n' >&${COPROC[1]}
         sleep .5
 done
+kill ${ID}
+echo "Kill:$ID";

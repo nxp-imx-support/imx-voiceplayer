@@ -24,6 +24,9 @@ Bluetooth () {
                 # Automatic connection
                 output="";
                 coproc bluetoothctl
+                # pid of the command launched
+                ID=$!
+                echo "pid of the command launched:$ID";
                 for (( a=1; a<4; a++ ))
                 do
                 read output <&${COPROC[0]}
@@ -35,6 +38,8 @@ Bluetooth () {
                 echo -e 'yes\n' >&${COPROC[1]}
                 sleep .3
                 done
+                kill ${ID}
+                echo "Kill:$ID";
 
                 # Get MAC address
                 MAC=$(bluetoothctl devices | cut -c 8-24);
@@ -42,6 +47,28 @@ Bluetooth () {
                 sed -i 's/:/_/g' /opt/Btplayer/bin/mac_address.txt
                 echo -e "MAC address:";
                 cat /opt/Btplayer/bin/mac_address.txt
+                MAC=$(cat /opt/Btplayer/bin/mac_address.txt);
+
+                # Send the message notifying when a device has been connected
+                /opt/Btplayer/bin/MsgQ 0/org/bluez/hci0/dev_${MAC}/player0
+
+                # Wait for disconnection
+                output="";
+                coproc bluetoothctl
+                # pid of the command launched
+                ID=$!
+                echo "pid of the command launched:$ID";
+                for (( a=1; a<4; a++ ))
+                do
+                read output <&${COPROC[0]}
+                echo "$output";
+                done
+                # In this point a device has been disconnected #
+                echo "Device has been disconnected";
+                # Send the message notifying when a device has been disconnected
+                /opt/Btplayer/bin/MsgQ 1/org/bluez/hci0/dev_${MAC}/player0
+                kill ${ID}
+                echo "Kill:$ID";
 
 }
 
