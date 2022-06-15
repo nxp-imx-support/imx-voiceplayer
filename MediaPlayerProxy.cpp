@@ -31,8 +31,8 @@ MediaPlayerProxy::MediaPlayerProxy(QObject *parent):
     MediaPlayerProperties = new org::freedesktop::DBus::Properties("org.bluez", MediaPlayer->path(),
                            QDBusConnection::systemBus(), this);
 
-    DeviceProperties = new org::freedesktop::DBus::Properties("org.bluez", MediaTransport->path(),
-                           QDBusConnection::systemBus(), this);
+    MediaTransportProperties = new org::freedesktop::DBus::Properties("org.bluez", MediaTransport->path(),
+                          QDBusConnection::systemBus(), this);
 
     DeviceProperties = new org::freedesktop::DBus::Properties("org.bluez", Device->path(),
                                                               QDBusConnection::systemBus(), this);
