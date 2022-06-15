@@ -26,8 +26,13 @@ class MediaPlayerWrapper : public QObject
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
     Q_PROPERTY(QString artist READ artist WRITE setArtist NOTIFY artistChanged)
     Q_PROPERTY(QString album READ album WRITE setAlbum NOTIFY albumChanged)
+    Q_PROPERTY(int volume READ volume WRITE setVolume NOTIFY volumeChanged)
+    Q_PROPERTY(float duration READ duration WRITE setDuration NOTIFY durationChanged)
+    Q_PROPERTY(QString device READ device WRITE setDevice NOTIFY deviceChanged)
+
+
     Q_PROPERTY(int mediaPlayerState READ PlayingState WRITE SetPlayingState CONSTANT)//NOTIFY playingStateChanged)
-    Q_PROPERTY(double position READ PlayerMediaTime WRITE SetPlayerMediaTime NOTIFY PlayerMediaTimeChanged)
+    Q_PROPERTY(double position READ position WRITE setPosition NOTIFY positionChanged)
     Q_PROPERTY(bool seekable READ PlayerSeekable WRITE SetPlayerSeekable NOTIFY PlayerSeekChanged)
 public:
     explicit MediaPlayerWrapper(QObject *parent = nullptr);
@@ -47,6 +52,8 @@ public slots:
     Q_INVOKABLE void onPause();
     Q_INVOKABLE void onStop();
     Q_INVOKABLE void onNext();
+    Q_INVOKABLE void volumeUp();
+    Q_INVOKABLE void volumeDown();
     Q_INVOKABLE void onBluetoothEnabled();
     Q_INVOKABLE void onBluetoothDisabled();
 
@@ -70,16 +77,23 @@ public slots:
 
     void setMediaList(const QList<QObject *> &value);
     void setMediaTrack(const MediaTrackInfo &media);
+    void setMediaTrackPosition(const quint32 position);
 
     // Metadata update
     void setTitle(QString title);
     void setArtist(QString artist);
     void setAlbum(QString album);
     void setDuration(float duration);
+    void setPosition(int position);
+    void setVolume(int value);
+    void setDevice(QString device);
     QString title() const;
     QString artist() const;
     QString album() const;
+    QString device() const;
     float duration() const;
+    int position() const;
+    int volume() const;
 
 signals:
     void onPlaybackStateChange();
@@ -89,7 +103,10 @@ signals:
     void titleChanged();
     void artistChanged();
     void albumChanged();
+    void deviceChanged();
     void durationChanged();
+    void positionChanged();
+    void volumeChanged();
 
 private:
 
@@ -101,7 +118,6 @@ private:
     int m_PlayingState;
     int MediaIndex;
     bool Seekable;
-    long int position;
     double playbackRate;
     double MediaTime;
     MediaTrackInfo* CurrentMedia;
@@ -113,10 +129,13 @@ private:
 
 
 
-    QString mSong;
-    QString mArtist;
-    QString mAlbum;
-    QString mArt;
-    float mDuration;
+    QString mSong="";
+    QString mArtist="";
+    QString mAlbum="";
+    QString mArt="";
+    QString mDevice="";
+    float mDuration=0.0;
+    quint32 mPosition=0;
+    quint32 mVolume=60;
 };
 

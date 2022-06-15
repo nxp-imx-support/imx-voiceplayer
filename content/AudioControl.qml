@@ -35,7 +35,13 @@ Item {
 
             enabled: true
             to: 100.0
-            value: 100.0
+            value: MediaPlayerWrapper.volume
+            onMoved:{
+                if(MediaPlayerWrapper.volume < value)
+                    return MediaPlayerWrapper.volumeUp()
+                return MediaPlayerWrapper.volumeDown()
+            }
+
         }
     }
 }

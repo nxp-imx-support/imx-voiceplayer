@@ -59,7 +59,14 @@ Item {
         Text {
             id: metadataNoList
             visible: elements.count === 0
-            text: qsTr("No metadata present")
+            text:
+            {
+                if(not (MediaPlayerWrapper.device == ""))
+                    return MediaPlayerWrapper.device
+                return qsTr("No metadata present")
+            }
+
+
         }
     }
 }

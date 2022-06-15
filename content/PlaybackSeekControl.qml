@@ -5,11 +5,7 @@ import com.nxp.btplayer 1.0
 
 Item {
     id: root
-
-    //required property MediaPlayer MediaPlayerWrapper
-
     implicitHeight: 20
-
 
     RowLayout {
         anchors.fill: parent
@@ -20,8 +16,8 @@ Item {
             Layout.minimumHeight: 18
             horizontalAlignment: Text.AlignRight
             text: {
-                var m = Math.floor(MediaPlayerWrapper.position / 60000)
-                var ms = (MediaPlayerWrapper.position / 1000 - m * 60).toFixed(1)
+                var m = Math.floor(MediaPlayerWrapper.duration / 60000)
+                var ms = (MediaPlayerWrapper.duration / 1000 - m * 60).toFixed(1)
                 return `${m}:${ms.padStart(4, 0)}`
             }
         }

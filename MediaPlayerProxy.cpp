@@ -10,6 +10,9 @@
 #include <QDebug>
 #include <iostream>
 
+const uint VOLMIN = 0;
+const uint VOLSTP = 10;
+const uint VOLMAX = 100;
 
 
 MediaPlayerProxy::MediaPlayerProxy(QObject *parent):
@@ -19,62 +22,29 @@ MediaPlayerProxy::MediaPlayerProxy(QObject *parent):
     MediaPlayer = new org::bluez::MediaPlayer1("org.bluez", "/org/bluez/hci0/dev_AC_6C_90_04_7C_62/player0",
                            QDBusConnection::systemBus(), this);
 
+    MediaTransport = new org::bluez::MediaTransport1("org.bluez", "/org/bluez/hci0/dev_AC_6C_90_04_7C_62/fd0",
+                           QDBusConnection::systemBus(), this);
+
+    Device = new org::bluez::Device1("org.bluez", "/org/bluez/hci0/dev_AC_6C_90_04_7C_62",
+                           QDBusConnection::systemBus(), this);
+
     MediaPlayerProperties = new org::freedesktop::DBus::Properties("org.bluez", MediaPlayer->path(),
                            QDBusConnection::systemBus(), this);
+
+    DeviceProperties = new org::freedesktop::DBus::Properties("org.bluez", MediaTransport->path(),
+                           QDBusConnection::systemBus(), this);
+
+    DeviceProperties = new org::freedesktop::DBus::Properties("org.bluez", Device->path(),
+                                                              QDBusConnection::systemBus(), this);
 
     QObject::connect(MediaPlayerProperties, &org::freedesktop::DBus::Properties::PropertiesChanged,
                      this, &MediaPlayerProxy::propertyChanged);
 
-    /*
-    MediaPlayer->connect("org.bluez", "/org/bluez/hci0/dev_AC_6C_90_04_7C_62/player0",
-                         org::freedesktop::DBus::Properties,
-                         QStringLiteral("PropertiesChanged"),
-                         this,
-                         SLOT(onPropertiesChanged(QString, QVariantMap, QStringList)));
+    QObject::connect(MediaTransportProperties, &org::freedesktop::DBus::Properties::PropertiesChanged,
+                     this, &MediaPlayerProxy::propertyTransportChanged);
 
-    DBusConnection::orgBluez().connect(Strings::orgBluez(),
-                                       path,
-                                       Strings::orgFreedesktopDBusProperties(),
-                                       QStringLiteral("PropertiesChanged"),
-                                       this,
-                                       SLOT(onPropertiesChanged(QString, QVariantMap, QStringList)));
-    */
-
-    /*
-    QDBusInterface iface("org.bluez.MediaPlayer1", "/usr/bin/bluetooth-player", "/MediaPlayer1",
-                         QDBusConnection::sessionBus(), this);
-    */
-    /************************************************
-     * TEST Session bus
-    /// [1] Get a connection to the session bus.*/
-    QDBusConnection             bus = QDBusConnection::sessionBus();
-
-    /// [2] Create an interface to it
-    QDBusConnectionInterface    *busIF = bus.interface();
-
-    /// [3] Register as a service with the interface name
-  /*      QString ifName = "org.bluez.MediaPlayer1";
-        busIF->registerService(ifName,
-                               QDBusConnectionInterface::ReplaceExistingService,
-                               QDBusConnectionInterface::AllowReplacement);
-  */
-        /// [4] See who is on the bus
-        QDBusReply<QStringList> serviceNames = busIF->registeredServiceNames();
-        qDebug() << bus.name() << "knows the following Services:" << serviceNames.value();
-
-/*
-        /// [5] Register to receive a "ping" request. Note similar to QObject::connect(..)
-        QString service = "";
-        QString path = "";
-        QString name = "ping";
-        bus.connect(service, path, ifName, name, this, SLOT(showHelp(QString)));
-
-        /// [6] Send a Ping Message
-        QDBusMessage    msg = QDBusMessage::createSignal("/", ifName, name);
-        msg << "Hello World!";
-        bus.send(msg);
-*/
-
+    QObject::connect(DeviceProperties, &org::freedesktop::DBus::Properties::PropertiesChanged,
+                     this, &MediaPlayerProxy::propertyDeviceChanged);
 
     startTimer(1000);
 }
@@ -82,21 +52,6 @@ MediaPlayerProxy::MediaPlayerProxy(QObject *parent):
 MediaPlayerProxy::~MediaPlayerProxy()
 {
 }
-
-/*bool MediaPlayerProxy::event(QEvent *event)
-{
-    Q_UNUSED(event);
-    /*if(MediaPlayer->isValid())
-        qDebug() << "MediaPlayer connected";
-    else
-        qDebug() << "MediaPlayer disconnected";
-}
-
-bool MediaPlayerProxy::eventFilter(QObject *watched, QEvent *event)
-{
-    Q_UNUSED(watched);
-    Q_UNUSED(event);
-}*/
 
 void MediaPlayerProxy::play()
 {
@@ -118,6 +73,40 @@ void MediaPlayerProxy::stop()
     MediaPlayer->Stop();
 }
 
+void MediaPlayerProxy::volume()
+{
+    m_volume = MediaTransport->volume();
+    //qDebug() << MediaTransport->state();
+    //qDebug() << m_volume;
+    emit MediaTrackVolumeSignal(m_volume);
+}
+
+void MediaPlayerProxy::volumeUp()
+{
+    if((m_volume + VOLSTP) <= VOLMAX)
+    {
+        m_volume += VOLSTP;
+        MediaTransportProperties->setProperty("Volume",QVariant(m_volume));
+    }
+}
+
+void MediaPlayerProxy::volumeDown()
+{
+    if((m_volume - VOLSTP) >= VOLMIN)
+    {
+        m_volume -= VOLSTP;
+        MediaTransportProperties->setProperty("Volume",QVariant(m_volume));
+    }
+}
+
+void MediaPlayerProxy::device()
+{
+    QVariant device = DeviceProperties->property("Name");
+    qDebug() << "device: " << device.toString();
+    //emit MediaDeviceNameSignal(d_name);
+
+}
+
 
 
 void MediaPlayerProxy::propertyChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated)
@@ -128,6 +117,9 @@ void MediaPlayerProxy::propertyChanged(const QString &interface, const QVariantM
         qDebug() << interface;
         return;
     }
+
+    if (d_name.length() == 0)
+        device();
 
     QVariantMap::const_iterator i;
     for (i = changed.constBegin(); i != changed.constEnd(); ++i) {
@@ -174,6 +166,12 @@ void MediaPlayerProxy::propertyChanged(const QString &interface, const QVariantM
             //m_track = variantToTrack(value);
             //Q_EMIT q.lock()->trackChanged(m_track);
         }
+        else if (property == QLatin1String("Position")) {
+            m_position = value.toUInt();
+            emit MediaTrackPositionSignal(m_position);
+
+                    //PROPERTY_CHANGED(m_position, toUInt, positionChanged);
+        }
     }
 
     for (const QString &property : invalidated) {
@@ -200,33 +198,41 @@ void MediaPlayerProxy::propertyChanged(const QString &interface, const QVariantM
 
 }
 
-
-void MediaPlayerProxy::setmpSongName(QString) {}
-void MediaPlayerProxy::setmpArtistName(QString) {}
-void MediaPlayerProxy::setmpAlbumName(QString) {}
-void MediaPlayerProxy::setmpDuration(float) {}
-QString MediaPlayerProxy::getmpSongName()
+void MediaPlayerProxy::propertyTransportChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated)
 {
-    return "";
+    qDebug() << __func__;
+    /*if (interface != "org.bluez.MediaTransport1") {
+
+        return;
+    }*/
+
+    qDebug() << interface;
+    QVariantMap::const_iterator i;
+    for (i = changed.constBegin(); i != changed.constEnd(); ++i) {
+        const QVariant &value = i.value();
+        const QString &property = i.key();
+
+        if (property == QLatin1String("Volume")) {
+            qDebug() << property << "," << value.toString();
+            m_volume = value.toUInt();
+            emit MediaTrackVolumeSignal(m_volume);
+        } else if (property == QLatin1String("State")) {
+            qDebug() << property << "," << value.toString();
+        }
+    }
+
 }
 
-QString MediaPlayerProxy::getmpArtistName()
+void MediaPlayerProxy::propertyDeviceChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated)
 {
-    return "";
-}
+    QVariantMap::const_iterator i;
+    for (i = changed.constBegin(); i != changed.constEnd(); ++i) {
+        const QVariant &value = i.value();
+        const QString &property = i.key();
 
-QString MediaPlayerProxy::getmpAlbumName()
-{
-    return "";
-}
+        if (property == QLatin1String("Name")) {
+            qDebug() << property << "," << value.toString();
+        }
+    }
 
-float MediaPlayerProxy::getmpDuration()
-{
-    return 0.0;
-}
-
-void MediaPlayerProxy::showHelp(QString msg)
-{
-    /// [8] Show the received ping message
-    qDebug() << __FUNCTION__ << "Ping:" << msg;
 }

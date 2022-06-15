@@ -79,9 +79,9 @@ Item {
                 checked: true
                 onClicked:
                 {
-                   if (btOn.checked)
-                       return MediaPlayerWrapper.onBluetoothEnabled()
-                   return MediaPlayerWrapper.onBluetoothDisabled()
+                    if (btOn.checked)
+                        return MediaPlayerWrapper.onBluetoothEnabled()
+                    return MediaPlayerWrapper.onBluetoothDisabled()
                 }
             }
             Label {

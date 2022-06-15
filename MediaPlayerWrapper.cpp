@@ -36,6 +36,10 @@ MediaPlayerWrapper::MediaPlayerWrapper(QObject *parent) : QObject(parent)
 
     QObject::connect(BtPlayer, &MediaPlayerProxy::MediaTrackInfoSignal,
             this, &MediaPlayerWrapper::setMediaTrack);
+    QObject::connect(BtPlayer, &MediaPlayerProxy::MediaTrackVolumeSignal,
+            this, &MediaPlayerWrapper::setVolume);
+    QObject::connect(BtPlayer, &MediaPlayerProxy::MediaDeviceNameSignal,
+            this, &MediaPlayerWrapper::setDevice);
 }
 
 MediaPlayerWrapper::~MediaPlayerWrapper()
@@ -70,6 +74,8 @@ void MediaPlayerWrapper::onPlay()
     {
         qDebug() << "onPlay";
         BtPlayer->play();
+        BtPlayer->volume();
+
     }
 }
 
@@ -98,6 +104,20 @@ void MediaPlayerWrapper::onNext()
         qDebug() << "onNext";
         BtPlayer->next();
     }
+}
+
+void MediaPlayerWrapper::volumeUp()
+{
+        qDebug() << __func__;
+        BtPlayer->volumeUp();
+
+}
+
+void MediaPlayerWrapper::volumeDown()
+{
+        qDebug() << __func__;
+        BtPlayer->volumeDown();
+
 }
 
 void MediaPlayerWrapper::onBluetoothEnabled()
@@ -173,6 +193,12 @@ void MediaPlayerWrapper::setMediaTrack(const MediaTrackInfo &media)
     //MediaIndex = MediaList.lenght();
 }
 
+void MediaPlayerWrapper::setMediaTrackPosition(const quint32 position)
+{
+    mPosition = position;
+    emit positionChanged();
+}
+
 void MediaPlayerWrapper::populateMediaListData()
 {
    // MediaList.append(new Media("SongSample", "ArtistSample", "AlbumSample", "ArtSample", 4.00));
@@ -193,9 +219,24 @@ QString MediaPlayerWrapper::album() const
     return mAlbum;
 }
 
+QString MediaPlayerWrapper::device() const
+{
+    return mDevice;
+}
+
 float MediaPlayerWrapper::duration() const
 {
     return mDuration;
+}
+
+int MediaPlayerWrapper::position() const
+{
+    return mPosition;
+}
+
+int MediaPlayerWrapper::volume() const
+{
+    return mVolume;
 }
 
 void MediaPlayerWrapper::setTitle(QString song)
@@ -220,6 +261,26 @@ void MediaPlayerWrapper::setDuration(float duration)
 {
     mDuration = duration;
     emit durationChanged();
+}
+
+void MediaPlayerWrapper::setPosition(int position)
+{
+    mPosition = position;
+    emit positionChanged();
+}
+
+void MediaPlayerWrapper::setVolume(int volume)
+{
+    qDebug() << volume;
+    mVolume = volume;
+    emit volumeChanged();
+}
+
+void MediaPlayerWrapper::setDevice(QString device)
+{
+    mDevice = device;
+    emit deviceChanged();
+
 }
 // TODO: this approach is constly because model is reloaded on any change, must be called
 // once a new MediaList Data is set (new BT device is paired and Media is transferd)

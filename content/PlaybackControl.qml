@@ -107,14 +107,13 @@ Item {
                         onClicked: MediaPlayerWrapper.onStop()
                     }
 
-                    /* TODO: add Next functionality
+
                     RoundButton {
                         id: nextButton
-                        radius: 50.0
-                        text: "\u25A0";
-                        onClicked: MediaPlayerWrapper.onStop()
+                        radius: 60.0
+                        text: "\u23ED";
+                        onClicked: MediaPlayerWrapper.onNext()
                     }
-                    */
                 }
 
                 Item {
@@ -139,6 +138,7 @@ Item {
             PropertyChanges { target: pauseButton; visible: true}
             PropertyChanges { target: playButton; visible: false}
             PropertyChanges { target: stopButton; visible: true}
+            PropertyChanges { target: nextButton; visible: true}
         },
         State {
             name: "stopped"
@@ -146,6 +146,7 @@ Item {
             PropertyChanges { target: pauseButton; visible: false}
             PropertyChanges { target: playButton; visible: true}
             PropertyChanges { target: stopButton; visible: false}
+            PropertyChanges { target: nextButton; visible: true}
         },
         State {
             name: "paused"
@@ -153,6 +154,7 @@ Item {
             PropertyChanges { target: pauseButton; visible: false}
             PropertyChanges { target: playButton; visible: true}
             PropertyChanges { target: stopButton; visible: true}
+            PropertyChanges { target: nextButton; visible: true}
         }
     ]
 

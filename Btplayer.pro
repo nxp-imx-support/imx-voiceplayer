@@ -2,7 +2,10 @@ QT += quick core dbus
 
 CONFIG += c++11
 
-DBUS_INTERFACES += org.bluez.MediaPlayer1.xml org.freedesktop.DBus.Properties.xml
+DBUS_INTERFACES += org.bluez.Device1.xml \
+                   org.bluez.MediaPlayer1.xml \
+                   org.bluez.MediaTransport1.xml \
+                   org.freedesktop.DBus.Properties.xml
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings

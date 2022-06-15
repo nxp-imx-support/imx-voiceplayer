@@ -7,71 +7,51 @@
 
 #include <QList>
 #include <QObject>
-#include "MediaTrackInfo.h"
+#include "device1_interface.h"
 #include "mediaplayer1_interface.h"
+#include "MediaTrackInfo.h"
+#include "mediatransport1_interface.h"
 #include "properties_interface.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //!
 //! \class     Player
-//!     This class exposes the main functionality of Bluez Player, it's a
-//!     PlayerProxy to interact with bluetooth-player tool via dbus
+//!     This class exposes the main functionality of Bluez APIs, it's a
+//!     PlayerProxy to interact with bluez services via dbus
 //!
 ///////////////////////////////////////////////////////////////////////////////
 
 class MediaPlayerProxy : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString SongName READ getmpSongName WRITE setmpSongName NOTIFY mpsongNameChanged)
-    Q_PROPERTY(QString ArtistName READ getmpArtistName WRITE setmpArtistName NOTIFY mpartistNameChanged)
-    Q_PROPERTY(QString AlbumName READ getmpAlbumName WRITE setmpAlbumName NOTIFY mpalbumNameChanged)
-    Q_PROPERTY(float  DurationMsec READ getmpDuration WRITE setmpDuration NOTIFY mpdurationChanged)
 
 public:
     explicit MediaPlayerProxy(QObject *parent = nullptr);
     ~MediaPlayerProxy();
 
-    //bool event(QEvent *event);
-    //bool eventFilter(QObject *watched, QEvent *event);
-
 signals:
-    void mpsongNameChanged();
-    void mpartistNameChanged();
-    void mpalbumNameChanged();
-    void mpdurationChanged();
-
     void MediaTrackInfoSignal(const MediaTrackInfo &media);
+    void MediaTrackPositionSignal(const quint32 position);
+    void MediaTrackVolumeSignal(const quint32 volume);
+    void MediaDeviceNameSignal(const QString name);
+
 
 public slots:
-
     void play();
     void pause();
     void next();
     void stop();
-    void setmpSongName(QString);
-    void setmpArtistName(QString);
-    void setmpAlbumName(QString);
-    void setmpDuration(float);
-    QString getmpSongName();
-    QString getmpArtistName();
-    QString getmpAlbumName();
-    float getmpDuration();
-
-    void showHelp(QString msg);
-
-
+    void volume();
+    void volumeUp();
+    void volumeDown();
+    void device();
     void propertyChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated);
+    void propertyTransportChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated);
+    void propertyDeviceChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated);
+
 private:
-
-    QString m_path;
-    QString m_name;
-    /*MediaPlayer::Equalizer m_equalizer;
-    MediaPlayer::Repeat m_repeat;
-    MediaPlayer::Shuffle m_shuffle;
-    MediaPlayer::Status m_status;
-    quint32 m_position;*/
-
     // Track Information this shall be imported to a new TrackInfo class
+    QString d_name = "";
     QString m_title;
     QString m_artist;
     QString m_album;
@@ -79,10 +59,17 @@ private:
     quint32 m_numberOfTracks;
     quint32 m_trackNumber;
     quint32 m_duration;
+    quint32 m_position;
+    quint32 m_volume;
 
 
     org::bluez::MediaPlayer1 *MediaPlayer;
+    org::bluez::MediaTransport1 *MediaTransport;
+    org::bluez::Device1 *Device;
     org::freedesktop::DBus::Properties *MediaPlayerProperties;
+    org::freedesktop::DBus::Properties *MediaTransportProperties;
+    org::freedesktop::DBus::Properties *DeviceProperties;
     MediaTrackInfo CurrentMedia;
 
 };
+
