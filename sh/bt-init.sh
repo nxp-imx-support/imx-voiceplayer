@@ -50,7 +50,7 @@ Bluetooth () {
                 MAC=$(cat /opt/Btplayer/bin/mac_address.txt);
 
                 # Send the message notifying when a device has been connected
-                /opt/Btplayer/bin/MsgQ 1/org/bluez/hci0/dev_${MAC}/player0
+                /opt/Btplayer/bin/MsgQ 1${MAC}
 
                 # Wait for disconnection
                 output="";
@@ -66,7 +66,7 @@ Bluetooth () {
                 # In this point a device has been disconnected #
                 echo "Device has been disconnected";
                 # Send the message notifying when a device has been disconnected
-                /opt/Btplayer/bin/MsgQ 0/org/bluez/hci0/dev_${MAC}/player0
+                /opt/Btplayer/bin/MsgQ 0${MAC}
                 kill ${ID}
                 echo "Kill:$ID";
 
