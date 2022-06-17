@@ -102,13 +102,18 @@ echo -e "Evk:${evk}";
 pulseaudio --start --log-target=syslog
 echo "Pulseaudio server successfully started";
 
-        if  [[ $evk == "imx8mnevk" || $evk == "imx8mmevk" || $evk == "imx8mm-lpddr4-evk" || $evk == "imx8mm-ddr4-evk" || $evk == "imx8mn-lpddr4-evk" || $evk == "imx8mn-ddr4-evk" ]]
-        then
+                # Get card number
+                alsa_sink=$(aplay -l | grep -B1 "Loopback" | grep -B1 "1" | cut -c 6-6 | sed '1d');
+                echo -e "Loopback card:${alsa_sink}";
+
+                # Load the pulseaudio module
+                pacmd load-module module-alsa-sink device=hw:${alsa_sink},1
+
                 # Get sink pulse audio index
-                sink_index=$(pacmd list-sinks | grep -B1 "name: <alsa_output.platform-sound-wm8524*" | sed '$d' | cut -d " " -f 5);
+                sink_index=$(pacmd list-sinks | grep -B1 "name: <alsa_output.hw*" | sed '$d' | cut -d " " -f 5);
                 if  [[ $sink_index == "" || $sink_index == "index:" ]]
                 then
-                        sink_index=$(pacmd list-sinks | grep -B1 "name: <alsa_output.platform-sound-wm8524*" | sed '$d' | cut -d " " -f 6);
+                        sink_index=$(pacmd list-sinks | grep -B1 "name: <alsa_output.hw*" | sed '$d' | cut -d " " -f 6);
                 fi
                 echo -e "Sink index:${sink_index}";
 
@@ -126,65 +131,13 @@ echo "Pulseaudio server successfully started";
                 # Set default source
                 pacmd set-default-source ${source_index}
 
-		# Bluetooth function
-                Bluetooth mxc0
-
-        elif  [[ $evk == "imx8mpevk" || $evk == "imx8mp-ddr4-evk" || $evk == "imx8mp-lpddr4-evk" ]]
+        if  [[ $evk == "imx8ulp-lpddr4-evk" || $evk == "imx8ulpevk" ]]
         then
-                # Get sink pulse audio index
-                sink_index=$(pacmd list-sinks | grep -B1 "name: <alsa_output.platform-sound-wm8960*" | sed '$d' | cut -d " " -f 5);
-                if  [[ $sink_index == "" || $sink_index == "index:" ]]
-                then
-                        sink_index=$(pacmd list-sinks | grep -B1 "name: <alsa_output.platform-sound-wm8960*" | sed '$d' | cut -d " " -f 6);
-                fi
-                echo -e "Sink index:${sink_index}";
-
-                # Set default sink
-                pacmd set-default-sink ${sink_index}
-
-                # Get source pulse audio index
-                source_index=$(pacmd list-sources | grep -B1 "name: <alsa_input.platform-sound-bt*" | sed '$d' | cut -d " " -f 5);
-                if  [[ $source_index == "" || $source_index == "index:" ]]
-                then
-                        source_index=$(pacmd list-sources | grep -B1 "name: <alsa_input.platform-sound-bt*" | sed '$d' | cut -d " " -f 6);
-                fi
-                echo -e "Source index:${source_index}";
-
-                # Set default source
-                pacmd set-default-source ${source_index}
-
-		# Bluetooth function
-		Bluetooth mxc0
-
-        elif  [[ $evk == "imx8ulp-lpddr4-evk" || $evk == "imx8ulpevk" ]]
-        then
-                # Get sink pulse audio index
-                sink_index=$(pacmd list-sinks | grep -B1 "name: <alsa_output.platform-imx-audio-rpmsg*" | sed '$d' | cut -d " " -f 5);
-                if  [[ $sink_index == "" || $sink_index == "index:" ]]
-                then
-                        sink_index=$(pacmd list-sinks | grep -B1 "name: <alsa_output.platform-imx-audio-rpmsg*" | sed '$d' | cut -d " " -f 6);
-                fi
-                echo -e "Sink index:${sink_index}";
-
-                # Set default sink
-                pacmd set-default-sink ${sink_index}
-
-                # Get source pulse audio index
-                source_index=$(pacmd list-sources | grep -B1 "name: <alsa_input.platform-sound-bt*" | sed '$d' | cut -d " " -f 5);
-                if  [[ $source_index == "" || $source_index == "index:" ]]
-                then
-                        source_index=$(pacmd list-sources | grep -B1 "name: <alsa_input.platform-sound-bt*" | sed '$d' | cut -d " " -f 6);
-                fi
-                echo -e "Source index:${source_index}";
-
-                # Set default source
-                pacmd set-default-source ${source_index}
-
 		# Bluetooth function
 		Bluetooth LP2
 
 	else
-        echo "Unsupported EVK";
-
+                # Bluetooth function
+                Bluetooth mxc0
         fi
 fi
