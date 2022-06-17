@@ -12,8 +12,8 @@ import "content"
 
 Window {
     id: root
-    width: 640
-    height: 480
+    width: 1280
+    height: 720
     visible: true
     title: qsTr("NXP Multimedia Player")
 
@@ -97,7 +97,7 @@ Window {
             y: 17
             width: 98
             height: 77
-            source: "qrc:/rsc/Bt_Icon.png"
+            source: "qrc:/rsc/Bthanset_Icon.png"
             fillMode: Image.PreserveAspectFit
         }
 

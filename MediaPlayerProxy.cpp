@@ -81,12 +81,19 @@ void MediaPlayerProxy::volume()
     emit MediaTrackVolumeSignal(m_volume);
 }
 
+void MediaPlayerProxy::setVolume(const int volume)
+{
+    qDebug() << __func__ << ": " << volume;
+    MediaTransportProperties->setProperty("Volume",QVariant(m_volume));
+}
+
 void MediaPlayerProxy::volumeUp()
 {
     if((m_volume + VOLSTP) <= VOLMAX)
     {
         m_volume += VOLSTP;
         MediaTransportProperties->setProperty("Volume",QVariant(m_volume));
+        emit MediaTrackVolumeSignal(m_volume);
     }
 }
 
@@ -96,6 +103,7 @@ void MediaPlayerProxy::volumeDown()
     {
         m_volume -= VOLSTP;
         MediaTransportProperties->setProperty("Volume",QVariant(m_volume));
+        emit MediaTrackVolumeSignal(m_volume);
     }
 }
 
@@ -168,6 +176,7 @@ void MediaPlayerProxy::propertyChanged(const QString &interface, const QVariantM
         }
         else if (property == QLatin1String("Position")) {
             m_position = value.toUInt();
+            qDebug() << "position: " << value.toUInt();
             emit MediaTrackPositionSignal(m_position);
 
                     //PROPERTY_CHANGED(m_position, toUInt, positionChanged);

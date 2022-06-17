@@ -38,15 +38,15 @@ MediaPlayerWrapper::MediaPlayerWrapper(QObject *parent) : QObject(parent)
             this, &MediaPlayerWrapper::setMediaTrack);
     QObject::connect(BtPlayer, &MediaPlayerProxy::MediaTrackVolumeSignal,
             this, &MediaPlayerWrapper::setVolume);
-    QObject::connect(BtPlayer, &MediaPlayerProxy::MediaDeviceNameSignal,
-            this, &MediaPlayerWrapper::setDevice);
+    QObject::connect(BtPlayer, &MediaPlayerProxy::MediaTrackPositionSignal,
+            this, &MediaPlayerWrapper::setPosition);
 }
 
 MediaPlayerWrapper::~MediaPlayerWrapper()
 {
-    system("bluetoothctl disconnect");
     BtProcess->write("quit");
     BtProcess->waitForFinished();
+    system("bluetoothctl disconnect");
     delete BtProcess;
     delete BtPlayer;
     delete ConsoleProcess;
@@ -199,6 +199,12 @@ void MediaPlayerWrapper::setMediaTrackPosition(const quint32 position)
     emit positionChanged();
 }
 
+void MediaPlayerWrapper::setMacAdrees(QString mac)
+{
+    mMac = mac;
+    qDebug() << "MD MAC: " << mMac;
+}
+
 void MediaPlayerWrapper::populateMediaListData()
 {
    // MediaList.append(new Media("SongSample", "ArtistSample", "AlbumSample", "ArtSample", 4.00));
@@ -271,9 +277,10 @@ void MediaPlayerWrapper::setPosition(int position)
 
 void MediaPlayerWrapper::setVolume(int volume)
 {
-    qDebug() << volume;
-    mVolume = volume;
-    emit volumeChanged();
+    qDebug() << __func__;
+    //mVolume = volume;
+    BtPlayer->setVolume(volume);
+    //emit volumeChanged();
 }
 
 void MediaPlayerWrapper::setDevice(QString device)

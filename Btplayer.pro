@@ -19,6 +19,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        MQueueThread.cpp \
         MediaPlayerProxy.cpp \
         MediaPlayerWrapper.cpp \
         MediaTrackInfo.cpp \
@@ -44,6 +45,7 @@ scripts.path = /opt/$${TARGET}/bin
 !isEmpty(scripts.path): INSTALLS += scripts
 
 HEADERS += \
+    MQueueThread.h \
     MediaPlayerProxy.h \
     MediaPlayerWrapper.h \
     MediaTrackInfo.h

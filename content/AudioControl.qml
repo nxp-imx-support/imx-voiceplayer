@@ -36,11 +36,14 @@ Item {
             enabled: true
             to: 100.0
             value: MediaPlayerWrapper.volume
-            onMoved:{
-                if(MediaPlayerWrapper.volume < value)
+            onMoved: MediaPlayerWrapper.setVolume(value)
+                /*{if( value > MediaPlayerWrapper.volume)
+                {
+                    console.log("value: ", value, "Wrapper.volume: ", MediaPlayerWrapper.volume);
                     return MediaPlayerWrapper.volumeUp()
+                }
                 return MediaPlayerWrapper.volumeDown()
-            }
+            }*/
 
         }
     }

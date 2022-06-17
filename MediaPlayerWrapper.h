@@ -79,7 +79,9 @@ public slots:
     void setMediaTrack(const MediaTrackInfo &media);
     void setMediaTrackPosition(const quint32 position);
 
+    // MAC Adress
     // Metadata update
+    void setMacAdrees(QString mac);
     void setTitle(QString title);
     void setArtist(QString artist);
     void setAlbum(QString album);
@@ -128,7 +130,7 @@ private:
     bool BtEnabled;
 
 
-
+    QString mMac="";
     QString mSong="";
     QString mArtist="";
     QString mAlbum="";

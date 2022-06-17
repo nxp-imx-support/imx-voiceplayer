@@ -42,6 +42,7 @@ public slots:
     void next();
     void stop();
     void volume();
+    void setVolume(const int volume);
     void volumeUp();
     void volumeDown();
     void device();
