@@ -1,15 +1,12 @@
 [Unit]
-Description=Test
+Description=Btplayer.service
 After=systemd-update-utmp.service
 
 [Service]
 Type=simple
 WorkingDirectory=/opt/Btplayer/bin/
-ExecStart=/opt/Btplayer/bin/btp_vit -dhw:imxaudiomicfil,0 -l ENGLISH
+ExecStart=/opt/Btplayer/bin/init.sh
 StandardInput=tty
-Restart=always
-StartLimitIntervalSec=20
-StartLimitBurst=200
 TTYPath=/dev/ttymxc1
 TTYReset=yes
 TTYVHangup=yes
