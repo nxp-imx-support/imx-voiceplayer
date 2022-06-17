@@ -97,7 +97,7 @@ Window {
             y: 17
             width: 98
             height: 77
-            source: "qrc:/rsc/Bthanset_Icon.png"
+            source: "qrc:/rsc/Bt_Icon.png"
             fillMode: Image.PreserveAspectFit
         }
 
