@@ -14,18 +14,43 @@ const uint VOLMIN = 0;
 const uint VOLSTP = 10;
 const uint VOLMAX = 100;
 
+namespace
+{
+    const QString playerObjPath = "/org/bluez/hci0/dev_";
+    const QString player = "/player0";
+    const QString transport = "/fd0";
+}
 
-MediaPlayerProxy::MediaPlayerProxy(QObject *parent):
+MediaPlayerProxy::MediaPlayerProxy(QString macAddress, QObject *parent):
+    MDMacAddress(macAddress),
     QObject(parent),
     CurrentMedia()
 {
-    MediaPlayer = new org::bluez::MediaPlayer1("org.bluez", "/org/bluez/hci0/dev_AC_6C_90_04_7C_62/player0",
+
+    if(not MDMacAddress.isEmpty())
+    {
+        initMediaPlayer();
+    }
+}
+
+void MediaPlayerProxy::initMediaPlayer()
+{
+    QString mediaPlayer = playerObjPath + MDMacAddress + player;
+    QString mediaTransport = playerObjPath + MDMacAddress + transport;
+    QString mediaDevice = playerObjPath + MDMacAddress;
+
+    qDebug() << __func__ << "\n"
+             << " " << mediaPlayer << "\n"
+             << " " << mediaTransport << "\n"
+             << " " << mediaDevice << "\n";
+
+    MediaPlayer = new org::bluez::MediaPlayer1("org.bluez", mediaPlayer,
                            QDBusConnection::systemBus(), this);
 
-    MediaTransport = new org::bluez::MediaTransport1("org.bluez", "/org/bluez/hci0/dev_AC_6C_90_04_7C_62/fd0",
+    MediaTransport = new org::bluez::MediaTransport1("org.bluez", mediaTransport,
                            QDBusConnection::systemBus(), this);
 
-    Device = new org::bluez::Device1("org.bluez", "/org/bluez/hci0/dev_AC_6C_90_04_7C_62",
+    Device = new org::bluez::Device1("org.bluez", mediaDevice,
                            QDBusConnection::systemBus(), this);
 
     MediaPlayerProperties = new org::freedesktop::DBus::Properties("org.bluez", MediaPlayer->path(),
@@ -45,7 +70,6 @@ MediaPlayerProxy::MediaPlayerProxy(QObject *parent):
 
     QObject::connect(DeviceProperties, &org::freedesktop::DBus::Properties::PropertiesChanged,
                      this, &MediaPlayerProxy::propertyDeviceChanged);
-
     startTimer(1000);
 }
 
@@ -143,11 +167,21 @@ void MediaPlayerProxy::propertyChanged(const QString &interface, const QVariantM
             PROPERTY_CHANGED2(m_repeat, stringToRepeat(value.toString()), repeatChanged);
         } else if (property == QLatin1String("Shuffle")) {
             PROPERTY_CHANGED2(m_shuffle, stringToShuffle(value.toString()), shuffleChanged);
-        } else if (property == QLatin1String("Status")) {
-            PROPERTY_CHANGED2(m_status, stringToStatus(value.toString()), statusChanged);
-        } else if (property == QLatin1String("Position")) {
+        } else */
+        if (property == QLatin1String("Status")) {
+            if(value.toString() == "paying")
+                initMediaPlayerProperties();
+        }
+        /*else if (property == QLatin1String("Position")) {
             PROPERTY_CHANGED(m_position, toUInt, positionChanged);
         } else*/
+        if (property == QLatin1String("Position")) {
+            m_position = value.toUInt();
+            qDebug() << "position: " << value.toUInt();
+            emit MediaTrackPositionSignal(m_position);
+
+                    //PROPERTY_CHANGED(m_position, toUInt, positionChanged);
+        }
         if (property == QLatin1String("Track")) {
 
             //m_valid = !property.isEmpty();
@@ -174,17 +208,10 @@ void MediaPlayerProxy::propertyChanged(const QString &interface, const QVariantM
             //m_track = variantToTrack(value);
             //Q_EMIT q.lock()->trackChanged(m_track);
         }
-        else if (property == QLatin1String("Position")) {
-            m_position = value.toUInt();
-            qDebug() << "position: " << value.toUInt();
-            emit MediaTrackPositionSignal(m_position);
-
-                    //PROPERTY_CHANGED(m_position, toUInt, positionChanged);
-        }
     }
 
     for (const QString &property : invalidated) {
-        qDebug() << property;
+        qDebug() << __func__ << ": " << property;
         /*
         if (property == QLatin1String("Name")) {
             PROPERTY_INVALIDATED(m_name, QString(), nameChanged);
@@ -243,5 +270,26 @@ void MediaPlayerProxy::propertyDeviceChanged(const QString &interface, const QVa
             qDebug() << property << "," << value.toString();
         }
     }
+
+}
+
+
+void MediaPlayerProxy::initMediaPlayerProperties()
+{
+    m_title = MediaPlayer->property("Title").toString();
+    m_artist = MediaPlayer->property("Artist").toString();
+    m_album = MediaPlayer->property("Album").toString();
+    m_duration = MediaPlayer->property("Duration").toUInt();
+
+    qDebug() << "TrackInfo: "<< m_title << " " << m_artist << " " << m_album << " "
+             << " " << m_duration;
+
+
+    CurrentMedia.setSong(m_title);
+    CurrentMedia.setAlbum(m_album);
+    CurrentMedia.setArtist(m_artist);
+    CurrentMedia.setDuration(m_duration);
+
+    emit MediaTrackInfoSignal(CurrentMedia);
 
 }

@@ -27,7 +27,10 @@ Item {
             Layout.fillWidth: true
             enabled: MediaPlayerWrapper.seekable
             to: 1.0
-            value: MediaPlayerWrapper.position / MediaPlayerWrapper.duration
+            value:
+            {
+                MediaPlayerWrapper.position / MediaPlayerWrapper.duration
+            }
 
             onMoved: MediaPlayerWrapper.setPosition(value * MediaPlayerWrapper.duration)
         }

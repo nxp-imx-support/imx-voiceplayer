@@ -27,19 +27,16 @@ MediaPlayerWrapper::MediaPlayerWrapper(QObject *parent) : QObject(parent)
     //ConsoleProcess->startDetached("/bin/sh", QStringList()<< "/opt/Btplayer/bin/bt-usb.sh" << source);
     //ConsoleProcess->waitForFinished();
 
+    MQThread = new MQueueThread();
+    MQThread->start(QThread::HighPriority);
 
     BtProcess = new QProcess();
     BtProcess->start("/usr/bin/bluetooth-player");
 
-    qDebug() << "trying to connected media player";
-    BtPlayer = new MediaPlayerProxy();
 
-    QObject::connect(BtPlayer, &MediaPlayerProxy::MediaTrackInfoSignal,
-            this, &MediaPlayerWrapper::setMediaTrack);
-    QObject::connect(BtPlayer, &MediaPlayerProxy::MediaTrackVolumeSignal,
-            this, &MediaPlayerWrapper::setVolume);
-    QObject::connect(BtPlayer, &MediaPlayerProxy::MediaTrackPositionSignal,
-            this, &MediaPlayerWrapper::setPosition);
+    QObject::connect(MQThread,&MQueueThread::emitMacAddress,
+            this, &MediaPlayerWrapper::setMacAdrees);
+    //connect(workerThread, &WorkerThread::finished, workerThread, &QObject::deleteLater);
 }
 
 MediaPlayerWrapper::~MediaPlayerWrapper()
@@ -75,7 +72,6 @@ void MediaPlayerWrapper::onPlay()
         qDebug() << "onPlay";
         BtPlayer->play();
         BtPlayer->volume();
-
     }
 }
 
@@ -203,6 +199,17 @@ void MediaPlayerWrapper::setMacAdrees(QString mac)
 {
     mMac = mac;
     qDebug() << "MD MAC: " << mMac;
+
+
+    qDebug() << "trying to connected media player";
+    BtPlayer = new MediaPlayerProxy(mMac);
+
+    QObject::connect(BtPlayer, &MediaPlayerProxy::MediaTrackInfoSignal,
+            this, &MediaPlayerWrapper::setMediaTrack);
+    QObject::connect(BtPlayer, &MediaPlayerProxy::MediaTrackVolumeSignal,
+            this, &MediaPlayerWrapper::setVolume);
+    QObject::connect(BtPlayer, &MediaPlayerProxy::MediaTrackPositionSignal,
+            this, &MediaPlayerWrapper::setPosition);
 }
 
 void MediaPlayerWrapper::populateMediaListData()
@@ -277,10 +284,12 @@ void MediaPlayerWrapper::setPosition(int position)
 
 void MediaPlayerWrapper::setVolume(int volume)
 {
-    qDebug() << __func__;
-    //mVolume = volume;
-    BtPlayer->setVolume(volume);
-    //emit volumeChanged();
+    qDebug() << __func__ << mVolume << " to " << volume ;
+    if(volume != mVolume)
+    {
+        mVolume = volume;
+        emit volumeChanged();
+    }
 }
 
 void MediaPlayerWrapper::setDevice(QString device)

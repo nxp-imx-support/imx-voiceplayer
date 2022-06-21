@@ -34,7 +34,7 @@ Item {
             Layout.alignment: Qt.AlignVCenter
 
             enabled: true
-            to: 100.0
+            to: 127.0
             value: MediaPlayerWrapper.volume
             onMoved: MediaPlayerWrapper.setVolume(value)
                 /*{if( value > MediaPlayerWrapper.volume)

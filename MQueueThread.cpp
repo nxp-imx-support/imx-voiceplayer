@@ -43,7 +43,7 @@ void MQueueThread::run()
     // byPass connectivity check
     //iConnectionToBT=true;
 
-    while (1)
+    while (not iConnectionToBT)
     {
         bytes_read=mq_receive(mq, buffer, MAX_SIZE, NULL);
 
@@ -73,10 +73,10 @@ void MQueueThread::run()
                 //connectDBus();
                 iConnectionToBT=true;
                 //pthread_mutex_unlock(&mutex_);
+                emit emitMacAddress(QString(sMAC_Bt));
             }
         }
     }
     qDebug() << ("VIT_run_thread_routine_mqueue_conection...exiting\n");
-    emitMacAddress(QString(sMAC_Bt));
 }
 

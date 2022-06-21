@@ -10,6 +10,7 @@
 #include <QQmlApplicationEngine>
 #include "MediaTrackInfo.h"
 #include "MediaPlayerProxy.h"
+#include "MQueueThread.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -127,6 +128,7 @@ private:
     QProcess* BtProcess;
     QProcess* ConsoleProcess;
     MediaPlayerProxy* BtPlayer;
+    MQueueThread* MQThread;
     bool BtEnabled;
 
 

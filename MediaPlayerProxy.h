@@ -26,7 +26,7 @@ class MediaPlayerProxy : public QObject
     Q_OBJECT
 
 public:
-    explicit MediaPlayerProxy(QObject *parent = nullptr);
+    explicit MediaPlayerProxy(QString macAddress, QObject *parent = nullptr);
     ~MediaPlayerProxy();
 
 signals:
@@ -51,6 +51,11 @@ public slots:
     void propertyDeviceChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated);
 
 private:
+
+    void initMediaPlayer();
+    void initMediaPlayerProperties();
+
+
     // Track Information this shall be imported to a new TrackInfo class
     QString d_name = "";
     QString m_title;
@@ -63,6 +68,7 @@ private:
     quint32 m_position;
     quint32 m_volume;
 
+    QString MDMacAddress;
 
     org::bluez::MediaPlayer1 *MediaPlayer;
     org::bluez::MediaTransport1 *MediaTransport;
