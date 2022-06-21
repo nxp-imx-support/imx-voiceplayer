@@ -81,6 +81,9 @@ echo -e "Bluetooth was previously configured";
                 # Automatic connection
                 output="";
                 coproc bluetoothctl
+                # pid of the command launched
+                ID=$!
+                echo "pid of the command launched:$ID";
                 for (( a=1; a<4; a++ ))
                 do
                 read output <&${COPROC[0]}
@@ -92,6 +95,19 @@ echo -e "Bluetooth was previously configured";
                 echo -e 'yes\n' >&${COPROC[1]}
                 sleep .5
                 done
+                kill ${ID}
+                echo "Kill:$ID";
+
+                # Get MAC address
+                MAC=$(bluetoothctl devices | cut -c 8-24);
+                echo "${MAC}" > /opt/Btplayer/bin/mac_address.txt
+                sed -i 's/:/_/g' /opt/Btplayer/bin/mac_address.txt
+                echo -e "MAC address:";
+                cat /opt/Btplayer/bin/mac_address.txt
+                MAC=$(cat /opt/Btplayer/bin/mac_address.txt);
+
+                # Send the message notifying when a device has been connected
+                /opt/Btplayer/bin/MsgQ 1${MAC}
 
 else
 # Get EVK name
