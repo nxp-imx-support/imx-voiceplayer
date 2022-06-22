@@ -28,8 +28,6 @@ public:
     MediaTrackInfo(const QString &song, const QString &artist, const QString &album, const QString &art, const float &duration, QObject * parent = nullptr);
     ~MediaTrackInfo();
 
-    bool event(QEvent *event);
-    bool eventFilter(QObject *watched, QEvent *event);
 
     QString song() const;
     QString artist() const;

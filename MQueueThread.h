@@ -21,10 +21,8 @@ class MQueueThread : public QThread
 public:
 
     MQueueThread();
+
     void initMqueue(void);
-
-
-    //static void* VIT_run_thread_routine_mqueue_conection(void *args);
     void run() override;
 
 signals:

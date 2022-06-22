@@ -32,7 +32,7 @@ class MediaPlayerWrapper : public QObject
     Q_PROPERTY(QString device READ device WRITE setDevice NOTIFY deviceChanged)
 
 
-    Q_PROPERTY(int mediaPlayerState READ PlayingState WRITE SetPlayingState CONSTANT)//NOTIFY playingStateChanged)
+    Q_PROPERTY(int mediaPlayerState READ PlayingState WRITE SetPlayingState NOTIFY playingStateChanged)
     Q_PROPERTY(double position READ position WRITE setPosition NOTIFY positionChanged)
     Q_PROPERTY(bool seekable READ PlayerSeekable WRITE SetPlayerSeekable NOTIFY PlayerSeekChanged)
 public:
@@ -61,7 +61,7 @@ public slots:
     // Player State
     Q_INVOKABLE int PlayingState();
     Q_INVOKABLE void SetPlayingState(const int value);
-    Q_INVOKABLE void playingStateChanged();
+    //Q_INVOKABLE void playingStateChanged();
 
     // Player Media Time
     Q_INVOKABLE double PlayerMediaTime();
@@ -110,6 +110,8 @@ signals:
     void durationChanged();
     void positionChanged();
     void volumeChanged();
+
+    void playingStateChanged();
 
 private:
 

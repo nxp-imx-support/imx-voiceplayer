@@ -142,9 +142,6 @@ void MediaPlayerWrapper::SetPlayingState(const int value)
     m_PlayingState = value;
 }
 
-void MediaPlayerWrapper::playingStateChanged()
-{
-}
 
 double MediaPlayerWrapper::PlayerMediaTime()
 {

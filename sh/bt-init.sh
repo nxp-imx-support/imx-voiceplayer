@@ -145,6 +145,17 @@ then
                 echo "Kill:$ID";
                 done
 
+                # Get MAC address
+                MAC=$(bluetoothctl devices | cut -c 8-24);
+                echo "${MAC}" > /opt/Btplayer/bin/mac_address.txt
+                sed -i 's/:/_/g' /opt/Btplayer/bin/mac_address.txt
+                echo -e "MAC address:";
+                cat /opt/Btplayer/bin/mac_address.txt
+                MAC=$(cat /opt/Btplayer/bin/mac_address.txt);
+
+                # Send the message notifying when a device has been connected
+                /opt/Btplayer/bin/MsgQ 1${MAC}
+
 else
 # Get EVK name
 evk=$(uname -n);

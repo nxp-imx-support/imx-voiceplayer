@@ -39,17 +39,6 @@ MediaTrackInfo::~MediaTrackInfo()
 
 }
 
-bool MediaTrackInfo::event(QEvent *event)
-{
-    Q_UNUSED(event);
-}
-
-bool MediaTrackInfo::eventFilter(QObject *watched, QEvent *event)
-{
-    Q_UNUSED(watched);
-    Q_UNUSED(event);
-}
-
 QString MediaTrackInfo::song() const
 {
     return mSong;

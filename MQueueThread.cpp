@@ -22,26 +22,22 @@ void MQueueThread::initMqueue()
     //Create the message queue
     if((mq = mq_open (QUEUE_NAME_APP, O_RDONLY | O_CREAT, QUEUE_PERMISIIONS, &attr)) == -1)
     {
-        qDebug() << "ERROR Server: mq_open (%s)\n", QUEUE_NAME_APP;
+        qDebug() << "ERROR Server: mq_open " << QUEUE_NAME_APP;
     }
 }
 
-//void *MQueue::VIT_run_thread_routine_mqueue_conection(void *args)
 // Blocking operation
 void MQueueThread::run()
 {
-    char sPath[MAX_SIZE] = {"/org/bluez/hci0/dev_"};
     char buffer[MAX_SIZE];
     char sMAC_Bt[50];
     int bytes_read=0;
     int iConnectionToBT = 0;
     int i;
 
-   qDebug() << ("VIT_run_thread_routine_mqueue_conection\n");
+   qDebug() << "run thread routine mqueue conection\n";
    qDebug() << "Waiting conection...\n";
 
-    // byPass connectivity check
-    //iConnectionToBT=true;
 
     while (not iConnectionToBT)
     {
@@ -49,8 +45,6 @@ void MQueueThread::run()
 
         if(bytes_read > 0)
         {
-            sPath[bytes_read]= '\0';
-
             if(buffer[0] == '0')//Disconnect
             {
                 iConnectionToBT=false;
@@ -58,25 +52,15 @@ void MQueueThread::run()
             }
             else //Connect
             {
-                //pthread_mutex_lock(&mutex_);
-                qDebug()<<("BTConnected\nBytesReaded: %d \n",bytes_read);
                 for(i=1;i<bytes_read;i++)
                 {
                     sMAC_Bt[i-1] = buffer[i];
                 }
-                qDebug()<<("sMAC_Bt: %s \n",sMAC_Bt);
-
-                // Cambiar esta seccion para que cree el path apartir de la MAC recivida
-                //getPath();
-                qDebug()<<("%s \n",sPath);
-
-                //connectDBus();
                 iConnectionToBT=true;
-                //pthread_mutex_unlock(&mutex_);
                 emit emitMacAddress(QString(sMAC_Bt));
             }
         }
     }
-    qDebug() << ("VIT_run_thread_routine_mqueue_conection...exiting\n");
+    qDebug() << __func__ <<"...exiting\n";
 }
 
