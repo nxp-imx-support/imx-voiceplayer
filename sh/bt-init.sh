@@ -42,7 +42,7 @@ Bluetooth () {
                 echo "Kill:$ID";
 
                 # Get MAC address
-                MAC=$(bluetoothctl devices | cut -c 8-24);
+                MAC=$(bluetoothctl info | grep Device | cut -c 8-24);
                 echo "${MAC}" > /opt/Btplayer/bin/mac_address.txt
                 sed -i 's/:/_/g' /opt/Btplayer/bin/mac_address.txt
                 echo -e "MAC address:";
@@ -99,7 +99,7 @@ echo -e "Bluetooth was previously configured";
                 echo "Kill:$ID";
 
                 # Get MAC address
-                MAC=$(bluetoothctl devices | cut -c 8-24);
+                MAC=$(bluetoothctl info | grep Device | cut -c 8-24);
                 echo "${MAC}" > /opt/Btplayer/bin/mac_address.txt
                 sed -i 's/:/_/g' /opt/Btplayer/bin/mac_address.txt
                 echo -e "MAC address:";
