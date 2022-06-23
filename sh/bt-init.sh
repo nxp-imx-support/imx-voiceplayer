@@ -21,6 +21,8 @@ Bluetooth () {
                 sdptool add SP
                 sleep 1
 
+                while [ "$(ps -a | grep Btplayer)" != "" ]
+                do
                 # Automatic connection
                 output="";
                 coproc bluetoothctl
@@ -69,6 +71,7 @@ Bluetooth () {
                 /opt/Btplayer/bin/MsgQ 0${MAC}
                 kill ${ID}
                 echo "Kill:$ID";
+		done
 
 }
 
@@ -77,7 +80,9 @@ bt_previous=$(hciconfig | grep hci0: | cut -c 1-5);
 
 if [[ $bt_previous == "hci0:" ]]
 then
-echo -e "Bluetooth was previously configured";
+
+                while [ "$(ps -a | grep Btplayer)" != "" ]
+                do
                 # Automatic connection
                 output="";
                 coproc bluetoothctl
@@ -90,10 +95,10 @@ echo -e "Bluetooth was previously configured";
                 echo "$output";
                 done
                 sleep 4
-                for (( b=1; b<11; b++ ))
+                for (( b=1; b<7; b++ ))
                 do
                 echo -e 'yes\n' >&${COPROC[1]}
-                sleep .5
+                sleep .3
                 done
                 kill ${ID}
                 echo "Kill:$ID";
@@ -108,6 +113,25 @@ echo -e "Bluetooth was previously configured";
 
                 # Send the message notifying when a device has been connected
                 /opt/Btplayer/bin/MsgQ 1${MAC}
+
+                # Wait for disconnection
+                output="";
+                coproc bluetoothctl
+                # pid of the command launched
+                ID=$!
+                echo "pid of the command launched:$ID";
+                for (( a=1; a<4; a++ ))
+                do
+                read output <&${COPROC[0]}
+                echo "$output";
+                done
+                # In this point a device has been disconnected #
+                echo "Device has been disconnected";
+                # Send the message notifying when a device has been disconnected
+                /opt/Btplayer/bin/MsgQ 0${MAC}
+                kill ${ID}
+                echo "Kill:$ID";
+                done
 
 else
 # Get EVK name
