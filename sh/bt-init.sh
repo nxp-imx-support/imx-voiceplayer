@@ -43,6 +43,12 @@ Bluetooth () {
                 kill ${ID}
                 echo "Kill:$ID";
 
+                # Check if Btplayer is running
+                if [ "$(ps -a | grep Btplayer)" == "" ]; then
+                bluetoothctl disconnect
+                exit 1
+                fi
+
                 # Get MAC address
                 MAC=$(bluetoothctl info | grep Device | cut -c 8-24);
                 echo "${MAC}" > /opt/Btplayer/bin/mac_address.txt
@@ -102,6 +108,12 @@ then
                 done
                 kill ${ID}
                 echo "Kill:$ID";
+
+                # Check if Btplayer is running
+                if [ "$(ps -a | grep Btplayer)" == "" ]; then
+                bluetoothctl disconnect
+                exit 1
+                fi
 
                 # Get MAC address
                 MAC=$(bluetoothctl info | grep Device | cut -c 8-24);
