@@ -236,13 +236,10 @@ void MediaPlayerProxy::propertyChanged(const QString &interface, const QVariantM
 
 void MediaPlayerProxy::propertyTransportChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated)
 {
-    qDebug() << __func__;
-    /*if (interface != "org.bluez.MediaTransport1") {
-
+    if (interface != "org.bluez.MediaTransport1") {
         return;
-    }*/
+    }
 
-    qDebug() << interface;
     QVariantMap::const_iterator i;
     for (i = changed.constBegin(); i != changed.constEnd(); ++i) {
         const QVariant &value = i.value();
@@ -261,6 +258,10 @@ void MediaPlayerProxy::propertyTransportChanged(const QString &interface, const 
 
 void MediaPlayerProxy::propertyDeviceChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated)
 {
+    if (interface != "org.bluez.Device1") {
+        return;
+    }
+
     QVariantMap::const_iterator i;
     for (i = changed.constBegin(); i != changed.constEnd(); ++i) {
         const QVariant &value = i.value();
