@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>content/PlaybackControl.qml</file>
+        <file>content/AudioControl.qml</file>
+        <file>content/MetadataInfo.qml</file>
+        <file>content/PlaybackRateControl.qml</file>
+        <file>content/PlaybackSeekControl.qml</file>
+        <file>content/PlayerMenuBar.qml</file>
+        <file>content/TracksInfo.qml</file>
+        <file>rsc/Mute_Icon.svg</file>
+        <file>rsc/Speaker_Icon.svg</file>
+        <file>rsc/Bt_Icon.png</file>
+        <file>rsc/Bthanset_Icon.png</file>
+    </qresource>
+</RCC>
