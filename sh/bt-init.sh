@@ -51,14 +51,14 @@ Bluetooth () {
 
                 # Get MAC address
                 MAC=$(bluetoothctl info | grep Device | cut -c 8-24);
-                echo "${MAC}" > /opt/Btplayer/bin/mac_address.txt
-                sed -i 's/:/_/g' /opt/Btplayer/bin/mac_address.txt
+                echo "${MAC}" > /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/mac_address.txt
+                sed -i 's/:/_/g' /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/mac_address.txt
                 echo -e "MAC address:";
-                cat /opt/Btplayer/bin/mac_address.txt
-                MAC=$(cat /opt/Btplayer/bin/mac_address.txt);
+                cat /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/mac_address.txt
+                MAC=$(cat /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/mac_address.txt);
 
                 # Send the message notifying when a device has been connected
-                /opt/Btplayer/bin/MsgQ 1${MAC}
+                /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/MsgQ 1${MAC}
 
                 # Wait for disconnection
                 output="";
@@ -74,7 +74,7 @@ Bluetooth () {
                 # In this point a device has been disconnected #
                 echo "Device has been disconnected";
                 # Send the message notifying when a device has been disconnected
-                /opt/Btplayer/bin/MsgQ 0${MAC}
+                /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/MsgQ 0${MAC}
                 kill ${ID}
                 echo "Kill:$ID";
 		done
@@ -117,14 +117,14 @@ then
 
                 # Get MAC address
                 MAC=$(bluetoothctl info | grep Device | cut -c 8-24);
-                echo "${MAC}" > /opt/Btplayer/bin/mac_address.txt
-                sed -i 's/:/_/g' /opt/Btplayer/bin/mac_address.txt
+                echo "${MAC}" > /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/mac_address.txt
+                sed -i 's/:/_/g' /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/mac_address.txt
                 echo -e "MAC address:";
-                cat /opt/Btplayer/bin/mac_address.txt
-                MAC=$(cat /opt/Btplayer/bin/mac_address.txt);
+                cat /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/mac_address.txt
+                MAC=$(cat /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/mac_address.txt);
 
                 # Send the message notifying when a device has been connected
-                /opt/Btplayer/bin/MsgQ 1${MAC}
+                /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/MsgQ 1${MAC}
 
                 # Wait for disconnection
                 output="";
@@ -140,21 +140,21 @@ then
                 # In this point a device has been disconnected #
                 echo "Device has been disconnected";
                 # Send the message notifying when a device has been disconnected
-                /opt/Btplayer/bin/MsgQ 0${MAC}
+                /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/MsgQ 0${MAC}
                 kill ${ID}
                 echo "Kill:$ID";
                 done
 
                 # Get MAC address
                 MAC=$(bluetoothctl devices | cut -c 8-24);
-                echo "${MAC}" > /opt/Btplayer/bin/mac_address.txt
-                sed -i 's/:/_/g' /opt/Btplayer/bin/mac_address.txt
+                echo "${MAC}" > /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/mac_address.txt
+                sed -i 's/:/_/g' /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/mac_address.txt
                 echo -e "MAC address:";
-                cat /opt/Btplayer/bin/mac_address.txt
-                MAC=$(cat /opt/Btplayer/bin/mac_address.txt);
+                cat /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/mac_address.txt
+                MAC=$(cat /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/mac_address.txt);
 
                 # Send the message notifying when a device has been connected
-                /opt/Btplayer/bin/MsgQ 1${MAC}
+                /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/MsgQ 1${MAC}
 
 else
 # Get EVK name
