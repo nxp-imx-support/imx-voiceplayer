@@ -19,7 +19,13 @@ MediaPlayerWrapper::MediaPlayerWrapper(QObject *parent) : QObject(parent)
   , BtEnabled(true)
 {
     QProcess process;
+    
+    #if 0
     process.startDetached("/bin/sh", QStringList()<< "/opt/Btplayer/bin/bt-init.sh");
+    #else
+    process.startDetached("/bin/sh", QStringList()<< "/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/bt-init.sh");
+    #endif
+
     process.waitForFinished();
 
     // Using Bt as default source
@@ -119,7 +125,12 @@ void MediaPlayerWrapper::volumeDown()
 void MediaPlayerWrapper::onBluetoothEnabled()
 {
     qDebug() << "Bt start...";
-    ConsoleProcess->startDetached("/bin/sh", QStringList()<< "/opt/Btplayer/bin/connect.sh");
+
+    #if 0
+        ConsoleProcess->startDetached("/bin/sh", QStringList()<< "/opt/Btplayer/bin/connect.sh");
+    #else
+        ConsoleProcess->startDetached("/bin/sh", QStringList()<< "/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/connect.sh");
+    #endif
     ConsoleProcess->waitForFinished();
     qDebug() << "Bt restarted";
     BtEnabled = true;
