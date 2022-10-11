@@ -1,0 +1,12 @@
+NXP Software Content Register
+
+Package:                   NXP BT Media Player Demo Source Code
+Outgoing License:          BSD-2-Clause
+License File:              LICENSE
+Package Category:          Demo application
+Type of content:           Source code
+Description and comments:  i.MX bt player demo source code
+Release Location:          ssh://git@bitbucket.sw.nxp.com/mag/bt-player.git
+Origin:                    NXP (BSD-2-Clause)
+                           The Qt Company Ltd. (BSD-3-Clause)
+                           The Montserrat Project Authors (OFL-1.1)
