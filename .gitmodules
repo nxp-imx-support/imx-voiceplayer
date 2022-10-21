@@ -1,3 +1,6 @@
 [submodule "msgq"]
 	path = msgq
 	url = ssh://git@bitbucket.sw.nxp.com/mag/msgq.git
+[submodule "vit-using-vad-ww-and-vc"]
+	path = vit-using-vad-ww-and-vc
+	url = ssh://git@bitbucket.sw.nxp.com/mag/vit-using-vad-ww-and-vc.git
