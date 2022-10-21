@@ -1,0 +1,3 @@
+[submodule "msgq"]
+	path = msgq
+	url = ssh://git@bitbucket.sw.nxp.com/mag/msgq.git
