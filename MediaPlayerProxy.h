@@ -71,6 +71,7 @@ private:
     quint32 m_position;
     quint32 m_volume;
 
+    MediaTrackInfo CurrentMedia;
     QString MDMacAddress;
 
     org::bluez::MediaPlayer1 *MediaPlayer;
@@ -79,7 +80,6 @@ private:
     org::freedesktop::DBus::Properties *MediaPlayerProperties;
     org::freedesktop::DBus::Properties *MediaTransportProperties;
     org::freedesktop::DBus::Properties *DeviceProperties;
-    MediaTrackInfo CurrentMedia;
 
 };
 

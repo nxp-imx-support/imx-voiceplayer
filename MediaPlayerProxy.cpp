@@ -25,9 +25,9 @@ namespace
 }
 
 MediaPlayerProxy::MediaPlayerProxy(QString macAddress, QObject *parent):
+    CurrentMedia(new MediaTrackInfo()),
     MDMacAddress(macAddress),
-    QObject(parent),
-    CurrentMedia()
+    QObject(parent)
 {
 
     if(not MDMacAddress.isEmpty())
@@ -239,6 +239,7 @@ void MediaPlayerProxy::propertyChanged(const QString &interface, const QVariantM
 
 void MediaPlayerProxy::propertyTransportChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated)
 {
+    Q_UNUSED(invalidated);
     if (interface != "org.bluez.MediaTransport1") {
         return;
     }
@@ -261,6 +262,7 @@ void MediaPlayerProxy::propertyTransportChanged(const QString &interface, const 
 
 void MediaPlayerProxy::propertyDeviceChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated)
 {
+    Q_UNUSED(invalidated);
     if (interface != "org.bluez.Device1") {
         return;
     }

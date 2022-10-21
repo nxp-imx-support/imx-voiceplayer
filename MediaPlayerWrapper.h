@@ -145,6 +145,6 @@ private:
     QString mDevice="";
     float mDuration=0.0;
     quint32 mPosition=0;
-    quint32 mVolume=60;
+    int mVolume=60;
 };
 
