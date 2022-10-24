@@ -62,7 +62,7 @@ Window {
     width: 1280
     height: 720
     visible: true
-    title: qsTr("NXP Multimedia Player")
+    title: qsTr("NXP VIT Multimedia Player")
 
     Popup {
         id: mediaError
@@ -144,7 +144,7 @@ Window {
             y: 17
             width: 98
             height: 77
-            source: "qrc:/rsc/Bt_Icon.png"
+            source: "qrc:/rsc/bluetooth.svg"
             fillMode: Image.PreserveAspectFit
         }
 

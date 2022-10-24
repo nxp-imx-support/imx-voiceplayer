@@ -8,9 +8,8 @@
         <file>content/PlaybackSeekControl.qml</file>
         <file>content/PlayerMenuBar.qml</file>
         <file>content/TracksInfo.qml</file>
-        <file>rsc/Mute_Icon.svg</file>
-        <file>rsc/Speaker_Icon.svg</file>
-        <file>rsc/Bt_Icon.png</file>
-        <file>rsc/Bthanset_Icon.png</file>
+        <file>rsc/volume-high-solid.svg</file>
+        <file>rsc/volume-xmark-solid.svg</file>
+        <file>rsc/bluetooth.svg</file>
     </qresource>
 </RCC>

@@ -24,6 +24,11 @@ git submodule update --init --recursive
 ### Step 2: Run Make 
 
 ```bash
+source /opt/fsl-imx-xwayland/5.15-honister-qt6/environment-setup-aarch64-poky-linux 
+mkdir build_v8
+cd build_v8
+qmake ../Btplayer.pro 
+make -j8
 
 ```
 

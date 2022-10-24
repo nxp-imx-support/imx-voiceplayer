@@ -74,7 +74,7 @@ Item {
             RoundButton {
                 id: muteButton
                 radius: 50.0
-                icon.source: muted ? "qrc:/rsc/Mute_Icon.svg" : "qrc:/rsc/Speaker_Icon.svg"
+                icon.source: muted ? "qrc:/rsc/volume-xmark-solid.svg" : "qrc:/rsc/volume-high-solid.svg"
                 onClicked: { muted = !muted }
             }
         }
