@@ -1,0 +1,10 @@
+NXP Software Content Register
+
+Package:                   NXP Message-Queue commands sender test application
+Outgoing License:          BSD-2-Clause
+License File:              LICENSE
+Package Category:          Demo application
+Type of content:           Source code
+Description and comments:  Nxp message queue application
+Release Location:          ssh://git@bitbucket.sw.nxp.com/mag/msgq.git
+Origin:                    NXP (BSD-2-Clause)
