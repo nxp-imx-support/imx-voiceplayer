@@ -10,3 +10,4 @@ Release Location:          ssh://git@bitbucket.sw.nxp.com/mag/bt-player.git
 Origin:                    NXP (BSD-2-Clause)
                            The Qt Company Ltd. (BSD-3-Clause)
                            Font Awesome (CC-BY-SA-4.0) http://fontawesome.com/icons?d=gallery
+
