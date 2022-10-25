@@ -36,19 +36,19 @@ cmake ..
 make -j8
 cd ../..
 
-
-rm -rf vit-using-vad-ww-and-vc/build 
-#mkdir -p vit-using-vad-ww-and-vc/build 
-#cd vit-using-vad-ww-and-vc/build
+echo "VIT compilation start"
+cp patches/0001-to-generate-patch.patch imx-voiceui/vit/i.MX8M_A53/.
+cd imx-voiceui/vit/i.MX8M_A53
+git apply 0001-to-generate-patch.patch
 make -j8
+echo "VIT compilation ended"
 cd ../..
-
 
 #### PACK DEMO COMPONENTS ####
 
 cp -a build/Btplayer ${BUILD_OUTPUT_DIR}
 cp -a msgq/build/MsgQ ${BUILD_OUTPUT_DIR}
-cp -a vit-using-vad-ww-and-vc/build/btp_vit ${BUILD_OUTPUT_DIR}
+cp -a imx-voiceui/vit/build/btp_vit ${BUILD_OUTPUT_DIR}
 cp -a sh/*.sh ${BUILD_OUTPUT_DIR}
 
 #cd ..
