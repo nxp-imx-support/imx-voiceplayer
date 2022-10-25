@@ -42,13 +42,13 @@ cd imx-voiceui/vit/i.MX8M_A53
 git apply 0001-to-generate-patch.patch
 make -j8
 echo "VIT compilation ended"
-cd ../..
+cd ../../..
 
 #### PACK DEMO COMPONENTS ####
 
 cp -a build/Btplayer ${BUILD_OUTPUT_DIR}
 cp -a msgq/build/MsgQ ${BUILD_OUTPUT_DIR}
-cp -a imx-voiceui/vit/build/btp_vit ${BUILD_OUTPUT_DIR}
+cp -a imx-voiceui/vit/i.MX8M_A53/build/btp_vit ${BUILD_OUTPUT_DIR}
 cp -a sh/*.sh ${BUILD_OUTPUT_DIR}
 
 #cd ..
