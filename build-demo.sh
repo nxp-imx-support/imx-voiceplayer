@@ -39,7 +39,8 @@ cd ../..
 echo "VIT compilation start"
 cp patches/0001-to-generate-patch.patch imx-voiceui/vit/i.MX8M_A53/.
 cd imx-voiceui/vit/i.MX8M_A53
-git apply 0001-to-generate-patch.patch
+git apply 0001-add-functionality-for-VITBTPLAY.patch
+make clean
 make -j8
 echo "VIT compilation ended"
 cd ../..

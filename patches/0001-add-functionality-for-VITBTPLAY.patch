@@ -1,14 +1,14 @@
-From b1a6bdb30c8e897dbd7f09a700e83fc6f49cedde Mon Sep 17 00:00:00 2001
+From f090afa353990ceb19d5365a285b305e67d769da Mon Sep 17 00:00:00 2001
 From: nxf84025 <emmanuel.sanchez@nxp.com>
-Date: Tue, 25 Oct 2022 10:08:09 -0700
-Subject: [PATCH] to generate patch
+Date: Tue, 25 Oct 2022 11:46:10 -0700
+Subject: [PATCH] add functionality for VITBTPLAY
 
 ---
  vit/i.MX8M_A53/ExApp/VIT_action_executor.c |   302 +-
  vit/i.MX8M_A53/ExApp/VIT_action_executor.h |     2 -
  vit/i.MX8M_A53/Lib/VIT_Model_en.h          | 20042 +++++++++----------
- vit/i.MX8M_A53/Makefile                    |    77 +
- 4 files changed, 10395 insertions(+), 10028 deletions(-)
+ vit/i.MX8M_A53/Makefile                    |    75 +
+ 4 files changed, 10393 insertions(+), 10028 deletions(-)
  create mode 100644 vit/i.MX8M_A53/Makefile
 
 diff --git a/vit/i.MX8M_A53/ExApp/VIT_action_executor.c b/vit/i.MX8M_A53/ExApp/VIT_action_executor.c
@@ -20492,10 +20492,10 @@ index a5a587a..1eadcce 100644
  
 diff --git a/vit/i.MX8M_A53/Makefile b/vit/i.MX8M_A53/Makefile
 new file mode 100644
-index 0000000..6c0171e
+index 0000000..8555bfe
 --- /dev/null
 +++ b/vit/i.MX8M_A53/Makefile
-@@ -0,0 +1,77 @@
+@@ -0,0 +1,75 @@
 +VERSION=4.6.1
 +BLDDIR=build
 +
@@ -20507,12 +20507,10 @@ index 0000000..6c0171e
 +IFLAGS=-IExApp \
 +			 -ILib/Inc \
 +			 -ILib \
-+			 -I/opt/fsl-imx-internal-xwayland/5.15-kirkstone/sysroots/cortexa53-crypto-poky-linux/usr/include/glib-2.0 \
-+			 -I/opt/fsl-imx-internal-xwayland/5.15-kirkstone/sysroots/cortexa53-crypto-poky-linux/usr/lib/glib-2.0/include -lglib-2.0 \
-+			 -I/opt/fsl-imx-internal-xwayland/5.15-kirkstone/sysroots/cortexa53-crypto-poky-linux/usr/include/dbus-1.0/ \
-+			 -I/opt/fsl-imx-internal-xwayland/5.15-kirkstone/sysroots/cortexa53-crypto-poky-linux/usr/lib/dbus-1.0/include/
-+				
-+
++			 -I/${OECORE_TARGET_SYSROOT}/usr/include/glib-2.0 \
++			 -I/${OECORE_TARGET_SYSROOT}/usr/lib/glib-2.0/include -lglib-2.0 \
++			 -I/${OECORE_TARGET_SYSROOT}/usr/include/dbus-1.0/ \
++			 -I/${OECORE_TARGET_SYSROOT}/usr/lib/dbus-1.0/include/ 
 +
 +CFLAGS=-std=gnu99 \
 +	 -Wno-unused-variable \
