@@ -16,14 +16,14 @@ mkdir -p ${BUILD_OUTPUT_DIR}
 
 #### BUILD APP GUI ####
 
-rm -rf build
-mkdir -p build
-cd build
+rm -rf app/build
+mkdir -p app/build
+cd app/build
 
 qmake ../Btplayer.pro 
 
 make -j8
-cd ..
+cd ../..
 
 
 #### BUILD APP COMPONENTS ####
@@ -47,7 +47,7 @@ cd ../../..
 
 #### PACK DEMO COMPONENTS ####
 
-cp -a build/Btplayer ${BUILD_OUTPUT_DIR}
+cp -a app/build/Btplayer ${BUILD_OUTPUT_DIR}
 cp -a msgq/build/MsgQ ${BUILD_OUTPUT_DIR}
 cp -a imx-voiceui/vit/i.MX8M_A53/build/btp_vit ${BUILD_OUTPUT_DIR}
 cp -a sh/*.sh ${BUILD_OUTPUT_DIR}
