@@ -10,4 +10,4 @@ modprobe snd-aloop
 /opt/Btplayer/bin/afe libvoiceseekerlight &
 
 # Run VIT
-/opt/Btplayer/bin/btp_vit -ddefault -l ENGLISH
+/opt/Btplayer/bin/btp_vit -ddefault -l ENGLISH -t 1000000
