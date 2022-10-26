@@ -146,7 +146,7 @@ index b8e07c2..c3ed189 100644
  
  static void VIT_call_custom(int cmd)
  {
-+  char sVolume[50];
++  char sVolume[100];
 +  
    pid_t tid = syscall(SYS_gettid);
    LOG("  %d Processing command: %d\n", tid, cmd );
@@ -162,7 +162,7 @@ index b8e07c2..c3ed189 100644
 +		  else
 +		  {
 +		  	printf("MUTE command\n");
-+		        strcpy(sVolume,"/opt/Btplayer/bin/volume.sh ");
++		        strcpy(sVolume,"/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/volume.sh");
 +			strcat(sVolume, sMAC_Bt);
 +			strcat(sVolume, " 3");
 +			popen(sVolume, "r");
@@ -226,7 +226,7 @@ index b8e07c2..c3ed189 100644
 +		  popen("pkill Btplayer","r");
 +		  break;
 +	  case 9://START PLAYER
-+		  popen("/opt/Btplayer/bin/Btplayer -platform wayland &","r");
++     popen("/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/Btplayer -platform wayland &","r");
 +		  break;
 +	  case 10://VOLUME UP
 +                  if(iConnectionToBT != true)
@@ -236,7 +236,7 @@ index b8e07c2..c3ed189 100644
 +		  else
 +		  {
 +		  	printf("VOLUME UP command\n");
-+		        strcpy(sVolume,"/opt/Btplayer/bin/volume.sh ");
++     strcpy(sVolume,"/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/volume.sh");
 +			strcat(sVolume, sMAC_Bt);
 +			strcat(sVolume, " 1");
 +			popen(sVolume, "r");
@@ -250,7 +250,7 @@ index b8e07c2..c3ed189 100644
 +		  else
 +		  {
 +		  	printf("VOLUME DOWN command\n");
-+		        strcpy(sVolume,"/opt/Btplayer/bin/volume.sh ");
++     strcpy(sVolume,"/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/volume.sh");
 +			strcat(sVolume, sMAC_Bt);
 +			strcat(sVolume, " 2");
 +			popen(sVolume, "r");

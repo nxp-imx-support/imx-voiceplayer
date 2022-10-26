@@ -10,7 +10,7 @@ All messages are valid.
 
 ## Examples of usage
 
-    ./MsgQ message
+    ./msgq message
 
 ## Build instructions
 
@@ -34,5 +34,5 @@ All messages are valid.
     make
 ```
 
-The output file should be the MsgQ executable 
+The output file should be the msgq executable 
 

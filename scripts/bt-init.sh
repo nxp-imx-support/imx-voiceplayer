@@ -1,6 +1,9 @@
-#/bin/sh
+#!/bin/sh
 
-# This script configures Bluetooth only one time. #
+# Copyright 2022 NXP                                                                                                                                                                                                                                                                          
+# SPDX-License-Identifier: BSD-3-Clause
+
+# This script configures Bluetooth only one time
 
 # Bluetooth function
 Bluetooth () {
@@ -21,7 +24,8 @@ Bluetooth () {
                 sdptool add SP
                 sleep 1
 
-                while [ "$(ps -a | grep Btplayer)" != "" ]
+		echo "Auto connect..."
+                while [ "$(ps -aux | grep Btplayer)" != "" ]
                 do
                 # Automatic connection
                 output="";
@@ -44,7 +48,7 @@ Bluetooth () {
                 echo "Kill:$ID";
 
                 # Check if Btplayer is running
-                if [ "$(ps -a | grep Btplayer)" == "" ]; then
+                if [ "$(ps -aux | grep Btplayer)" == "" ]; then
                 bluetoothctl disconnect
                 exit 1
                 fi
@@ -165,7 +169,38 @@ echo -e "Evk:${evk}";
 pulseaudio --start --log-target=syslog
 echo "Pulseaudio server successfully started";
 
+	if  [[ $evk == "imx8mp-lpddr4-evk"  ]]
+	then
                 # Get card number
+                alsa_sink=$(aplay -l | grep -i "btscoaudio" | cut -c 6-6 );
+                echo -e "Loopback card:${alsa_sink}";
+
+                # Load the pulseaudio module
+                pacmd load-module module-alsa-sink device=hw:0,1
+
+                # Get sink pulse audio index
+                sink_index=$(pacmd list-sinks | grep -B1 "name: <alsa_output.platform-sound-wm8960*" | sed '$d' | cut -d " " -f 5);
+                if  [[ $sink_index == "" || $sink_index == "index:" ]]
+                then
+                        sink_index=$(pacmd list-sinks | grep -B1  "name: <alsa_output.platform-sound-wm8960*" | sed '$d' | cut -d " " -f 6);
+                fi
+                echo -e "Sink index:${sink_index}";
+
+                # Set default sink
+                pacmd set-default-sink ${sink_index}
+
+                # Get source pulse audio index
+                source_index=$(pacmd list-sources | grep -B1 "name: <alsa_input.platform-sound-bt*" | sed '$d' | cut -d " " -f 5);
+                if  [[ $source_index == "" || $source_index == "index:" ]]
+                then
+                        source_index=$(pacmd list-sources | grep -B1 "name: <alsa_input.platform-sound-bt*" | sed '$d' | cut -d " " -f 6);
+                fi
+                echo -e "Source index:${source_index}";
+
+                # Set default source
+                pacmd set-default-source ${source_index}
+	else
+		# Get card number
                 alsa_sink=$(aplay -l | grep -B1 "Loopback" | grep -B1 "1" | cut -c 6-6 | sed '1d');
                 echo -e "Loopback card:${alsa_sink}";
 
@@ -193,6 +228,7 @@ echo "Pulseaudio server successfully started";
 
                 # Set default source
                 pacmd set-default-source ${source_index}
+	fi
 
         if  [[ $evk == "imx8ulp-lpddr4-evk" || $evk == "imx8ulpevk" ]]
         then

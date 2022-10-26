@@ -63,7 +63,6 @@ int main(int argc, char *argv[])
     std::cout << "Start MediaPlayer..." << std::endl;
     qmlRegisterType<MediaPlayerProxy>("com.nxp.btplayer", 1, 0, "PlayerModel");
 
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
 
     MediaPlayerWrapper mediaPlayer;

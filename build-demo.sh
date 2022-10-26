@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Copyright 2022 NXP                                                                                                                                                                                                                                                                            
+# SPDX-License-Identifier: BSD-3-Clause
 
 if [ "$1" != "" ]; then
       BUILD_TYPE=$1
@@ -48,9 +50,18 @@ cd ../../..
 #### PACK DEMO COMPONENTS ####
 
 cp -a app/build/Btplayer ${BUILD_OUTPUT_DIR}
+cp -a app/rsc/bluetooth.svg ${BUILD_OUTPUT_DIR}
 cp -a msgq/build/MsgQ ${BUILD_OUTPUT_DIR}
 cp -a imx-voiceui/vit/i.MX8M_A53/build/btp_vit ${BUILD_OUTPUT_DIR}
-cp -a sh/*.sh ${BUILD_OUTPUT_DIR}
+cp -a scripts/install.sh ${BUILD_OUTPUT_DIR}
+cp -a scripts/demos.json ${BUILD_OUTPUT_DIR}
+cp -a scripts/init.sh ${BUILD_OUTPUT_DIR}
+cp -a scripts/bt-init.sh ${BUILD_OUTPUT_DIR}
+cp -a scripts/connect.sh ${BUILD_OUTPUT_DIR}
+cp -a scripts/asound.conf ${BUILD_OUTPUT_DIR}
+cp -a scripts/Config.ini ${BUILD_OUTPUT_DIR}
+cp -a scripts/Enable_VoiceSeeker.sh ${BUILD_OUTPUT_DIR}
+cp -a scripts/Restore_VoiceSeeker.sh ${BUILD_OUTPUT_DIR}
 
 #cd ..
 tar zcvf ${BUILD_OUTPUT_DIR}.tgz ${BUILD_OUTPUT_DIR}

@@ -35,11 +35,20 @@ QML_DESIGNER_IMPORT_PATH =
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
+else: unix:!android: target.path = .nxp-demo-experience/scripts/multimedia/btplayerdemo
 
 # Scritps deployment rule
-scripts.files = ./sh/*
-scripts.path = /opt/$${TARGET}/bin
+scripts.files = ../scripts/init.sh \
+                ../scripts/bt-init.sh \
+                ../scripts/connect.sh \
+                ../scripts/asound.conf \
+                ../scripts/Config.ini \
+                ../scripts/Enable_VoiceSeeker.sh \
+                ../scripts/Restore_VoiceSeeker.sh \
+                ../msgq/build/MsgQ \
+
+
+scripts.path = .nxp-demo-experience/scripts/multimedia/btplayerdemo
 
 !isEmpty(target.path): INSTALLS += target
 !isEmpty(scripts.path): INSTALLS += scripts

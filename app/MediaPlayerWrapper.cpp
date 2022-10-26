@@ -2,7 +2,7 @@
 **
 ** Copyright 2022 NXP
 **
-** SPDX-License-Identifier: BSD-2-Clause
+** SPDX-License-Identifier: BSD-3-Clause
 **
 ****************************************************************************/
 
@@ -11,6 +11,7 @@
 #include <QQmlContext>
 #include <iostream>
 #include <QProcess>
+
 
 ///////////////////////////////////////////////////////////////////////////////
 MediaPlayerWrapper::MediaPlayerWrapper(QObject *parent) : QObject(parent)
@@ -22,19 +23,11 @@ MediaPlayerWrapper::MediaPlayerWrapper(QObject *parent) : QObject(parent)
   , BtEnabled(true)
 {
     QProcess process;
-    
-    #if 0
-    process.startDetached("/bin/sh", QStringList()<< "/opt/Btplayer/bin/bt-init.sh");
-    #else
     process.startDetached("/bin/sh", QStringList()<< "/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/bt-init.sh");
-    #endif
-
     process.waitForFinished();
 
     // Using Bt as default source
     QString source = BtEnabled ? "Bluetooth" : "USB";
-    //ConsoleProcess->startDetached("/bin/sh", QStringList()<< "/opt/Btplayer/bin/bt-usb.sh" << source);
-    //ConsoleProcess->waitForFinished();
 
     MQThread = new MQueueThread();
     MQThread->start(QThread::HighPriority);
@@ -45,20 +38,21 @@ MediaPlayerWrapper::MediaPlayerWrapper(QObject *parent) : QObject(parent)
 
     QObject::connect(MQThread,&MQueueThread::emitMacAddress,
             this, &MediaPlayerWrapper::setMacAdrees);
-    //connect(workerThread, &WorkerThread::finished, workerThread, &QObject::deleteLater);
 }
 
+///////////////////////////////////////////////////////////////////////////////
 MediaPlayerWrapper::~MediaPlayerWrapper()
 {
     BtProcess->write("quit");
     BtProcess->waitForFinished();
     system("bluetoothctl disconnect");
+    system("killall btp_vit");
+    system("sh Restore_VoiceSeeker.sh");
     delete BtProcess;
     delete BtPlayer;
     delete ConsoleProcess;
 }
 
-///////////////////////////////////////////////////////////////////////////////
 bool MediaPlayerWrapper::initialize()
 {
     resetModel();
@@ -128,12 +122,7 @@ void MediaPlayerWrapper::volumeDown()
 void MediaPlayerWrapper::onBluetoothEnabled()
 {
     qDebug() << "Bt start...";
-
-    #if 0
-        ConsoleProcess->startDetached("/bin/sh", QStringList()<< "/opt/Btplayer/bin/connect.sh");
-    #else
-        ConsoleProcess->startDetached("/bin/sh", QStringList()<< "/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/connect.sh");
-    #endif
+    ConsoleProcess->startDetached("/bin/sh", QStringList()<< "/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/connect.sh");
     ConsoleProcess->waitForFinished();
     qDebug() << "Bt restarted";
     BtEnabled = true;
@@ -189,15 +178,11 @@ void MediaPlayerWrapper::setMediaList(const QList<QObject *> &value)
 
 void MediaPlayerWrapper::setMediaTrack(const MediaTrackInfo &media)
 {
-    // TODO:
-    //Q_UNUSED(media);
     qDebug() << __func__;
     setArtist(media.artist());
     setAlbum(media.album());
     setTitle(media.song());
     setDuration(media.duration());
-    //MediaList.append(media));
-    //MediaIndex = MediaList.lenght();
 }
 
 void MediaPlayerWrapper::setMediaTrackPosition(const quint32 position)
@@ -315,5 +300,4 @@ void MediaPlayerWrapper::resetModel()
 {
     Engine.rootContext()->setContextProperty("MediaPlayerWrapper", this);
     Engine.rootContext()->setContextProperty("MediaTrackInfo", CurrentMedia);
-    //Engine.rootContext()->setContextProperty("MediaModel", QVariant::fromValue(MediaList));
 }

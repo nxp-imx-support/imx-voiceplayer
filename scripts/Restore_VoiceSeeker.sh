@@ -3,23 +3,10 @@
 # Copyright 2022 NXP                                                                                                                                                                                                                                                                            
 # SPDX-License-Identifier: BSD-3-Clause
 
-# Automatic connection
-output="";
-coproc bluetoothctl
+# Restore VoiceSeeker Audio Front-End
 
-# pid of the command launched
-ID=$!
-echo "pid of the command launched:$ID";
-for (( a=1; a<4; a++ ))
-do
-	read output <&${COPROC[0]}
-        echo "$output";
-done
-sleep 4
-for (( b=1; b<11; b++ ))
-do
-        echo -e 'yes\n' >&${COPROC[1]}
-        sleep .5
-done
-kill ${ID}
-echo "Kill:$ID";
+# Revert asound.conf
+cp -v /etc/asound.conf_original /etc/asound.conf
+
+# Revert Config.ini file
+cp -v /unit_tests/nxp-afe/Config.ini_original /unit_tests/nxp-afe/Config.ini

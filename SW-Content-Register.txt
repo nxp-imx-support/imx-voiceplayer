@@ -1,13 +1,44 @@
+
 NXP Software Content Register
 
-Package:                   NXP BT Media Player Demo Source Code
-Outgoing License:          BSD-2-Clause
-License File:              LICENSE
-Package Category:          Demo application
-Type of content:           Source code
-Description and comments:  i.MX bt player demo source code
-Release Location:          ssh://git@bitbucket.sw.nxp.com/mag/bt-player.git
-Origin:                    NXP (BSD-2-Clause)
-                           The Qt Company Ltd. (BSD-3-Clause)
-                           Font Awesome (CC-BY-SA-4.0) http://fontawesome.com/icons?d=gallery
+Release:                    NXP VIT BT Player Demo
+Version:                    1.0
+Date:                       October 2022
+Outgoing License:           BSD-3-Clause 
+License File:               LICENSE
+Release tag:                bt-player_1.0 (TO CHECK)
 
+--------------------------------------------
+
+Package:                    bt-player
+Outgoing License:           BSD-3-Clause
+License File:               LICENSE
+Package Category:           Demo application
+Type of content:            Source, scripts, icons.
+Description and comments:   NXP VIT Bluetooth player demo for i.MX8M family
+Release Location:           (GITHUB URL IS PENDING)
+Origin:                     NXP (BSD-3-Clause)
+                            The Qt Company Ltd. (BSD-3-Clause)
+                            Font Awesome (CC-BY-4.0) https://fontawesome.com/icons
+
+Component:                  msgq
+Outgoing License:           BSD-3-Clause 
+License File:               BSD-3-Clause.txt
+Type of Content:            Source code
+Description and comments:   Software app for handle message transaction
+Release Location:           ./msgq
+Origin:                     NXP (BSD-3-Clause)
+
+--------------------------------------------
+
+Package:                    imx-voiceui
+Version:                    1.0
+Outgoing License:           LA_OPT_NXP_Software_License v38 August 2022
+License File:               EULA.txt
+Package Category:           Multimedia
+Type of Content:            Source code and binaries
+Description and comments:   VoiceSeeker and VoiceSpot VIT libraries, VoceSeeker wrapper and voiceui unit test
+Origin:                     NXP (LA_OPT_NXP_Software_License)
+                            imx-voiceui (propietary) https://github.com/nxp-imx/imx-voiceui
+                            
+--------------------------------------------

@@ -1,6 +1,9 @@
 #!/bin/sh
 
-# This script enables VIT to auto start #
+# Copyright 2022 NXP                                                                                                                                                                                                                                                                            
+# SPDX-License-Identifier: BSD-3-Clause
+
+# This script enables VIT to auto start
 
 cp -v /opt/Btplayer/bin/Btplayer.service /etc/systemd/system
 chmod 777 /etc/systemd/system/Btplayer.service

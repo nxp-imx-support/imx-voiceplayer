@@ -2,7 +2,7 @@
 **
 ** Copyright 2022 NXP
 **
-** SPDX-License-Identifier: BSD-2-Clause
+** SPDX-License-Identifier: BSD-3-Clause
 **
 ****************************************************************************/
 
@@ -18,6 +18,13 @@
 #define MAX_MESSAGES 10
 #define MAX_MSG_SIZE 256
 
+///////////////////////////////////////////////////////////////////////////////
+//
+//! \class     MQueue Thread
+//!     This class provides the MAC address once a device is connected to
+//!     the system.
+//!
+///////////////////////////////////////////////////////////////////////////////
 class MQueueThread : public QThread
 {
     Q_OBJECT

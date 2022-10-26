@@ -59,8 +59,8 @@ import "content"
 
 Window {
     id: root
-    width: 1280
-    height: 720
+    width: 640
+    height: 400
     visible: true
     title: qsTr("NXP VIT Multimedia Player")
 
@@ -135,15 +135,17 @@ Window {
 
     Rectangle
     {
-        x: 46
-        y: 236
+        x: 40
+        y: 150
+        //width: 100
+        //height: 100
 
         Image {
             id: image
-            x: 17
-            y: 17
-            width: 98
-            height: 77
+            //x: 17
+            //y: 17
+            width: 100
+            height: 100
             source: "qrc:/rsc/bluetooth.svg"
             fillMode: Image.PreserveAspectFit
         }
@@ -183,9 +185,9 @@ Window {
 
 
 
-        id: audioTracksInfo
+        //id: audioTracksInfo
 
-        anchors.right: parent.right
+        //anchors.right: parent.right
         //anchors.top: videoOutput.fullScreen ? parent.top : menuBar.bottom
         //anchors.bottom: playbackControl.opacity ? playbackControl.bottom : parent.bottom
 

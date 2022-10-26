@@ -2,7 +2,7 @@
 **
 ** Copyright 2022 NXP
 **
-** SPDX-License-Identifier: BSD-2-Clause
+** SPDX-License-Identifier: BSD-3-Clause
 **
 ****************************************************************************/
 
@@ -161,33 +161,18 @@ void MediaPlayerProxy::propertyChanged(const QString &interface, const QVariantM
         const QVariant &value = i.value();
         const QString &property = i.key();
         qDebug() << property << "," << value.toString();
-/*
-        if (property == QLatin1String("Name")) {
-            PROPERTY_CHANGED(m_name, toString, nameChanged);
-        } else if (property == QLatin1String("Equalizer")) {
-            PROPERTY_CHANGED2(m_equalizer, stringToEqualizer(value.toString()), equalizerChanged);
-        } else if (property == QLatin1String("Repeat")) {
-            PROPERTY_CHANGED2(m_repeat, stringToRepeat(value.toString()), repeatChanged);
-        } else if (property == QLatin1String("Shuffle")) {
-            PROPERTY_CHANGED2(m_shuffle, stringToShuffle(value.toString()), shuffleChanged);
-        } else */
+
         if (property == QLatin1String("Status")) {
             if(value.toString() == "paying")
                 initMediaPlayerProperties();
         }
-        /*else if (property == QLatin1String("Position")) {
-            PROPERTY_CHANGED(m_position, toUInt, positionChanged);
-        } else*/
         if (property == QLatin1String("Position")) {
             m_position = value.toUInt();
             qDebug() << "position: " << value.toUInt();
             emit MediaTrackPositionSignal(m_position);
 
-                    //PROPERTY_CHANGED(m_position, toUInt, positionChanged);
         }
         if (property == QLatin1String("Track")) {
-
-            //m_valid = !property.isEmpty();
 
             QVariantMap properties = qdbus_cast<QVariantMap>(value);
             m_title = properties.value(QStringLiteral("Title")).toString();
@@ -208,31 +193,11 @@ void MediaPlayerProxy::propertyChanged(const QString &interface, const QVariantM
             CurrentMedia.setDuration(m_duration);
 
             emit MediaTrackInfoSignal(CurrentMedia);
-            //m_track = variantToTrack(value);
-            //Q_EMIT q.lock()->trackChanged(m_track);
         }
     }
 
     for (const QString &property : invalidated) {
         qDebug() << __func__ << ": " << property;
-        /*
-        if (property == QLatin1String("Name")) {
-            PROPERTY_INVALIDATED(m_name, QString(), nameChanged);
-        } else if (property == QLatin1String("Equalizer")) {
-            PROPERTY_INVALIDATED(m_equalizer, MediaPlayer::EqualizerOff, equalizerChanged);
-        } else if (property == QLatin1String("Repeat")) {
-            PROPERTY_INVALIDATED(m_repeat, MediaPlayer::RepeatOff, repeatChanged);
-        } else if (property == QLatin1String("Shuffle")) {
-            PROPERTY_INVALIDATED(m_shuffle, MediaPlayer::ShuffleOff, shuffleChanged);
-        } else if (property == QLatin1String("Status")) {
-            PROPERTY_INVALIDATED(m_status, MediaPlayer::Error, statusChanged);
-        } else if (property == QLatin1String("Position")) {
-            PROPERTY_INVALIDATED(m_position, 0, positionChanged);
-        } else if (property == QLatin1String("Track")) {
-            m_track = variantToTrack(QVariant());
-            Q_EMIT q.lock()->trackChanged(m_track);
-        }
-        */
     }
 
 }
@@ -289,7 +254,6 @@ void MediaPlayerProxy::initMediaPlayerProperties()
 
     qDebug() << "TrackInfo: "<< m_title << " " << m_artist << " " << m_album << " "
              << " " << m_duration;
-
 
     CurrentMedia.setSong(m_title);
     CurrentMedia.setAlbum(m_album);
