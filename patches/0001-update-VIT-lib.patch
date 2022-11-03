@@ -1,0 +1,31 @@
+From c980a00163770cb2ebe0dbce169f38425e6fdccb Mon Sep 17 00:00:00 2001
+From: nxf84025 <emmanuel.sanchez@nxp.com>
+Date: Thu, 3 Nov 2022 15:27:52 -0700
+Subject: [PATCH] update VIT lib
+
+---
+ vit/i.MX8M_A53/Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/vit/i.MX8M_A53/Makefile b/vit/i.MX8M_A53/Makefile
+index 8555bfe..e9cb546 100644
+--- a/vit/i.MX8M_A53/Makefile
++++ b/vit/i.MX8M_A53/Makefile
+@@ -1,4 +1,4 @@
+-VERSION=4.6.1
++VERSION=4.7.3_EAR
+ BLDDIR=build
+ 
+ TEST_FILES= \
+@@ -57,7 +57,7 @@ $(BLDDIR)/.mkdir :
+ 
+ $(EXE) : $(EXE_OBJ_FILES)
+ 	$(CC) $(CFLAGS)  $^  \
+-	 -LLib -lVIT_IMX8_A53_$(VERSION) \
++	 -LLib -lVIT_iMX8M_A53_v$(VERSION) \
+ 	  -lasound \
+ 	 -lm  \
+ 	  -o $@
+-- 
+2.25.1
+
