@@ -29,7 +29,6 @@ MediaPlayerProxy::MediaPlayerProxy(QString macAddress, QObject *parent):
     MDMacAddress(macAddress),
     QObject(parent)
 {
-
     if(not MDMacAddress.isEmpty())
     {
         initMediaPlayer();

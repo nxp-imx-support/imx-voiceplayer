@@ -45,9 +45,14 @@ MediaPlayerWrapper::~MediaPlayerWrapper()
 {
     BtProcess->write("quit");
     BtProcess->waitForFinished();
-    system("bluetoothctl disconnect");
-    system("killall btp_vit");
-    system("sh Restore_VoiceSeeker.sh");
+    
+    if (system("bluetoothctl disconnect") < 0)
+    	qDebug() << "BTCtl disconnection fail";
+    if (system("killall btp_vit") < 0)
+	qDebug() << "VIT termination fail";
+    if (system("sh Restore_AFEConfig.sh") <0)
+        qDebug() << "AFE restore fail";
+        
     delete BtProcess;
     delete BtPlayer;
     delete ConsoleProcess;
@@ -130,8 +135,8 @@ void MediaPlayerWrapper::onBluetoothEnabled()
 
 void MediaPlayerWrapper::onBluetoothDisabled()
 {
-    system("bluetoothctl disconnect");
-    qDebug() << "Bluetooth disabled";
+    if (system("bluetoothctl disconnect") < 0)
+        qDebug() << "Bluetooth disabled fail";	
     BtEnabled = false;
 }
 

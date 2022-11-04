@@ -32,6 +32,14 @@
              "screenshot": "ml_brand.png",
              "icon": "photo-video-solid.svg",
              "description": "An example of how to use NNStreamer to detect a branded item from the United States in a video or camera feed. An internet connection may be required."
+         },{
+             "name": "ML Gateway",
+             "id": "ml_gate_nn",
+             "executable": "python3 /home/root/.nxp-demo-experience/scripts/machine_learning/MLGateway.py",
+             "compatible": "imx8mp, imx8mm",
+             "screenshot": "",
+             "icon": "photo-video-solid.svg",
+             "description": "Application that allows a resource-constraint MCU/MPU systems (clients) to connect and run inferencing on a ML Gateway system (server) that has very high-performance ML capabilities"
          }],
          "pyeIQ":[{
             "name": "Object Classification",
@@ -58,6 +66,14 @@
             "icon": "photo-video-solid.svg",
             "description": "An example of how to use Python to detect mask wearing in a photo. An internet connection may be required."
         }],
+        "TFLite":[{
+            "name": "ML Benchmark",
+            "executable": "python3 /home/root/.nxp-demo-experience/scripts/machine_learning/MLBenchmark.py",
+            "compatible": "imx93",
+            "screenshot": "",
+            "icon": "cogs-solid.svg",
+            "description": "This demo shows the performance of the NPU when compared to the CPU with TensorFlow Lite."
+        }],
         "OpenCV":[{
             "name": "Face Recognition",
             "id": "face_recog",
@@ -77,7 +93,7 @@
             "source": "",
             "icon": "photo-video-solid.svg",
             "screenshot": "gst_test_src_screenshot.png",
-            "compatible": "imx7ulp, imx8ulp, imx8qxpc0mek, imx8qmmek, imx8mq, imx8mm, imx8mn, imx8mp",
+            "compatible": "imx7ulp, imx8ulp, imx8qxpc0mek, imx8qmmek, imx8mq, imx8mm, imx8mn, imx8mp, imx93",
             "description": "This is a simple demo utility that allows users to play back video captured on a camera or a test source."
         },{
             "name": "Camera using VPU",
@@ -147,6 +163,16 @@
             "screenshot": "",
             "compatible": "imx7ulp",
             "description": "This test plays the audio file recorded on the 'Audio Record' test. Make sure a Headphone is connected to the board. Need to run the 'Audio Record' test first."
+        }],
+        "Voice":[{
+            "name": "i.MX Voice Control",
+            "id": "voice",
+            "executable": "python3 /home/root/.nxp-demo-experience/scripts/audio/voice/voice_demo.py",
+            "source": "",
+            "icon": "volume-up-solid.svg",
+            "screenshot": "",
+            "compatible": "imx8mp, imx8mm",
+            "description": "See NXP's Voice Technology in action! Use your voice to open and close various applications. This requires 8-MIC Array Board (8MIC-RPI-MX8) installed on the i.MX hardware (Visit NXP.com for help). Please note that this will override '/etc/asound.conf' file. It will be restored if this application is gracefully terminated."
         }]
     }]
     },

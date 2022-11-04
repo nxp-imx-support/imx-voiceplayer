@@ -141,6 +141,47 @@ Item {
         }
     }
 
+    Dialog {
+        id: aboutDemoRoot
+        anchors.centerIn: Overlay.overlay
+   	modal: false
+   	title: qsTr("VIT BTPlayer by NXP")
+   	standardButtons: Dialog.Ok
+   	visible: false
+        RowLayout {
+            id: aboutDemo
+
+
+	/*
+            Image {
+            	id: image
+            	x: 50
+	        //y: 50
+	        Layout.alignment: Qt.AlignCenter
+            	sourceSize.width: 50
+	        sourceSize.height: 60
+        	source: "qrc:/rsc/bluetooth.svg"
+	       fillMode: Image.PreserveAspectFit
+            }
+            */
+            
+            Label {
+                //x: 50
+            	//y: 10
+            	Layout.alignment: Qt.AlignLeft
+            	text: 
+        	BTPayer 1.0: BSD-3-Clause \n\n 
+ 		Copyright 2022 NXP
+ 		
+                QT interface: The Qt Company Ltd. (LGPL-3.0-only) \n
+                iMX VIT 2.0: LA_OPT_NXP_Software_License v38 August 2022\n");
+            	}
+            	
+            }
+	    
+
+        }
+
     MenuBar {
         id: menuBar
         anchors.left: parent.left
@@ -167,13 +208,20 @@ Item {
         }
 
         Menu {
-            title: qsTr("&View")
+            title: qsTr("&Help")
+            Action {
+                text: qsTr("&About")
+                onTriggered: aboutDemoRoot.open()
+            }
+            /*
             Action {
                 text: qsTr("Metadata")
                 onTriggered: showOverlay(metadataInfo)
-            }
+            }*/
+            
         }
 
+/*
         Menu {
             title: qsTr("&Tracks")
             Action {
@@ -189,5 +237,6 @@ Item {
                 onTriggered: showOverlay(subtitleTracksInfo)
             }
         }
+        */
     }
 }

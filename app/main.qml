@@ -181,21 +181,6 @@ Window {
         }
     }
 
-    TracksInfo {
-
-
-
-        //id: audioTracksInfo
-
-        //anchors.right: parent.right
-        //anchors.top: videoOutput.fullScreen ? parent.top : menuBar.bottom
-        //anchors.bottom: playbackControl.opacity ? playbackControl.bottom : parent.bottom
-
-        //visible: true
-        //onSelectedTrackChanged:  mediaPlayer.activeAudioTrack = audioTracksInfo.selectedTrack
-
-    }
-
     PlaybackControl {
         id: playbackControl
         
