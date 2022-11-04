@@ -39,7 +39,7 @@ make -j8
 cd ../..
 
 echo "VIT compilation start"
-git clone https://github.com/nxp-imx/imx-voiceui.git -b voice_2.0
+git clone https://github.com/nxp-imx/imx-voiceui.git -b MM_04.07.02_2210_L5.15.y
 cp patches/0001-add-functionality-for-VITBTPLAY.patch imx-voiceui/vit/i.MX8M_A53/.                               
 cp patches/0001-update-VIT-lib.patch imx-voiceui/vit/i.MX8M_A53/.
 cd imx-voiceui/vit/i.MX8M_A53
