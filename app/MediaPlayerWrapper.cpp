@@ -11,6 +11,7 @@
 #include <QQmlContext>
 #include <iostream>
 #include <QProcess>
+#include <QFile>
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -38,6 +39,11 @@ MediaPlayerWrapper::MediaPlayerWrapper(QObject *parent) : QObject(parent)
 
     QObject::connect(MQThread,&MQueueThread::emitMacAddress,
             this, &MediaPlayerWrapper::setMacAdrees);
+
+    QFile file("/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/device.txt");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QTextStream in(&file);
+    setDevice(in.readLine());
 }
 
 ///////////////////////////////////////////////////////////////////////////////

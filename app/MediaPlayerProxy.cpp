@@ -24,10 +24,9 @@ namespace
     const QString transport = "/fd0";
 }
 
-MediaPlayerProxy::MediaPlayerProxy(QString macAddress, QObject *parent):
+MediaPlayerProxy::MediaPlayerProxy(QString macAddress):
     CurrentMedia(new MediaTrackInfo()),
-    MDMacAddress(macAddress),
-    QObject(parent)
+    MDMacAddress(macAddress)
 {
     if(not MDMacAddress.isEmpty())
     {
@@ -102,8 +101,6 @@ void MediaPlayerProxy::stop()
 void MediaPlayerProxy::volume()
 {
     m_volume = MediaTransport->volume();
-    //qDebug() << MediaTransport->state();
-    //qDebug() << m_volume;
     emit MediaTrackVolumeSignal(m_volume);
 }
 
@@ -140,8 +137,6 @@ void MediaPlayerProxy::device()
     //emit MediaDeviceNameSignal(d_name);
 
 }
-
-
 
 void MediaPlayerProxy::propertyChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated)
 {
@@ -242,7 +237,6 @@ void MediaPlayerProxy::propertyDeviceChanged(const QString &interface, const QVa
     }
 
 }
-
 
 void MediaPlayerProxy::initMediaPlayerProperties()
 {

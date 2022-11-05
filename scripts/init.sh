@@ -22,6 +22,7 @@ cp -v /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/Config.ini
 /unit_tests/nxp-afe/afe libvoiceseekerlight  &
 pulseaudio --start --log-target=syslog
 
+uname -n > /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/device.txt
 /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/btp_vit -ddefault -l ENGLISH -t 1000000 &
 sleep 2
 /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/Btplayer

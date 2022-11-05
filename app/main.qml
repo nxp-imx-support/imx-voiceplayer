@@ -60,8 +60,9 @@ import "content"
 Window {
     id: root
     width: 640
-    height: 400
+    height: 480
     visible: true
+    property alias menuBar: menuBar
     title: qsTr("NXP VIT Multimedia Player")
 
     Popup {
@@ -124,26 +125,31 @@ Window {
     }
 
     PlayerMenuBar {
+        x: 0
+        y: 4
         id: menuBar
         anchors.left: parent.left
         anchors.right: parent.right
-        x: 10
-        y: 10
-
+        playerInfo: playerInfo
         onClosePlayer: root.close()
     }
 
-    Rectangle
-    {
-        x: 40
-        y: 150
-        //width: 100
-        //height: 100
+    TapHandler {
+        onTapped: {
+            playerInfo.visible = false
+        }
+    }
+
+    Rectangle {
+        x: root.width/10
+        y: root.height/3
+        width: 400
+        height: 150
 
         Image {
             id: image
-            //x: 17
-            //y: 17
+            x: 10
+            y: 10
             width: 100
             height: 100
             source: "qrc:/rsc/bluetooth.svg"
@@ -179,6 +185,19 @@ Window {
             text: MediaPlayerWrapper.album
             font.pixelSize: 12
         }
+    }
+
+    PlayerInfo {
+        id: playerInfo
+        visible: true
+        x: 404
+        y: 0
+        width: 221
+        height: 300
+        anchors.right: parent.right
+        anchors.top: menuBar.bottom
+        anchors.rightMargin: 15
+        anchors.topMargin: 13
     }
 
     PlaybackControl {

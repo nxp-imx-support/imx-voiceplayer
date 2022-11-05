@@ -53,39 +53,91 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import com.nxp.btplayer 1.0
 
 Item {
     id: root
-    property double defaultValue : 1.0
+    implicitWidth: 200
 
-    Popup {
-        id: mediaError
-        anchors.centerIn: Overlay.overlay
-        Text {
-            text: qsTr("Bluez-5.65 API MediaPlayer.Rate is a readonly property\nrefer to: https://git.kernel.org/pub/scm/bluetooth/bluez.git/")
-        }
-        onClosed: slider.value = defaultValue
-    }
-    RowLayout {
+    Frame {
+
+        id: frameRoot
         anchors.fill: parent
+        padding: 15
 
-        Slider {
-            id: slider
-            Layout.fillWidth: true
-            snapMode: Slider.SnapOnRelease
-            enabled: true
-            from: 0.5
-            to: 2.5
-            stepSize: 0.5
-            value: 1.0
+        background: Rectangle {
+            color: "lightgray"
+            opacity: 0.7
+        }
 
-            onMoved: {
-                mediaError.open()
-            }
+        Text {
+            id: showPlayerInfo
+            visible: true //elements.count === 0
+            font.italic: true
+            font.pixelSize: 10
+            text: qsTr("Help -> PlayerInfo \n     to show this view")
+        }
+
+        Text {
+            x: 0
+            y: 52
+            visible: true
+            font.pixelSize: 7
+            text: qsTr("Connect to: ");
         }
         Text {
-            text: "Rate " + slider.value + "x"
+            id: deviceName
+            x: 45
+            y: 52
+            visible: true
+            font.pixelSize: 7
+            text: MediaPlayerWrapper.device
+        }
+
+        Rectangle
+        {
+            x:0
+            y:65
+            width: 200
+            height: 300
+            anchors.top: deviceName.bottom
+            anchors.topMargin: 7
+            color: 'transparent'
+            /*color: 'teal'
+            Image {
+                x: 0
+                y: layout.height/2
+                source: "../rsc/voice.png"
+                sourceSize.width: 50
+                sourceSize.height: 60
+            }*/
+            Text {
+                id: deviceConnected
+                x: 10
+                y: 10
+                visible: true//elements.count === 0
+                font.bold:true
+                font.pointSize: 6
+                text:
+                "WakeWord supported :"+
+                    "\n    'HEY NXP'\n"+
+                "Voice commands supported :"+
+                    "\n    PLAY MUSIC"+
+                    "\n    PAUSE"+
+                    "\n    PREVIOUS SOUND"+
+                    "\n    NEXT SOUND"+
+                    "\n    VOLUME UP"+
+                    "\n    VOLUME DOWN"+
+                "\n    MUTE"+
+                "\n    STOP"+
+                "\n    STOP PLAYER"
+            }
         }
     }
 }
+
+
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:640}
+}
+##^##*/

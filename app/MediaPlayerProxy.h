@@ -29,7 +29,7 @@ class MediaPlayerProxy : public QObject
     Q_OBJECT
 
 public:
-    explicit MediaPlayerProxy(QString macAddress, QObject *parent = nullptr);
+    MediaPlayerProxy(QString macAddress);
     ~MediaPlayerProxy();
 
 signals:

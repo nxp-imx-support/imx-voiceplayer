@@ -58,6 +58,7 @@ import QtQuick.Layouts
 Item {
     id: root
 
+    required property PlayerInfo playerInfo
     height: menuBar.height
 
     signal closePlayer
@@ -69,10 +70,7 @@ Item {
     }
 
     function closeOverlays(){
-        metadataInfo.visible = false;
-        audioTracksInfo.visible = false;
-        videoTracksInfo.visible = false;
-        subtitleTracksInfo.visible = false;
+        playerInfo.visible = false;
     }
 
     function showOverlay(overlay){
@@ -143,44 +141,113 @@ Item {
 
     Dialog {
         id: aboutDemoRoot
+        width: 350
+        height: 300
         anchors.centerIn: Overlay.overlay
-   	modal: false
-   	title: qsTr("VIT BTPlayer by NXP")
-   	standardButtons: Dialog.Ok
-   	visible: false
-        RowLayout {
-            id: aboutDemo
+        title: qsTr("VIT Multimedia Player Licenses")
+        standardButtons: Dialog.Ok
+        modal: true
+        visible: false
 
+       RowLayout {
+            id: layout
+            anchors.fill: parent
+            spacing: 10
 
-	/*
-            Image {
-            	id: image
-            	x: 50
-	        //y: 50
-	        Layout.alignment: Qt.AlignCenter
-            	sourceSize.width: 50
-	        sourceSize.height: 60
-        	source: "qrc:/rsc/bluetooth.svg"
-	       fillMode: Image.PreserveAspectFit
+            Rectangle {
+                //color: 'teal'
+                id: rectangle
+                Layout.fillWidth: true
+                Layout.minimumWidth: 30
+                Layout.preferredWidth: 50
+                Layout.maximumWidth: 50
+                Layout.minimumHeight: 150
+
+                Text {
+                    anchors.centerIn: rectangle.height
+                    font.bold: true
+                    text: " BTPayer 1.0: BSD-3-Clause"
+                }
+
+                Image {
+                    x: 0
+                    y: layout.height/2
+                    source: "../rsc/nxp.png"
+                    sourceSize.width: 50
+                    sourceSize.height: 60
+                }
             }
-            */
-            
-            Label {
-                //x: 50
-            	//y: 10
-            	Layout.alignment: Qt.AlignLeft
-            	text: 
-        	BTPayer 1.0: BSD-3-Clause \n\n 
- 		Copyright 2022 NXP
- 		
-                QT interface: The Qt Company Ltd. (LGPL-3.0-only) \n
-                iMX VIT 2.0: LA_OPT_NXP_Software_License v38 August 2022\n");
-            	}
-            	
-            }
-	    
 
-        }
+
+            Rectangle {
+                //color: 'plum'
+                Layout.fillWidth: true
+                Layout.minimumWidth: 100
+                Layout.preferredWidth: 100
+                Layout.minimumHeight: 100
+
+                Label {
+                    anchors.centerIn: parent.width
+                    font.pointSize:8
+                    wrapMode: Text.WordWrap
+                    text: qsTr("Includes:");
+                }
+                Label {
+                    x: 0
+                    y: 14
+                    font.pointSize: 7
+                    wrapMode: Text.WordWrap
+                    font.bold: true
+                    text: qsTr("QT Interface:");
+                }
+                Label {
+                    x: 0
+                    y: 28
+                    font.pointSize:7
+                    wrapMode: Text.WordWrap
+                    text: qsTr("  The Qt Company Ltd. (LGPL-3.0-only)");
+                }
+                Label {
+                    x: 0
+                    y: 42
+                    font.pointSize:7
+                    wrapMode: Text.WordWrap
+                    font.bold: true
+                    text: qsTr("iMX VIT 2.0:\n");
+                }
+                Label {
+                    x: 0
+                    y: 56
+                    font.pointSize:7
+                    wrapMode: Text.WordWrap
+                    text: qsTr("LA_OPT_NXP_Software_License v38 August 2022\n");
+                }
+                Label {
+                    x: 0
+                    y: 70
+                    font.pointSize:7
+                    wrapMode: Text.WordWrap
+                    text: qsTr("Additional Distribution License granted,");
+                }
+                Label {
+                    x: 0
+                    y: 84
+                    font.pointSize:7
+                    wrapMode: Text.WordWrap
+                    text: qsTr("license in Section 2.3 applies");
+                }
+                Label {
+                    x: 0
+                    y: 120
+                    anchors.centerIn: parent.height
+                    font.italic: true
+                    font.pointSize:7
+                    color: 'gray'
+                    text: "Copyright 2022 NXP"
+                    }
+            }
+       }
+    }
 
     MenuBar {
         id: menuBar
@@ -189,14 +256,7 @@ Item {
 
         Menu {
             title: qsTr("&Source")
-            Action {
-                text: qsTr("&File")
-                onTriggered: fileDialog.open()
-            }
-            Action {
-                text: qsTr("&USB");
-                onTriggered: urlPopup.open()
-            }
+
             Action {
                 text: qsTr("&Bluetooth")
                 onTriggered: btPopup.open()
@@ -210,33 +270,13 @@ Item {
         Menu {
             title: qsTr("&Help")
             Action {
+                text: qsTr("&PlayerInfo")
+                onTriggered: showOverlay(playerInfo)
+            }
+            Action {
                 text: qsTr("&About")
                 onTriggered: aboutDemoRoot.open()
             }
-            /*
-            Action {
-                text: qsTr("Metadata")
-                onTriggered: showOverlay(metadataInfo)
-            }*/
-            
-        }
-
-/*
-        Menu {
-            title: qsTr("&Tracks")
-            Action {
-                text: qsTr("Audio")
-                onTriggered: showOverlay(audioTracksInfo)
-            }
-            Action {
-                text: qsTr("Video")
-                onTriggered: showOverlay(videoTracksInfo)
-            }
-            Action {
-                text: qsTr("Subtitles")
-                onTriggered: showOverlay(subtitleTracksInfo)
-            }
-        }
-        */
+        }   
     }
 }

@@ -59,6 +59,17 @@ Item {
     id: root
     implicitHeight: 20
 
+    property double defaultValue : 0.0
+
+    Popup {
+        id: mediaError
+        anchors.centerIn: Overlay.overlay
+        Text {
+            text: qsTr("Bluez-5.65 API MediaPlayer.Position is a readonly property\nrefer to: https://git.kernel.org/pub/scm/bluetooth/bluez.git/")
+        }
+        onClosed: mediaSlider.value = defaultValue //MediaPlayerWrapper.position / MediaPlayerWrapper.duration
+    }
+
     RowLayout {
         anchors.fill: parent
 
@@ -77,14 +88,14 @@ Item {
         Slider {
             id: mediaSlider
             Layout.fillWidth: true
-            enabled: MediaPlayerWrapper.seekable
+            enabled: true //MediaPlayerWrapper.seekable
             to: 1.0
             value:
             {
                 MediaPlayerWrapper.position / MediaPlayerWrapper.duration
             }
 
-            onMoved: MediaPlayerWrapper.setPosition(value * MediaPlayerWrapper.duration)
+            onMoved: mediaError.open() // MediaPlayerWrapper.setPosition(value * MediaPlayerWrapper.duration)
         }
     }
 }

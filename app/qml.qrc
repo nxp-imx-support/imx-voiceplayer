@@ -8,8 +8,10 @@
         <file>content/PlaybackSeekControl.qml</file>
         <file>content/PlayerMenuBar.qml</file>
         <file>content/TracksInfo.qml</file>
+        <file>content/PlayerInfo.qml</file>
         <file>rsc/volume-high-solid.svg</file>
         <file>rsc/volume-xmark-solid.svg</file>
         <file>rsc/bluetooth.svg</file>
+        <file>rsc/nxp.png</file>
     </qresource>
 </RCC>
