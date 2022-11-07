@@ -1,49 +1,56 @@
-# Meta btplayer demo for  i.MX8M
+# VIT Btplayer demo for  i.MX8M
 
-A BTPlayer demo application for i.MX8M.
+The VIT BTPlayer demo application for i.MX8M is a Voice media player based in NXP Voice Intelligent Technology, a free library that provides a low power voice recognition technology, it integrates a complete audio front end / wake word engine / voice commands solution to control IOT devices
 
 
-### Demo has been tested on:
+![alt text for screen readers](app/rsc/VITMediaplayer.png "VIT Media Player").
 
-| BOARD               | MACHINE           |
-| ------------------- | ----------------- |
-| i.MX 8M Plus (DDR4) | imx8mp-lpddr4-evk |
-| i.MX 8M Mini (DDR4) | imx8mm-lpddr4-evk |
 
+The graphical application is based on QT6, it uses the Bluez API for playing back audio via DBUS interface and control the Bluetooth adapter
 
 ### Build Instructions
 
 
-### Step 1: Init project sub components
-When cloning this reposiroty, make sure to download the last version of project submodules, otherwise you will be missing the voice-commands functionality
+### Step 1:
+Setup your iMX8M SDK environment
 
 ```bash
-git submodule update --init --recursive
+source /opt/fsl-imx-xwayland/5.15-honister-qt6/environment-setup-aarch64-poky-linux
 ```
 
-### Step 2: Run Make 
-
+### Step 2: Run build script
+This script will download app components, build and package the binary application in build_output_demo file
 ```bash
-source /opt/fsl-imx-xwayland/5.15-honister-qt6/environment-setup-aarch64-poky-linux 
-mkdir build_v8
-cd build_v8
-qmake ../Btplayer.pro 
-make -j8
-
+sh build-demo.sh
 ```
 
 ### Step 3: Install 
-
+Copy build_output_demo.tgz directory to iMX8 evk, extract its contents and run install.sh script in target
 ```bash
+tar xvf build_output_demo.tgz
+cd build_output_demo
+sh install.sh
 
 ```
 
 ## Test the demo
 
 ### Run from binary
-Login using root password and go to the installed directory and execute the btplayer binary to launch the application
+Login using root password and go to the installed directory and execute the init script to launch the player application
 
 ```bash
-cd /home/root/demo-btplayer/btplayer
+sh /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/init.sh
 ```
+
+### Run from Demo Experience
+Btplayer will also available from NXP demo experience BT under icon.
+
+
+## Demo has been tested on:
+
+| BOARD               | MACHINE           |
+| ------------------- | ----------------- |
+| i.MX 8M Plus (DDR4) | imx8mp-lpddr4-evk |
+| i.MX 8M Mini (DDR4) | imx8mm-lpddr4-evk |
+
 
