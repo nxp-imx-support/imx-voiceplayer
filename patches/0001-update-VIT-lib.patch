@@ -13,7 +13,7 @@ index 8555bfe..e9cb546 100644
 +++ b/vit/i.MX8M_A53/Makefile
 @@ -1,4 +1,4 @@
 -VERSION=4.6.1
-+VERSION=4.7.3_EAR
++VERSION=4.7.5
  BLDDIR=build
  
  TEST_FILES= \
