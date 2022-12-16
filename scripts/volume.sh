@@ -40,10 +40,10 @@ else
 		do
   		echo "$line"
   		currentvol=$line
-		done < /opt/Btplayer/bin/mute.vol
+		done < /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/mute.vol
                 dbus-send --system --type=method_call --print-reply=literal --dest=org.bluez /org/bluez/hci0/dev_$1/fd0 org.freedesktop.DBus.Properties.Set string:org.bluez.MediaTransport1 string:Volume variant:uint16:$currentvol
         else        
-                echo $currentvol > /opt/Btplayer/bin/mute.vol
+                echo $currentvol > /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/mute.vol
                 echo "Volume save"
                 echo $currentvol
                 printenv

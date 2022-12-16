@@ -170,7 +170,37 @@ echo evk > device.txt;
 # Start pulseaudio server
 pulseaudio --start --log-target=syslog
 echo "Pulseaudio server successfully started";
+   # Get card number
+                alsa_sink=$(aplay -l | grep -B1 "Loopback" | grep -B1 "1" | cut -c 6-6 | sed '1d');
+                #alsa_sink=$(aplay -l | grep -B1 "btscoaudio" | grep -B1 "0" | cut -c 6-6 | sed '1d');
+                echo -e "Loopback card:${alsa_sink}";
+  
+               # Load the pulseaudio module
+                pacmd load-module module-alsa-sink device=hw:${alsa_sink},1
 
+  
+                # Get sink pulse audio index
+                sink_index=$(pacmd list-sinks | grep -B1 "name: <alsa_output.hw*" | sed '$d' | cut -d " " -f 5);
+                if  [[ $sink_index == "" || $sink_index == "index:" ]]
+                then
+                        sink_index=$(pacmd list-sinks | grep -B1 "name: <alsa_output.hw*" | sed '$d' | cut -d " " -f 6);
+                fi
+                echo -e "Sink index:${sink_index}";
+   
+                # Set default sink
+                # pacmd set-default-sink ${sink_index}
+                pacmd set-default-sink 
+  
+                # Get source pulse audio index
+                source_index=$(pacmd list-sources | grep -B1 "name: <alsa_input.platform-sound-bt*" | sed '$d' | cut -d " " -f 5);
+                if  [[ $source_index == "" || $source_index == "index:" ]]
+                then
+                        source_index=$(pacmd list-sources | grep -B1 "name: <alsa_input.platform-sound-bt*" | sed '$d' | cut -d " " -f 6);
+                fi
+                echo -e "Source index:${source_index}";
+
+                   # Set default source
+                pacmd set-default-source ${source_index}
 	
         if  [[ $evk == "imx8ulp-lpddr4-evk" || $evk == "imx8ulpevk" ]]
         then

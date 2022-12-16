@@ -61,6 +61,7 @@ cp -a scripts/demos.json ${BUILD_OUTPUT_DIR}
 cp -a scripts/init.sh ${BUILD_OUTPUT_DIR}
 cp -a scripts/bt-init.sh ${BUILD_OUTPUT_DIR}
 cp -a scripts/connect.sh ${BUILD_OUTPUT_DIR}
+cp -a scripts/volume.sh ${BUILD_OUTPUT_DIR}
 cp -a scripts/asound.conf ${BUILD_OUTPUT_DIR}
 cp -a scripts/Config.ini ${BUILD_OUTPUT_DIR}
 cp -a scripts/Enable_VoiceSeeker.sh ${BUILD_OUTPUT_DIR}
