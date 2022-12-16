@@ -139,7 +139,7 @@ Item {
                     RoundButton {
                         id: pauseButton
                         radius: 50.0
-                        text: "\u2016";
+                        icon.source: "qrc:/rsc/pause.svg"
                         onClicked: MediaPlayerWrapper.onPause()
                     }
 
@@ -162,7 +162,7 @@ Item {
                     RoundButton {
                         id: nextButton
                         radius: 60.0
-                        text: "\u23ED";
+                        icon.source: "qrc:/rsc/forward-step.svg"
                         onClicked: MediaPlayerWrapper.onNext()
                     }
                 }
