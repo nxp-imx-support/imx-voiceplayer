@@ -49,4 +49,3 @@ Btplayer is also available from NXP demo experience under BT icon.
 | i.MX 8M Plus (DDR4) | imx8mp-lpddr4-evk |
 | i.MX 8M Mini (DDR4) | imx8mm-lpddr4-evk |
 
-

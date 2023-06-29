@@ -74,7 +74,7 @@ Item {
             id: slider
             Layout.fillWidth: true
             snapMode: Slider.SnapOnRelease
-            enabled: true
+            enabled: false
             from: 0.5
             to: 2.5
             stepSize: 0.5

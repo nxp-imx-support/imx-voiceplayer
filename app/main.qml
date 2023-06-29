@@ -50,161 +50,38 @@
 **
 ****************************************************************************/
 
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
-import QtQuick.Window
-import com.nxp.btplayer 1.0
+import QtQuick 2.7
+import QtQuick.Window 2.3
+import QtQuick.Controls 2.2
 import "content"
 
-Window {
-    id: root
-    width: 640
-    height: 480
+Item {
     visible: true
-    property alias menuBar: menuBar
-    title: qsTr("NXP VIT Multimedia Player")
 
-    Popup {
-        id: mediaError
-        anchors.centerIn: Overlay.overlay
-        Text {
-            id: mediaErrorText
-        }
+    Timer {
+        id: timer
+        interval: 12000
+        repeat: false
+        running: true
+        onTriggered: toggleLoaders()
     }
 
-    function convertDoubleToInt (x) {
-        return x < 0 ? Math.ceil(x) : Math.floor(x);
+    Loader {
+        id: loader1
+        active: true
+        source: "qrc:/content/SplashScreen.qml"
+        anchors.fill: parent
     }
 
-    Rectangle {
-            width: root.width
-            height: root.height/7
-
-            Rectangle{
-                id: stripe1
-                anchors.top: parent.top
-                color: "#f9b500"
-                anchors.left: parent.left
-                width: convertDoubleToInt(root.width * 0.2923)
-                height: convertDoubleToInt(root.height * 0.008)
-            }
-
-            Rectangle{
-                id: stripe2
-                anchors.top: parent.top
-                color: "#928647"
-                anchors.left: stripe1.right
-                width: convertDoubleToInt(root.width * 0.081)
-                height: convertDoubleToInt(root.height * 0.008)
-            }
-            Rectangle{
-                id: stripe3
-                anchors.top: parent.top
-                color: "#7bb1db"
-                anchors.left: stripe2.right
-                width: convertDoubleToInt(root.width * 0.2367)
-                height: convertDoubleToInt(root.height * 0.008)
-            }
-            Rectangle{
-                id: stripe4
-                anchors.top: parent.top
-                color: "#6d9b46"
-                anchors.left: stripe3.right
-                width: convertDoubleToInt(root.width * 0.1397)
-                height: convertDoubleToInt(root.height * 0.008)
-            }
-            Rectangle{
-                id: stripe5
-                anchors.top: parent.top
-                color: "#c9d200"
-                anchors.left: stripe4.right
-                anchors.right: parent.right
-                height: convertDoubleToInt(root.height * 0.008)
-            }
+    Loader {
+        id: loader2
+        active: false
+        source: "qrc:/content/MainView.qml"
+        anchors.fill: parent
     }
 
-    PlayerMenuBar {
-        x: 0
-        y: 4
-        id: menuBar
-        anchors.left: parent.left
-        anchors.right: parent.right
-        playerInfo: playerInfo
-        onClosePlayer: root.close()
-    }
-
-    TapHandler {
-        onTapped: {
-            playerInfo.visible = false
-        }
-    }
-
-    Rectangle {
-        x: root.width/10
-        y: root.height/3
-        width: 400
-        height: 150
-
-        Image {
-            id: image
-            x: 10
-            y: 10
-            width: 100
-            height: 100
-            source: "qrc:/rsc/bluetooth.svg"
-            fillMode: Image.PreserveAspectFit
-        }
-
-        Text {
-            id: title
-            x: 140
-            y: 28
-            width: 129
-            height: 16
-            text: MediaPlayerWrapper.title
-            font.pixelSize: 12
-        }
-
-        Text {
-            id: artist
-            x: 140
-            y: 50
-            width: 129
-            height: 16
-            text: MediaPlayerWrapper.artist
-            font.pixelSize: 12
-        }
-
-        Text {
-            id: album
-            x: 140
-            y: 72
-            width: 124
-            height: 16
-            text: MediaPlayerWrapper.album
-            font.pixelSize: 12
-        }
-    }
-
-    PlayerInfo {
-        id: playerInfo
-        visible: true
-        x: 404
-        y: 0
-        width: 221
-        height: 300
-        anchors.right: parent.right
-        anchors.top: menuBar.bottom
-        anchors.rightMargin: 15
-        anchors.topMargin: 13
-    }
-
-    PlaybackControl {
-        id: playbackControl
-        
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
+    function toggleLoaders() {
+        loader1.active = !loader1.active
+        loader2.active = !loader2.active
     }
 }

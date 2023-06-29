@@ -71,7 +71,7 @@ Item {
 
         Text {
             id: showPlayerInfo
-            visible: true //elements.count === 0
+            visible: true
             font.italic: true
             font.pixelSize: 10
             text: qsTr("Help -> PlayerInfo \n     to show this view")
@@ -114,7 +114,7 @@ Item {
                 id: deviceConnected
                 x: 10
                 y: 10
-                visible: true//elements.count === 0
+                visible: true
                 font.bold:true
                 font.pointSize: 6
                 text:
@@ -123,8 +123,8 @@ Item {
                 "Voice commands supported :"+
                     "\n    PLAY MUSIC"+
                     "\n    PAUSE"+
-                    "\n    PREVIOUS SOUND"+
-                    "\n    NEXT SOUND"+
+                    "\n    PREVIOUS SONG"+
+                    "\n    NEXT SONG"+
                     "\n    VOLUME UP"+
                     "\n    VOLUME DOWN"+
                 "\n    MUTE"+

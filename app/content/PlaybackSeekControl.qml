@@ -88,7 +88,7 @@ Item {
         Slider {
             id: mediaSlider
             Layout.fillWidth: true
-            enabled: true //MediaPlayerWrapper.seekable
+            enabled: false
             to: 1.0
             value:
             {

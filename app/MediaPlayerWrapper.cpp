@@ -69,6 +69,7 @@ bool MediaPlayerWrapper::initialize()
     resetModel();
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     Engine.load(url);
+
     if(Engine.rootObjects().isEmpty())
         return false;
     return true;
@@ -155,7 +156,6 @@ void MediaPlayerWrapper::SetPlayingState(const int value)
 {
     m_PlayingState = value;
 }
-
 
 double MediaPlayerWrapper::PlayerMediaTime()
 {
@@ -301,7 +301,7 @@ void MediaPlayerWrapper::setVolume(int volume)
 
 void MediaPlayerWrapper::setDevice(QString device)
 {
-    mDevice = device;
+    mDevice = "i.MX-MultimediaPlayer";
     emit deviceChanged();
 
 }
