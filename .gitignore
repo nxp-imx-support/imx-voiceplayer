@@ -23,7 +23,6 @@ tags
 .DS_Store
 .directory
 *.debug
-Makefile*
 *.prl
 *.app
 moc_*.cpp
@@ -73,4 +72,11 @@ Thumbs.db
 
 #voice
 imx-VoiceSeeker
+voiceAction/build
+app/build/
+build_output_demo.tgz
+build_output_demo/
+imx-voiceui/
+msgq/build/
+nxp-demo-experience-assets/
 

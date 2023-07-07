@@ -12,8 +12,29 @@ The application is based on QT Interface 6.2, Bluez 5.65 API for playing back au
 ### Step 1:
 Setup your iMX8M SDK environment
 ```bash
-source /opt/fsl-imx-xwayland/5.15-honister-qt6/environment-setup-aarch64-poky-linux
+source /opt/fsl-imx-internal-xwayland/6.1-langdale/environment-setup-armv8a-poky-linux
 ```
+### Note:
+It needs to set some variables before compiling (VOICE_UI, ASSETS, VOICE_UI_BRANCH, ASSETS_BRANCH).
+
+VOICE_UI: Repository of voice_ui.
+
+ASSETS: Repository of assets.
+
+VOICE_UI_BRANCH: Branch name for voice_ui repository.
+
+ASSETS_BRANCH: Branch name for assets repository.
+
+
+Example:
+
+export VOICE_UI=https://github.com/nxp-imx/imx-voiceui.git
+
+export ASSETS=https://github.com/nxp-imx-support/nxp-demo-experience-assets.git
+
+export VOICE_UI_BRANCH=MM_04.08.00_2305_L6.1.y
+
+export ASSETS_BRANCH=lf-6.1.22_2.0.0
 
 ### Step 2: Run build script
 This script will download app components, build and package the binary application in build_output_demo.tgz file
