@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+# Copyright 2023 NXP
+# SPDX-License-Identifier: BSD-3-Clause
+
+import json
+import posix_ipc
+import time
+import sys
+
+if __name__ == "__main__":
+
+    mq = posix_ipc.MessageQueue("/voice_ui_queue")
+    params = sys.argv[1] + " " + sys.argv[2]
+    mq.send(params)
