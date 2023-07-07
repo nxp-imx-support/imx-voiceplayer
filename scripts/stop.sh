@@ -1,4 +1,7 @@
-#/bin/sh
+#/bin/bash
+
+# Copyright 2022-2023 NXP                                                                                                              
+# SPDX-License-Identifier: BSD-3-Clause
 
 # Check if Btplayer is running
 echo "Bt Player Stop Script"

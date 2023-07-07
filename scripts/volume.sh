@@ -1,13 +1,7 @@
 #!/bin/bash
 
-# Copyright 2022 NXP
+# Copyright 2022-2023 NXP
 # SPDX-License-Identifier: BSD-3-Clause
-
-echo "MAC"
-echo $1
-
-echo "option"
-echo $2
 
 currentvol=`dbus-send --system --type=method_call --print-reply=literal --dest=org.bluez /org/bluez/hci0/dev_$1/fd0 org.freedesktop.DBus.Properties.Get string:org.bluez.MediaTransport1 string:Volume | cut -d" " -f 12`
 echo "current volume"

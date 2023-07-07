@@ -1,8 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
-# Copyright 2022 NXP
+# Copyright 2022-2023 NXP
 # SPDX-License-Identifier: BSD-3-Clause
-
 
 uname -n > /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/device.txt
 evk=$(uname -n);
@@ -30,15 +29,24 @@ cp -v /unit_tests/nxp-afe/Config.ini /unit_tests/nxp-afe/Config.ini_original
 cp -v /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/Config.ini /unit_tests/nxp-afe
 touch /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/mute.vol
 
-/unit_tests/nxp-afe/afe libvoiceseekerlight  &
-pulseaudio --start --log-target=syslog
+if [ ! -d "/usr/lib/python3.10/site-packages/posix_ipc" ]
+then
+        echo Installing posix_ipc...
+        python3 -m pip install --upgrade posix_ipc --trusted-host pypi.org --trusted-host files.pythonhosted.org
+        sleep 3s
+fi
 
 if [[ $evk == "imx93-11x11-lpddr4x-evk" || $evk == "imx93evk" ]]
 then
-        /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/i.MX9X_A55/btp_vit -ddefault -l ENGLISH -t 100000 -i IMX9XA55 &
+        /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/i.MX9X_A55/voice_ui_app -notify &
 else
-        /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/i.MX8M_A53/btp_vit -ddefault -l ENGLISH -t 100000 &
+        /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/i.MX8M_A53/voice_ui_app -notify &
 fi
 
+sleep 1
+/unit_tests/nxp-afe/afe libvoiceseekerlight &
+pulseaudio --start --log-target=syslog
+
+/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/btp &
 sleep 2
 /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/Btplayer
