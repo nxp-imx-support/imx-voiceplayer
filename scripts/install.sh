@@ -8,7 +8,7 @@ mkdir -vp /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo
 cp -v /home/root/.nxp-demo-experience/demos.json /home/root/.nxp-demo-experience/demos.json_orig
 cp -v ./bluetooth.svg /home/root/.nxp-demo-experience/icon/
 cp -v ./demos.json /home/root/.nxp-demo-experience/
-cp -v ./WakeWordNotify /bin/
-cp -v ./WWCommandNotify /bin/
+cp -v ./WakeWordNotify /usr/bin/
+cp -v ./WWCommandNotify /usr/bin/
 cp -v ./volume.sh /opt/Btplayer/bin/
-cp -v ./* /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/
+cp -vr ./* /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/

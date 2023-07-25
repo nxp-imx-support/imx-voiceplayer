@@ -48,8 +48,8 @@ git clone ${VOICE_UI} --branch ${VOICE_UI_BRANCH}
 git clone ${ASSETS} -b ${ASSETS_BRANCH}
 rm imx-voiceui/vit/i.MX8M_A53/Lib/VIT_Model_en.h
 rm imx-voiceui/vit/i.MX9X_A55/Lib/VIT_Model_en.h
-cp nxp-demo-experience-assets/build/demo-experience-voice-demo/VIT_Model_en.h imx-voiceui/vit/i.MX8M_A53/Lib/.
-cp nxp-demo-experience-assets/build/demo-experience-voice-demo/VIT_Model_en.h imx-voiceui/vit/i.MX9X_A55/Lib/.
+cp nxp-demo-experience-assets/build/demo-experience-voice-demo-bt-player/VIT_Model_en.h imx-voiceui/vit/i.MX8M_A53/Lib/.
+cp nxp-demo-experience-assets/build/demo-experience-voice-demo-bt-player/VIT_Model_en.h imx-voiceui/vit/i.MX9X_A55/Lib/.
 cd imx-voiceui 
 make clean
 make -j8
