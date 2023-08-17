@@ -3,7 +3,7 @@
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
 **
-** Copyright 2022 NXP
+** Copyright 2022-2023 NXP
 **
 ** This file is part of the examples of the Qt Toolkit.
 **

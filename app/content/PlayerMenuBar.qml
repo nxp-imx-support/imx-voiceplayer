@@ -3,7 +3,7 @@
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
 **
-** Copyright 2022 NXP
+** Copyright 2022-2023 NXP
 **
 ** This file is part of the examples of the Qt Toolkit.
 **
@@ -142,9 +142,9 @@ Item {
     Dialog {
         id: aboutDemoRoot
         width: 350
-        height: 300
+        height: 200
         anchors.centerIn: Overlay.overlay
-        title: qsTr("VIT Multimedia Player Licenses")
+        title: qsTr("i.MX Multimedia Player Licensing")
         standardButtons: Dialog.Ok
         modal: true
         visible: false
@@ -155,23 +155,23 @@ Item {
             spacing: 10
 
             Rectangle {
-                //color: 'teal'
                 id: rectangle
                 Layout.fillWidth: true
                 Layout.minimumWidth: 30
                 Layout.preferredWidth: 50
                 Layout.maximumWidth: 50
                 Layout.minimumHeight: 150
+                color: "transparent"
 
                 Text {
                     anchors.centerIn: rectangle.height
                     font.bold: true
-                    text: " BTPayer 1.0: BSD-3-Clause"
+                    text: " i.MX Voice Player v2.0: BSD-3-Clause"
                 }
 
                 Image {
                     x: 0
-                    y: layout.height/2
+                    y: layout.height/3
                     source: "../rsc/nxp.png"
                     sourceSize.width: 50
                     sourceSize.height: 60
@@ -180,65 +180,30 @@ Item {
 
 
             Rectangle {
-                //color: 'plum'
                 Layout.fillWidth: true
                 Layout.minimumWidth: 100
                 Layout.preferredWidth: 100
                 Layout.minimumHeight: 100
+                color: "transparent"
 
-                Label {
-                    anchors.centerIn: parent.width
-                    font.pointSize:8
-                    wrapMode: Text.WordWrap
-                    text: qsTr("Includes:");
-                }
                 Label {
                     x: 0
                     y: 14
                     font.pointSize: 7
                     wrapMode: Text.WordWrap
                     font.bold: true
-                    text: qsTr("QT Interface:");
+                        text: qsTr("QT Interface:");
                 }
                 Label {
                     x: 0
                     y: 28
                     font.pointSize:7
                     wrapMode: Text.WordWrap
-                    text: qsTr("  The Qt Company Ltd. (BSD-3-Clause)");
+                    text: qsTr("The Qt Company Ltd. (BSD-3-Clause)");
                 }
                 Label {
                     x: 0
-                    y: 42
-                    font.pointSize:7
-                    wrapMode: Text.WordWrap
-                    font.bold: true
-                    text: qsTr("iMX VIT 2.0:\n");
-                }
-                Label {
-                    x: 0
-                    y: 56
-                    font.pointSize:7
-                    wrapMode: Text.WordWrap
-                    text: qsTr("LA_OPT_NXP_Software_License v46 June 2023\n");
-                }
-                Label {
-                    x: 0
-                    y: 70
-                    font.pointSize:7
-                    wrapMode: Text.WordWrap
-                    text: qsTr("Additional Distribution License granted,");
-                }
-                Label {
-                    x: 0
-                    y: 84
-                    font.pointSize:7
-                    wrapMode: Text.WordWrap
-                    text: qsTr("license in Section 2.3 applies");
-                }
-                Label {
-                    x: 0
-                    y: 120
+                    y: 60
                     anchors.centerIn: parent.height
                     font.italic: true
                     font.pointSize:7

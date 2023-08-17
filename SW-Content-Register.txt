@@ -1,8 +1,8 @@
 NXP Software Content Register
 
 Release:                    NXP VIT BT Player Demo
-Version:                    1.0
-Date:                       June 2023
+Version:                    2.0
+Date:                       August 2023
 Outgoing License:           BSD-3-Clause
 License File:               LICENSE
 Package Category:           Demo application
