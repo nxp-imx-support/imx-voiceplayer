@@ -100,7 +100,7 @@ static void BTPVA_init_mqueue() {
 }
 
 static void BTPVA_call_custom(int WW, int cmd) {
-  char sVolume[50];
+  char sVolume[100];
 
   switch (cmd) {
   case 1: /* MUTE */
@@ -108,7 +108,7 @@ static void BTPVA_call_custom(int WW, int cmd) {
       printf(NO_CONNECTION_TO_BT);
     } else {
       printf("MUTE command\n");
-      strcpy(sVolume, "/opt/Btplayer/bin/volume.sh ");
+      strcpy(sVolume, "/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/volume.sh ");
       strcat(sVolume, sMAC_Bt);
       strcat(sVolume, MUTE);
       popen(sVolume, R_MODE);
@@ -157,14 +157,14 @@ static void BTPVA_call_custom(int WW, int cmd) {
     popen("pkill Btplayer", R_MODE);
     break;
   case 9: /* START PLAYER */
-    popen("/opt/Btplayer/bin/Btplayer -platform wayland &", R_MODE);
+    popen("/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/Btplayer -platform wayland &", R_MODE);
     break;
   case 10: /* VOLUME UP */
     if (iConnectionToBT != true) {
       printf(NO_CONNECTION_TO_BT);
     } else {
       printf("VOLUME UP command\n");
-      strcpy(sVolume, "/opt/Btplayer/bin/volume.sh ");
+      strcpy(sVolume, "/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/volume.sh ");
       strcat(sVolume, sMAC_Bt);
       strcat(sVolume, INCREMENT);
       popen(sVolume, R_MODE);
@@ -175,7 +175,7 @@ static void BTPVA_call_custom(int WW, int cmd) {
       printf(NO_CONNECTION_TO_BT);
     } else {
       printf("VOLUME DOWN command\n");
-      strcpy(sVolume, "/opt/Btplayer/bin/volume.sh ");
+      strcpy(sVolume, "/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/volume.sh ");
       strcat(sVolume, sMAC_Bt);
       strcat(sVolume, DECREMENT);
       popen(sVolume, R_MODE);

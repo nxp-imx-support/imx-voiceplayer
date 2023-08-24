@@ -66,7 +66,3 @@ pulseaudio --start --log-target=syslog
 /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/btp &
 sleep 2
 /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/Btplayer
-
-
-trap "cp /etc/asound.conf.original /etc/asound.conf & \
-	cp /unit_tests/nxp-afe/Config.ini.original /unit_tests/nxp-afe/Config.ini" INT
