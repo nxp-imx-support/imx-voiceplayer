@@ -2,14 +2,14 @@ NXP Software Content Register
 
 Release:                    NXP VIT BT Player Demo
 Version:                    2.0
-Date:                       August 2023
+Date:                       November 2023
 Outgoing License:           BSD-3-Clause
-License File:               LICENSE
+License File:               LICENSE.txt
 Package Category:           Demo application
 Type of content:            Source, scripts, icons.
 Description and comments:   NXP VIT Bluetooth player demo for i.MX
 Release Location:           https://github.com/nxp-imx-support/imx-voiceplayer
 Origin:                     NXP (BSD-3-Clause)
                             The Qt Company Ltd. (BSD-3-Clause) (https://github.com/qt/qtmultimedia)
-                            BluezQt (LGPL-3.0-only) https://github.com/KDE/bluez-qt/tree/master/src/interfaces
+                            BluezQt (LGPL-2.1-or-later) https://github.com/KDE/bluez-qt/tree/master/src/interfaces
                             Font Awesome (CC-BY-4.0) https://fontawesome.com/icons

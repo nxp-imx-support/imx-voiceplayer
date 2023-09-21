@@ -163,12 +163,6 @@ Item {
                 Layout.minimumHeight: 150
                 color: "transparent"
 
-                Text {
-                    anchors.centerIn: rectangle.height
-                    font.bold: true
-                    text: " i.MX Voice Player v2.0: BSD-3-Clause"
-                }
-
                 Image {
                     x: 0
                     y: layout.height/3
@@ -203,6 +197,13 @@ Item {
                 }
                 Label {
                     x: 0
+                    y: 42
+                    font.pointSize:7
+                    wrapMode: Text.WordWrap
+                    text: qsTr("Uses Qt libraries under LGPL-3.0-only License");
+                }
+                Label {
+                    x: 0
                     y: 60
                     anchors.centerIn: parent.height
                     font.italic: true
@@ -220,12 +221,7 @@ Item {
         anchors.right: parent.right
 
         Menu {
-            title: qsTr("&Source")
-
-            Action {
-                text: qsTr("&Bluetooth")
-                onTriggered: btPopup.open()
-            }
+            title: qsTr("&Home")
             Action {
                 text: qsTr("&Exit");
                 onTriggered: closePlayer()
