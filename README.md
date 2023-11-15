@@ -32,7 +32,15 @@ source /opt/fsl-imx-internal-xwayland/6.1-langdale/environment-setup-armv8a-poky
 export VOICE_UI=https://github.com/nxp-imx/imx-voiceui.git
 export ASSETS=https://github.com/nxp-imx-support/nxp-demo-experience-assets.git
 export VOICE_UI_BRANCH=MM_04.08.00_2305_L6.1.y
-export ASSETS_BRANCH=lf-6.1.22_2.0.0
+export ASSETS_BRANCH=lf-6.1.36_2.1.0
+```
+
+Note: ASSETS_BRANCH can be updated from lf-6.1.36_2.1.0 version onward, and VOICE_UI_BRANCH from MM_04.08.00_2305_L6.1.y version onward.
+
+These are the variables format to use:
+```bash
+export VOICE_UI_BRANCH=<MM_04.xx.yy_zzzz_L6.1.y>
+export ASSETS_BRANCH=<lf-6.6.y_x.y.z>
 ```
 
 ### Step 2 - run build script
