@@ -1,0 +1,2 @@
+The ../app/rsc/license.json file describes the license that all images with the
+extension "*.svg" in the same directory is covered by.

@@ -155,25 +155,6 @@ Item {
             spacing: 10
 
             Rectangle {
-                id: rectangle
-                Layout.fillWidth: true
-                Layout.minimumWidth: 30
-                Layout.preferredWidth: 50
-                Layout.maximumWidth: 50
-                Layout.minimumHeight: 150
-                color: "transparent"
-
-                Image {
-                    x: 0
-                    y: layout.height/3
-                    source: "../rsc/nxp.png"
-                    sourceSize.width: 50
-                    sourceSize.height: 60
-                }
-            }
-
-
-            Rectangle {
                 Layout.fillWidth: true
                 Layout.minimumWidth: 100
                 Layout.preferredWidth: 100

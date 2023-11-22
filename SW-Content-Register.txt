@@ -1,8 +1,8 @@
 NXP Software Content Register
 
-Release:                    NXP VIT BT Player Demo
-Version:                    2.0
-Date:                       November 2023
+Release:                    imx-voiceplayer
+Version:                    2.1
+Date:                       December 2023
 Outgoing License:           BSD-3-Clause
 License File:               LICENSE.txt
 Package Category:           Demo application

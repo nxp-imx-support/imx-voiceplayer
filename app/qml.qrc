@@ -14,7 +14,6 @@
         <file>rsc/volume-xmark.svg</file>
         <file>rsc/forward-step.svg</file>
         <file>rsc/pause.svg</file>
-        <file>rsc/nxp.png</file>
         <file>content/SplashScreen.qml</file>
         <file>content/MainView.qml</file>
     </qresource>
