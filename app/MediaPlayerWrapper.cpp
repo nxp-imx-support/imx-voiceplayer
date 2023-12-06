@@ -24,11 +24,11 @@ MediaPlayerWrapper::MediaPlayerWrapper(QObject *parent) : QObject(parent)
   , BtEnabled(true)
 {
     QProcess process;
-    process.startDetached("/bin/sh", QStringList()<< "/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/bt-init.sh");
+    process.startDetached("/bin/sh", QStringList()<< "/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/bt-init.sh");
     process.waitForFinished();
 
     // Using Bt as default source
-    QString source = BtEnabled ? "Bluetooth" : "USB";
+    //QString source = BtEnabled ? "Bluetooth" : "USB";
 
     MQThread = new MQueueThread();
     MQThread->start(QThread::HighPriority);
@@ -40,7 +40,7 @@ MediaPlayerWrapper::MediaPlayerWrapper(QObject *parent) : QObject(parent)
     QObject::connect(MQThread,&MQueueThread::emitMacAddress,
             this, &MediaPlayerWrapper::setMacAdrees);
 
-    QFile file("/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/device.txt");
+    QFile file("/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/device.txt");
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&file);
     setDevice(in.readLine());
@@ -60,7 +60,7 @@ MediaPlayerWrapper::~MediaPlayerWrapper()
         qDebug() << "AFE restore fail";
         
     delete BtProcess;
-    delete BtPlayer;
+    delete Player;
     delete ConsoleProcess;
 }
 
@@ -85,8 +85,8 @@ void MediaPlayerWrapper::onPlay()
     if (BtProcess)
     {
         qDebug() << "onPlay";
-        BtPlayer->play();
-        BtPlayer->volume();
+        Player->play();
+        Player->volume();
     }
 }
 
@@ -95,7 +95,7 @@ void MediaPlayerWrapper::onPause()
     if (BtProcess)
     {
         qDebug() << "onPause";
-        BtPlayer->pause();
+        Player->pause();
     }
 }
 
@@ -104,7 +104,7 @@ void MediaPlayerWrapper::onStop()
     if (BtProcess)
     {
         qDebug() << "onStop";
-        BtPlayer->stop();
+        Player->stop();
     }
 }
 
@@ -113,28 +113,28 @@ void MediaPlayerWrapper::onNext()
     if (BtProcess)
     {
         qDebug() << "onNext";
-        BtPlayer->next();
+        Player->next();
     }
 }
 
 void MediaPlayerWrapper::volumeUp()
 {
         qDebug() << __func__;
-        BtPlayer->volumeUp();
+        Player->volumeUp();
 
 }
 
 void MediaPlayerWrapper::volumeDown()
 {
         qDebug() << __func__;
-        BtPlayer->volumeDown();
+        Player->volumeDown();
 
 }
 
 void MediaPlayerWrapper::onBluetoothEnabled()
 {
     qDebug() << "Bt start...";
-    ConsoleProcess->startDetached("/bin/sh", QStringList()<< "/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/connect.sh");
+    ConsoleProcess->startDetached("/bin/sh", QStringList()<< "/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/connect.sh");
     ConsoleProcess->waitForFinished();
     qDebug() << "Bt restarted";
     BtEnabled = true;
@@ -209,13 +209,13 @@ void MediaPlayerWrapper::setMacAdrees(QString mac)
 
 
     qDebug() << "trying to connected media player";
-    BtPlayer = new MediaPlayerProxy(mMac);
+    Player = new MediaPlayerProxy(mMac);
 
-    QObject::connect(BtPlayer, &MediaPlayerProxy::MediaTrackInfoSignal,
+    QObject::connect(Player, &MediaPlayerProxy::MediaTrackInfoSignal,
             this, &MediaPlayerWrapper::setMediaTrack);
-    QObject::connect(BtPlayer, &MediaPlayerProxy::MediaTrackVolumeSignal,
+    QObject::connect(Player, &MediaPlayerProxy::MediaTrackVolumeSignal,
             this, &MediaPlayerWrapper::setVolume);
-    QObject::connect(BtPlayer, &MediaPlayerProxy::MediaTrackPositionSignal,
+    QObject::connect(Player, &MediaPlayerProxy::MediaTrackPositionSignal,
             this, &MediaPlayerWrapper::setPosition);
 }
 

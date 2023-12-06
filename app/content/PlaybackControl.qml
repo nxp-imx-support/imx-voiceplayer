@@ -53,7 +53,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import com.nxp.btplayer 1.0
+import com.nxp.voiceplayer 1.0
 
 Item {
     id: root

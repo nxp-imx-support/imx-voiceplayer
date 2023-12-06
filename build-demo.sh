@@ -25,7 +25,7 @@ rm -rf app/build
 mkdir -p app/build
 cd app/build
 
-qmake ../Btplayer.pro 
+qmake ../VoicePlayer.pro
 
 make -j8
 cd ../..
@@ -62,7 +62,7 @@ echo "VIT compilation ended"
 
 #### PACK DEMO COMPONENTS ####
 
-cp -a app/build/Btplayer ${BUILD_OUTPUT_DIR}
+cp -a app/build/VoicePlayer ${BUILD_OUTPUT_DIR}
 cp -a app/rsc/bluetooth.svg ${BUILD_OUTPUT_DIR}
 cp -a msgq/build/MsgQ ${BUILD_OUTPUT_DIR}
 cp -a imx-voiceui/release/voice_ui_app ${BUILD_OUTPUT_DIR}/${iMX8M_DIR}

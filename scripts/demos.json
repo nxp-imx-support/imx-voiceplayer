@@ -181,8 +181,8 @@
         },
         {
             "name": "i.MX Multimedia Player",
-            "id": "btplayer",
-            "executable": "/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/init.sh",
+            "id": "voiceplayer",
+            "executable": "/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/init.sh",
             "source": "",
             "icon": "bluetooth.svg",
             "screenshot": "bluetooth.svg",

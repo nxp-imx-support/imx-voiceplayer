@@ -108,7 +108,7 @@ static void BTPVA_call_custom(int WW, int cmd) {
       printf(NO_CONNECTION_TO_BT);
     } else {
       printf("MUTE command\n");
-      strcpy(sVolume, "/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/volume.sh ");
+      strcpy(sVolume, "/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/volume.sh ");
       strcat(sVolume, sMAC_Bt);
       strcat(sVolume, MUTE);
       popen(sVolume, R_MODE);
@@ -154,17 +154,18 @@ static void BTPVA_call_custom(int WW, int cmd) {
     }
     break;
   case 8: /* STOP PLAYER */
-    popen("pkill Btplayer", R_MODE);
+    popen("pkill VoicePlayer", R_MODE);
+    system("/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/stop.sh");
     break;
   case 9: /* START PLAYER */
-    popen("/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/Btplayer -platform wayland &", R_MODE);
+    popen("/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/VoicePlayer -platform wayland &", R_MODE);
     break;
   case 10: /* VOLUME UP */
     if (iConnectionToBT != true) {
       printf(NO_CONNECTION_TO_BT);
     } else {
       printf("VOLUME UP command\n");
-      strcpy(sVolume, "/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/volume.sh ");
+      strcpy(sVolume, "/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/volume.sh ");
       strcat(sVolume, sMAC_Bt);
       strcat(sVolume, INCREMENT);
       popen(sVolume, R_MODE);
@@ -175,7 +176,7 @@ static void BTPVA_call_custom(int WW, int cmd) {
       printf(NO_CONNECTION_TO_BT);
     } else {
       printf("VOLUME DOWN command\n");
-      strcpy(sVolume, "/home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/volume.sh ");
+      strcpy(sVolume, "/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/volume.sh ");
       strcat(sVolume, sMAC_Bt);
       strcat(sVolume, DECREMENT);
       popen(sVolume, R_MODE);

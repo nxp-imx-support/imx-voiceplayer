@@ -132,7 +132,7 @@ private:
 
     QProcess* BtProcess;
     QProcess* ConsoleProcess;
-    MediaPlayerProxy* BtPlayer;
+    MediaPlayerProxy* Player;
     MQueueThread* MQThread;
     bool BtEnabled;
 

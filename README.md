@@ -68,7 +68,7 @@ sh install.sh
 Login using root password and go to the installed directory and execute the init script to launch the player application:
 
 ```bash
-sh /home/root/.nxp-demo-experience/scripts/multimedia/btplayerdemo/init.sh
+sh /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/init.sh
 ```
 
 ### Run from Demo Experience

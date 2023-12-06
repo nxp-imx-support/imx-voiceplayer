@@ -61,7 +61,7 @@
 int main(int argc, char *argv[])
 {
     std::cout << "Start MediaPlayer..." << std::endl;
-    qmlRegisterType<MediaPlayerProxy>("com.nxp.btplayer", 1, 0, "PlayerModel");
+    qmlRegisterType<MediaPlayerProxy>("com.nxp.voiceplayer", 1, 0, "PlayerModel");
 
     QGuiApplication app(argc, argv);
 
