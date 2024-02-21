@@ -37,6 +37,13 @@ Bluetooth () {
         bluetoothctl pairable on
         sleep 1
         bluetoothctl show
+
+	echo "****************************************"
+	echo "****************************************"
+	echo "Bluetoothctl Auto Connect routine"
+	echo "****************************************"
+	echo "****************************************"
+
         echo "Auto connect..."
         while [ "$(ps -aux | grep VoicePlayer)" != "" ]
         do
@@ -99,37 +106,35 @@ Bluetooth () {
 
 # Set Audio function
 Set_Audio () {
+    if [ ! -f /etc/pipewire/pipewire.conf.d/imx-multimedia-sink.conf ]; then
+        mkdir -p /etc/pipewire/pipewire.conf.d/
+        cp -v ./imx-multimedia-sink.conf /etc/pipewire/pipewire.conf.d/imx-multimedia-sink.conf
+        sleedp .5
+    fi
 
-        # Start pulseaudio server
-        pulseaudio --start --log-target=syslog
-        echo "Pulseaudio server successfully started";
-        # Get card number
-        alsa_sink=$(aplay -l | grep -B1 "Loopback" | grep -B1 "1" | cut -c 6-6 | sed '1d');
-        echo -e "Loopback card:${alsa_sink}";
-        # Load the pulseaudio module
-        pacmd load-module module-alsa-sink device=hw:${alsa_sink},1
+    echo "****************************************"
+    echo "****************************************"
+    echo "systemctl start pw and wp services"
+    echo "****************************************"
+    echo "****************************************"
+    systemctl --user start pipewire
+    systemctl --user start wireplumber
 
-        # Get sink pulse audio index
-        sink_index=$(pacmd list-sinks | grep -B1 "name: <alsa_output.hw*" | sed '$d' | cut -d " " -f 5);
-        if  [[ $sink_index == "" || $sink_index == "index:" ]]
-        then
-                sink_index=$(pacmd list-sinks | grep -B1 "name: <alsa_output.hw*" | sed '$d' | cut -d " " -f 6);
-        fi
-        echo -e "Sink index:${sink_index}";
 
-        # Set default sink
-        pacmd set-default-sink ${sink_index}
+    echo "****************************************"
+    echo "****************************************"
+    echo "PipeWire & Wireplumber configuration"
+    echo "****************************************"
+    echo "****************************************"
 
-        # Get source pulse audio index
-        source_index=$(pacmd list-sources | grep -B1 "name: <alsa_input.platform-sound-bt*" | sed '$d' | cut -d " " -f 5);
-        if  [[ $source_index == "" || $source_index == "index:" ]]
-        then
-                source_index=$(pacmd list-sources | grep -B1 "name: <alsa_input.platform-sound-bt*" | sed '$d' | cut -d " " -f 6);
-        fi
-        echo -e "Source index:${source_index}";
+    foundID=$(wpctl status | grep "Sink for iMX" | sed -r 's/^[^0-9]*([0-9]+).*$/\1/')
+    wpctl set-default "${foundID}"
 
-        # Set default source
-        pacmd set-default-source ${source_index}
+    status=$(wpctl status)
+    settings=$(echo "$status" | grep -A 2 Setting)
+    echo "WirePlumber Settings: "
+    echo $settings
+
 }
 
 # Check if Bluetooth was previously configured

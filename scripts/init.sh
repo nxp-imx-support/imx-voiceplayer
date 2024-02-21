@@ -51,7 +51,6 @@ killall VoicePlayer
 
 sleep 0.1s
 
-
 if [[ $evk == "imx93-11x11-lpddr4x-evk" || $evk == "imx93evk" ]]
 then
         /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/i.MX9X_A55/voice_ui_app -notify &
@@ -61,8 +60,8 @@ fi
 
 sleep 1
 /unit_tests/nxp-afe/afe libvoiceseekerlight &
-pulseaudio --start --log-target=syslog
 
 /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/btp &
+/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/bt-init.sh &
 sleep 2
 /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/VoicePlayer
