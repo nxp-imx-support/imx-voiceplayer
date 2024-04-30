@@ -62,6 +62,5 @@ sleep 1
 /unit_tests/nxp-afe/afe libvoiceseekerlight &
 
 /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/btp &
-/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/bt-init.sh &
 sleep 2
 /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/VoicePlayer

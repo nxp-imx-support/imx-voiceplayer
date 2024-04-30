@@ -23,12 +23,9 @@ MediaPlayerWrapper::MediaPlayerWrapper(QObject *parent) : QObject(parent)
   , ConsoleProcess(new QProcess())
   , BtEnabled(true)
 {
-    //QProcess process;
-    //process.startDetached("/bin/bash", QStringList()<< "/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/bt-init.sh");
-    //process.waitForFinished();
-
-    // Using Bt as default source
-    //QString source = BtEnabled ? "Bluetooth" : "USB";
+    QProcess process;
+    process.startDetached("/bin/bash", QStringList()<< "/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/bt-init.sh");
+    process.waitForFinished();
 
     MQThread = new MQueueThread();
     MQThread->start(QThread::HighPriority);
