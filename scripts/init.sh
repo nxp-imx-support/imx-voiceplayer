@@ -33,9 +33,11 @@ touch /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/mute.vo
 cp /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/WakeWordNotify /usr/bin/
 cp /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/WWCommandNotify /usr/bin/
 
+isposixinstalled=$(python3 -m pip list --format=columns | grep posix_ipc)
 
-if [ -d "/usr/lib/python3.11/site-packages/posix_ipc*" ]
+if [ -z "$isposixinstalled" ]
 then
+	echo ""
         echo Installing posix_ipc...
         python3 -m pip install --upgrade posix_ipc --trusted-host pypi.org --trusted-host files.pythonhosted.org
         sleep 3s

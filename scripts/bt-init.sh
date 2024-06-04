@@ -109,7 +109,7 @@ Set_Audio () {
     if [ ! -f /etc/pipewire/pipewire.conf.d/imx-multimedia-sink.conf ]; then
         mkdir -p /etc/pipewire/pipewire.conf.d/
         cp -v ./imx-multimedia-sink.conf /etc/pipewire/pipewire.conf.d/imx-multimedia-sink.conf
-        sleedp .5
+        sleep .5s
     fi
 
     echo "****************************************"
@@ -119,6 +119,7 @@ Set_Audio () {
     echo "****************************************"
     systemctl --user start pipewire
     systemctl --user start wireplumber
+    sleep .5s
 
 
     echo "****************************************"
