@@ -38,11 +38,11 @@ Bluetooth () {
         sleep 1
         bluetoothctl show
 
-	echo "****************************************"
-	echo "****************************************"
-	echo "Bluetoothctl Auto Connect routine"
-	echo "****************************************"
-	echo "****************************************"
+        echo "****************************************"
+        echo "****************************************"
+        echo "Bluetoothctl Auto Connect routine"
+        echo "****************************************"
+        echo "****************************************"
 
         echo "Auto connect..."
         while [ "$(ps -aux | grep VoicePlayer)" != "" ]
@@ -106,35 +106,34 @@ Bluetooth () {
 
 # Set Audio function
 Set_Audio () {
-    if [ ! -f /etc/pipewire/pipewire.conf.d/imx-multimedia-sink.conf ]; then
-        mkdir -p /etc/pipewire/pipewire.conf.d/
-        cp -v ./imx-multimedia-sink.conf /etc/pipewire/pipewire.conf.d/imx-multimedia-sink.conf
+        if [ ! -f /etc/pipewire/pipewire.conf.d/imx-multimedia-sink.conf ]; then
+                mkdir -p /etc/pipewire/pipewire.conf.d/
+                cp -v ./imx-multimedia-sink.conf /etc/pipewire/pipewire.conf.d/imx-multimedia-sink.conf
+                sleep .5s
+        fi
+
+        echo "****************************************"
+        echo "****************************************"
+        echo "systemctl start pw and wp services"
+        echo "****************************************"
+        echo "****************************************"
+        systemctl --user start pipewire
+        systemctl --user start wireplumber
         sleep .5s
-    fi
 
-    echo "****************************************"
-    echo "****************************************"
-    echo "systemctl start pw and wp services"
-    echo "****************************************"
-    echo "****************************************"
-    systemctl --user start pipewire
-    systemctl --user start wireplumber
-    sleep .5s
+        echo "****************************************"
+        echo "****************************************"
+        echo "PipeWire & Wireplumber configuration"
+        echo "****************************************"
+        echo "****************************************"
 
+        foundID=$(wpctl status | grep "Sink for iMX" | sed -r 's/^[^0-9]*([0-9]+).*$/\1/')
+        wpctl set-default "${foundID}"
 
-    echo "****************************************"
-    echo "****************************************"
-    echo "PipeWire & Wireplumber configuration"
-    echo "****************************************"
-    echo "****************************************"
-
-    foundID=$(wpctl status | grep "Sink for iMX" | sed -r 's/^[^0-9]*([0-9]+).*$/\1/')
-    wpctl set-default "${foundID}"
-
-    status=$(wpctl status)
-    settings=$(echo "$status" | grep -A 2 Setting)
-    echo "WirePlumber Settings: "
-    echo $settings
+        status=$(wpctl status)
+        settings=$(echo "$status" | grep -A 2 Setting)
+        echo "WirePlumber Settings: "
+        echo $settings
 
 }
 
