@@ -34,10 +34,10 @@ else
 		do
   		echo "$line"
   		currentvol=$line
-		done < /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/mute.vol
+		done < /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/mute.vol
                 dbus-send --system --type=method_call --print-reply=literal --dest=org.bluez /org/bluez/hci0/dev_$1/fd0 org.freedesktop.DBus.Properties.Set string:org.bluez.MediaTransport1 string:Volume variant:uint16:$currentvol
         else        
-                echo $currentvol > /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/mute.vol
+                echo $currentvol > /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/mute.vol
                 echo "Volume save"
                 echo $currentvol
                 printenv

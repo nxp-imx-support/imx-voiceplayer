@@ -24,7 +24,7 @@ MediaPlayerWrapper::MediaPlayerWrapper(QObject *parent) : QObject(parent)
   , BtEnabled(true)
 {
     QProcess process;
-    process.startDetached("/bin/bash", QStringList()<< "/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/bt-init.sh");
+    process.startDetached("/bin/bash", QStringList()<< "/opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/bt-init.sh");
     process.waitForFinished();
 
     MQThread = new MQueueThread();
@@ -37,7 +37,7 @@ MediaPlayerWrapper::MediaPlayerWrapper(QObject *parent) : QObject(parent)
     QObject::connect(MQThread,&MQueueThread::emitMacAddress,
             this, &MediaPlayerWrapper::setMacAdrees);
 
-    QFile file("/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/device.txt");
+    QFile file("/opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/device.txt");
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&file);
     setDevice(in.readLine());
@@ -131,7 +131,7 @@ void MediaPlayerWrapper::volumeDown()
 void MediaPlayerWrapper::onBluetoothEnabled()
 {
     qDebug() << "Bt start...";
-    ConsoleProcess->startDetached("/bin/sh", QStringList()<< "/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/connect.sh");
+    ConsoleProcess->startDetached("/bin/sh", QStringList()<< "/opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/connect.sh");
     ConsoleProcess->waitForFinished();
     qDebug() << "Bt restarted";
     BtEnabled = true;

@@ -5,7 +5,7 @@
 
 rm /dev/mqueue/voice_ui_queue
 
-uname -n > /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/device.txt
+uname -n > /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/device.txt
 evk=$(uname -n);
 
 echo -e "Evk:${evk}";
@@ -28,10 +28,10 @@ modprobe snd-aloop
 
 # Copy Config.ini file
 cp -v /unit_tests/nxp-afe/Config.ini /unit_tests/nxp-afe/Config.ini_original
-cp -v /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/Config.ini /unit_tests/nxp-afe
-touch /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/mute.vol
-cp /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/WakeWordNotify /usr/bin/
-cp /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/WWCommandNotify /usr/bin/
+cp -v /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/Config.ini /unit_tests/nxp-afe
+touch /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/mute.vol
+cp /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/WakeWordNotify /usr/bin/
+cp /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/WWCommandNotify /usr/bin/
 
 isposixinstalled=$(python3 -m pip list --format=columns | grep posix_ipc)
 
@@ -55,14 +55,14 @@ sleep 0.1s
 
 if [[ $evk == "imx93-11x11-lpddr4x-evk" || $evk == "imx93evk" ]]
 then
-        /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/i.MX9X_A55/voice_ui_app -notify &
+        /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/i.MX9X_A55/voice_ui_app -notify &
 else
-        /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/i.MX8M_A53/voice_ui_app -notify &
+        /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/i.MX8M_A53/voice_ui_app -notify &
 fi
 
 sleep 1
 /unit_tests/nxp-afe/afe libvoiceseekerlight &
 
-/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/btp &
+/opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/btp &
 sleep 2
-/home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/VoicePlayer
+/opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/VoicePlayer

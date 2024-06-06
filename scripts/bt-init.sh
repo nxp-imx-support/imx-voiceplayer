@@ -7,7 +7,7 @@
 
 # Bluetooth function
 Bluetooth () {
-        /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/stop.sh &
+        /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/stop.sh &
         # Init Bluetooth
         modprobe moal mod_para=nxp/wifi_mod_para.conf
         sleep 3
@@ -78,14 +78,14 @@ Bluetooth () {
 
                 # Get MAC address
                 MAC=$(bluetoothctl info | grep Device | cut -c 8-24);
-                echo "${MAC}" > /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/mac_address.txt
-                sed -i 's/:/_/g' /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/mac_address.txt
+                echo "${MAC}" > /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/mac_address.txt
+                sed -i 's/:/_/g' /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/mac_address.txt
                 echo -e "MAC address:";
-                cat /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/mac_address.txt
-                MAC=$(cat /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/mac_address.txt);
+                cat /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/mac_address.txt
+                MAC=$(cat /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/mac_address.txt);
 
                 # Send the message notifying when a device has been connected
-                /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/MsgQ 1${MAC}
+                /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/MsgQ 1${MAC}
 
                 # Check if Bluetooth is connected
                 bt_status=$(bluetoothctl devices Connected);
@@ -99,7 +99,7 @@ Bluetooth () {
                 # In this point a device has been disconnected #
                 echo "Device has been disconnected";
                 # Send the message notifying when a device has been disconnected
-                /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/MsgQ 0${MAC}
+                /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/MsgQ 0${MAC}
        done
 
 }
@@ -142,7 +142,7 @@ bt_previous=$(hciconfig | grep hci0: | cut -c 1-5);
 
 if [[ $bt_previous == "hci0:" ]]
 then
-        /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/stop.sh &
+        /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/stop.sh &
         #Disconnect from any device
         #bluetoothctl disconnect
         bluetoothctl discoverable off
@@ -186,14 +186,14 @@ then
                 fi
                 # Get MAC address
                 MAC=$(bluetoothctl info | grep Device | cut -c 8-24);
-                echo "${MAC}" > /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/mac_address.txt
-                sed -i 's/:/_/g' /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/mac_address.txt
+                echo "${MAC}" > /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/mac_address.txt
+                sed -i 's/:/_/g' /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/mac_address.txt
                 echo -e "MAC address:";
-                cat /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/mac_address.txt
-                MAC=$(cat /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/mac_address.txt);
+                cat /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/mac_address.txt
+                MAC=$(cat /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/mac_address.txt);
 
                 # Send the message notifying when a device has been connected
-                /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/MsgQ 1${MAC}
+                /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/MsgQ 1${MAC}
 
                 # Check if Bluetooth is connected
                 bt_status=$(bluetoothctl devices Connected);
@@ -207,7 +207,7 @@ then
                 # In this point a device has been disconnected #
                 echo "Device has been disconnected";
                 # Send the message notifying when a device has been disconnected
-                /home/root/.nxp-demo-experience/scripts/multimedia/imx-voiceplayer/MsgQ 0${MAC}
+                /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/MsgQ 0${MAC}
         done
 else
         # Get EVK name

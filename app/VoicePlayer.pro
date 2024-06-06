@@ -35,7 +35,7 @@ QML_DESIGNER_IMPORT_PATH =
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
-    else: unix:!android: target.path = .nxp-demo-experience/scripts/multimedia/imx-voiceplayer
+    else: unix:!android: target.path = /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer
 
 # Scritps deployment rule
 scripts.files = ../scripts/init.sh \
@@ -48,7 +48,7 @@ scripts.files = ../scripts/init.sh \
                 ../msgq/build/MsgQ \
 
 
-scripts.path = .nxp-demo-experience/scripts/multimedia/imx-voiceplayer
+scripts.path = /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer
 
 !isEmpty(target.path): INSTALLS += target
 !isEmpty(scripts.path): INSTALLS += scripts
