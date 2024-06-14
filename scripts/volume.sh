@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2022-2023 NXP
+# Copyright 2022-2024 NXP
 # SPDX-License-Identifier: BSD-3-Clause
 
 currentvol=`dbus-send --system --type=method_call --print-reply=literal --dest=org.bluez /org/bluez/hci0/dev_$1/fd0 org.freedesktop.DBus.Properties.Get string:org.bluez.MediaTransport1 string:Volume | cut -d" " -f 12`

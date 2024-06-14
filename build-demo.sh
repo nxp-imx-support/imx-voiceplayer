@@ -4,17 +4,16 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 if [ "$1" != "" ]; then
-      BUILD_TYPE=$1
-    else
-      BUILD_TYPE=demo
+	BUILD_TYPE=$1
+else
+	BUILD_TYPE=demo
 fi
-
 
 BUILD_OUTPUT_DIR=build_output_${BUILD_TYPE}
 iMX8M_DIR=i.MX8M_A53
 iMX9X_DIR=i.MX9X_A55
 
-rm -rfv  ${BUILD_OUTPUT_DIR}.tgz ${BUILD_OUTPUT_DIR}
+rm -rfv ${BUILD_OUTPUT_DIR}.tgz ${BUILD_OUTPUT_DIR}
 mkdir -p ${BUILD_OUTPUT_DIR}
 mkdir -p ${BUILD_OUTPUT_DIR}/${iMX8M_DIR}
 mkdir -p ${BUILD_OUTPUT_DIR}/${iMX9X_DIR}
@@ -30,11 +29,10 @@ qmake ../VoicePlayer.pro
 make -j8
 cd ../..
 
-
 #### BUILD APP COMPONENTS ####
 
-rm -rf msgq/build 
-mkdir -p msgq/build 
+rm -rf msgq/build
+mkdir -p msgq/build
 cd msgq/build
 
 cmake ..
@@ -50,7 +48,7 @@ rm imx-voiceui/vit/i.MX8M_A53/Lib/VIT_Model_en.h
 rm imx-voiceui/vit/i.MX9X_A55/Lib/VIT_Model_en.h
 cp nxp-demo-experience-assets/build/demo-experience-voice-demo-bt-player/VIT_Model_en.h imx-voiceui/vit/i.MX8M_A53/Lib/.
 cp nxp-demo-experience-assets/build/demo-experience-voice-demo-bt-player/VIT_Model_en.h imx-voiceui/vit/i.MX9X_A55/Lib/.
-cd imx-voiceui 
+cd imx-voiceui
 make clean
 make -j8
 cd ..
@@ -83,6 +81,4 @@ cp -a scripts/Config.ini ${BUILD_OUTPUT_DIR}
 cp -a scripts/Enable_VoiceSeeker.sh ${BUILD_OUTPUT_DIR}
 cp -a scripts/Restore_VoiceSeeker.sh ${BUILD_OUTPUT_DIR}
 
-#cd ..
 tar zcvf ${BUILD_OUTPUT_DIR}.tgz ${BUILD_OUTPUT_DIR}
-#cd 
