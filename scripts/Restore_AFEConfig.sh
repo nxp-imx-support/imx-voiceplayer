@@ -10,3 +10,8 @@ cp -v /etc/asound.conf_original /etc/asound.conf
 
 # Revert Config.ini file
 cp -v /unit_tests/nxp-afe/Config.ini_original /unit_tests/nxp-afe/Config.ini
+
+# Stop Audio services and revert demo audio Sink
+systemctl --user stop pipewire wireplumber
+sleep 2s
+rm -vrf /etc/pipewire

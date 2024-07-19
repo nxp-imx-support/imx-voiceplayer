@@ -9,7 +9,9 @@ uname -n > /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/device.txt
 evk=$(uname -n);
 
 echo -e "Evk:${evk}";
+mkdir -p /etc/pipewire/pipewire.conf.d
 cp -v /etc/asound.conf /etc/asound.conf_original
+cp -v /opt/gopoint-apps/scripts/multimedia/imx-voiceplayer/imx-multimedia-sink.conf  /etc/pipewire/pipewire.conf.d/
 
 if  [[ $evk == "imx8mp-lpddr4-evk" || $evk == "imx8mpevk" ]]
 then
